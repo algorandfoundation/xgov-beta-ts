@@ -1,0 +1,36 @@
+{
+  "name": "@algorandfoundation/xgov",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "xGov Beta Smart Contract Clients",
+  "exports": {
+     ".": {
+        "types": "./lib/ProposalClient.d.ts",
+        "default": "./lib/ProposalClient.js"
+     },
+    "./proposal": {
+        "types": "./lib/ProposalClient.d.ts",
+        "default": "./lib/ProposalClient.js"
+    },
+    "./registry": {
+        "types": "./lib/XGovRegistryClient.d.ts",
+        "default": "./lib/XGovRegistryClient.js"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "build": "npm run generate && tsc",
+    "generate": "npm run generate:proposal && npm run generate:registry",
+    "generate:proposal": "algokit generate client -l typescript -o src/ProposalClient.ts contract/smart_contracts/artifacts/proposal/Proposal.arc32.json",
+    "generate:registry": "algokit generate client -l typescript -o src/XGovRegistryClient.ts contract/smart_contracts/artifacts/xgov_registry/XgovRegistry.arc32.json"
+  },
+  "author": "Algorand Foundation",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "@algorandfoundation/algokit-utils": "^6.2.0",
+    "algosdk": "^2.8.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}
