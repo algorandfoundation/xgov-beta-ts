@@ -1,3 +1,4 @@
 [submodule "contract"]
 	path = contract
 	url = git@github.com:algorandfoundation/xgov-beta-sc.git
+	
