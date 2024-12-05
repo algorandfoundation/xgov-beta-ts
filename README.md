@@ -42,7 +42,7 @@ git clone git@github.com:algorandfoundation/xgov-beta-ts.git
 
 Ensure submodule is up to date
 ```bash
-submodule update --init --recursive
+git submodule update --init --recursive
 ```
 
 Install dependencies
