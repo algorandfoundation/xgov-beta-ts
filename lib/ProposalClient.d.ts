@@ -8,7 +8,7 @@ import { ABIReturn } from '@algorandfoundation/algokit-utils/types/app';
 import { Arc56Contract } from '@algorandfoundation/algokit-utils/types/app-arc56';
 import { AppClient as _AppClient, AppClientMethodCallParams, AppClientParams, AppClientBareCallParams, CallOnComplete, AppClientCompilationParams, ResolveAppClientByCreatorAndName, ResolveAppClientByNetwork, CloneAppClientParams } from '@algorandfoundation/algokit-utils/types/app-client';
 import { AppFactory as _AppFactory, AppFactoryAppClientParams, AppFactoryResolveAppClientByCreatorAndNameParams, AppFactoryDeployParams, AppFactoryParams, CreateSchema } from '@algorandfoundation/algokit-utils/types/app-factory';
-import { TransactionComposer, AppCallMethodCall, AppMethodCallTransactionArgument, SimulateOptions } from '@algorandfoundation/algokit-utils/types/composer';
+import { TransactionComposer, AppCallMethodCall, AppMethodCallTransactionArgument, RawSimulateOptions, SkipSignaturesSimulateOptions } from '@algorandfoundation/algokit-utils/types/composer';
 import { SendParams, SendAtomicTransactionComposerResults } from '@algorandfoundation/algokit-utils/types/transaction';
 import { modelsv2, OnApplicationComplete, Transaction, TransactionSigner } from 'algosdk';
 import SimulateResponse = modelsv2.SimulateResponse;
@@ -176,6 +176,7 @@ export type ProposalTypes = {
                 votedMembers: bigint;
                 votersCount: bigint;
             };
+            maps: {};
         };
     };
 };
@@ -503,6 +504,7 @@ export declare class ProposalFactory {
                 extraProgramPages?: number | undefined;
             } & {
                 sender: string;
+                signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
                 args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
                     lease?: string | Uint8Array | undefined;
@@ -855,7 +857,7 @@ export declare class ProposalClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | ProposalReturns["submit(pay,string,byte[59],uint64,uint64)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -875,7 +877,7 @@ export declare class ProposalClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | ProposalReturns["update(string,byte[59])void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -895,7 +897,7 @@ export declare class ProposalClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | ProposalReturns["drop()void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -915,7 +917,7 @@ export declare class ProposalClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | ProposalReturns["finalize()void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -935,7 +937,7 @@ export declare class ProposalClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | ProposalReturns["assign_voter(address,uint64)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -1127,7 +1129,13 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
     /**
      * Simulates the transaction group and returns the result
      */
-    simulate(options?: SimulateOptions): Promise<ProposalComposerResults<TReturns> & {
+    simulate(): Promise<ProposalComposerResults<TReturns> & {
+        simulateResponse: SimulateResponse;
+    }>;
+    simulate(options: SkipSignaturesSimulateOptions): Promise<ProposalComposerResults<TReturns> & {
+        simulateResponse: SimulateResponse;
+    }>;
+    simulate(options: RawSimulateOptions): Promise<ProposalComposerResults<TReturns> & {
         simulateResponse: SimulateResponse;
     }>;
     /**

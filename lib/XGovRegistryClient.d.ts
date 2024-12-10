@@ -8,7 +8,7 @@ import { ABIReturn } from '@algorandfoundation/algokit-utils/types/app';
 import { Arc56Contract } from '@algorandfoundation/algokit-utils/types/app-arc56';
 import { AppClient as _AppClient, AppClientMethodCallParams, AppClientParams, AppClientBareCallParams, CallOnComplete, AppClientCompilationParams, ResolveAppClientByCreatorAndName, ResolveAppClientByNetwork, CloneAppClientParams } from '@algorandfoundation/algokit-utils/types/app-client';
 import { AppFactory as _AppFactory, AppFactoryAppClientParams, AppFactoryResolveAppClientByCreatorAndNameParams, AppFactoryDeployParams, AppFactoryParams, CreateSchema } from '@algorandfoundation/algokit-utils/types/app-factory';
-import { TransactionComposer, AppCallMethodCall, AppMethodCallTransactionArgument, SimulateOptions } from '@algorandfoundation/algokit-utils/types/composer';
+import { TransactionComposer, AppCallMethodCall, AppMethodCallTransactionArgument, RawSimulateOptions, SkipSignaturesSimulateOptions } from '@algorandfoundation/algokit-utils/types/composer';
 import { SendParams, SendAtomicTransactionComposerResults } from '@algorandfoundation/algokit-utils/types/transaction';
 import { modelsv2, OnApplicationComplete, Transaction, TransactionSigner } from 'algosdk';
 import SimulateResponse = modelsv2.SimulateResponse;
@@ -511,6 +511,7 @@ export type XGovRegistryTypes = {
                 xgovSubscriber: BinaryState;
                 xgovs: bigint;
             };
+            maps: {};
         };
     };
 };
@@ -1064,6 +1065,7 @@ export declare class XGovRegistryFactory {
                 extraProgramPages?: number | undefined;
             } & {
                 sender: string;
+                signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
                 args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
                     lease?: string | Uint8Array | undefined;
@@ -1150,6 +1152,7 @@ export declare class XGovRegistryFactory {
                 args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
             } & {
                 sender: string;
+                signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
                 args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
                     lease?: string | Uint8Array | undefined;
@@ -2164,7 +2167,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["set_xgov_manager(address)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2184,7 +2187,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["set_payor(address)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2204,7 +2207,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["set_xgov_reviewer(address)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2224,7 +2227,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["set_xgov_subscriber(address)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2244,7 +2247,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["set_kyc_provider(address)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2264,7 +2267,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["set_committee_manager(address)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2284,7 +2287,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["set_committee_publisher(address)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2304,7 +2307,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3]))void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2324,7 +2327,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["subscribe_xgov(address,pay)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2344,7 +2347,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["unsubscribe_xgov(address)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2364,7 +2367,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["subscribe_xgov_app(uint64,address,pay)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2384,7 +2387,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["unsubscribe_xgov_app(uint64)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2404,7 +2407,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["request_subscribe_xgov(address,address,uint64,pay)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2424,7 +2427,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["approve_subscribe_xgov(uint64)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2444,7 +2447,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["reject_subscribe_xgov(uint64)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2464,7 +2467,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["set_voting_account(address,address)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2484,7 +2487,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["subscribe_proposer(pay)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2504,7 +2507,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["set_proposer_kyc(address,bool,uint64)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2524,7 +2527,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["declare_committee(byte[32],uint64,uint64)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2544,7 +2547,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["open_proposal(pay)uint64"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2564,7 +2567,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["vote_proposal(uint64,address,uint64,uint64)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2584,7 +2587,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["pay_grant_proposal(uint64)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2604,7 +2607,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["deposit_funds(pay)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2624,7 +2627,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["withdraw_funds(uint64)void"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2646,7 +2649,7 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: undefined | XGovRegistryReturns["get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"];
-            returns?: ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3117,7 +3120,13 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Simulates the transaction group and returns the result
      */
-    simulate(options?: SimulateOptions): Promise<XGovRegistryComposerResults<TReturns> & {
+    simulate(): Promise<XGovRegistryComposerResults<TReturns> & {
+        simulateResponse: SimulateResponse;
+    }>;
+    simulate(options: SkipSignaturesSimulateOptions): Promise<XGovRegistryComposerResults<TReturns> & {
+        simulateResponse: SimulateResponse;
+    }>;
+    simulate(options: RawSimulateOptions): Promise<XGovRegistryComposerResults<TReturns> & {
         simulateResponse: SimulateResponse;
     }>;
     /**
