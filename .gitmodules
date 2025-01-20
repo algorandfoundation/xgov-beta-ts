@@ -1,4 +1,4 @@
 [submodule "contract"]
 	path = contract
 	url = git@github.com:algorandfoundation/xgov-beta-sc.git
-	branch = feat/switch_to_real_proposal
+	branch = fix/globalstate-include-all-roles
