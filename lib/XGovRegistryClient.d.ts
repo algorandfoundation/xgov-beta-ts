@@ -55,6 +55,8 @@ export declare function XGovRegistryConfigFromTuple(abiTuple: [bigint, bigint, b
 export type TypedGlobalState = {
     xgovManager: string;
     xgovPayor: string;
+    xgovReviewer: string;
+    xgovSubscriber: string;
     kycProvider: string;
     committeeManager: string;
     committeePublisher: string;
@@ -80,7 +82,7 @@ export type TypedGlobalState = {
 /**
  * Converts the ABI tuple representation of a TypedGlobalState to the struct representation
  */
-export declare function TypedGlobalStateFromTuple(abiTuple: [string, string, string, string, string, bigint, bigint, bigint, bigint, bigint, bigint, [bigint, bigint, bigint], [bigint, bigint, bigint, bigint], [bigint, bigint, bigint, bigint], bigint, bigint, [bigint, bigint, bigint], [bigint, bigint, bigint], bigint, bigint, Uint8Array, bigint, bigint]): TypedGlobalState;
+export declare function TypedGlobalStateFromTuple(abiTuple: [string, string, string, string, string, string, string, bigint, bigint, bigint, bigint, bigint, bigint, [bigint, bigint, bigint], [bigint, bigint, bigint, bigint], [bigint, bigint, bigint, bigint], bigint, bigint, [bigint, bigint, bigint], [bigint, bigint, bigint], bigint, bigint, Uint8Array, bigint, bigint]): TypedGlobalState;
 /**
  * The argument types for the XGovRegistry contract
  */
@@ -141,11 +143,11 @@ export type XGovRegistryArgs = {
         'update_xgov_registry()void': Record<string, never>;
         'subscribe_xgov(address,pay)void': {
             /**
-             * The address of the voting account for the xgov
+             * The address of the voting account for the xGov
              */
             votingAddress: string;
             /**
-             * The payment transaction covering the signup fee
+             * The payment transaction covering the xGov fee
              */
             payment: AppMethodCallTransactionArgument;
         };
@@ -161,11 +163,11 @@ export type XGovRegistryArgs = {
              */
             appId: bigint | number;
             /**
-             * The address of the voting account for the xgov
+             * The address of the voting account for the xGov
              */
             votingAddress: string;
             /**
-             * The payment transaction covering the signup fee
+             * The payment transaction covering the xGov fee
              */
             payment: AppMethodCallTransactionArgument;
         };
@@ -178,7 +180,7 @@ export type XGovRegistryArgs = {
              */
             xgovAddress: string;
             /**
-             * The address of the owner / voting address
+             * The address of the xGov Address owner/controller (Voting Address)
              */
             ownerAddress: string;
             /**
@@ -186,7 +188,7 @@ export type XGovRegistryArgs = {
              */
             relationType: bigint | number;
             /**
-             * The payment transaction covering the xgov signup fee
+             * The payment transaction covering the xGov fee
              */
             payment: AppMethodCallTransactionArgument;
         };
@@ -211,7 +213,7 @@ export type XGovRegistryArgs = {
         };
         'subscribe_proposer(pay)void': {
             /**
-             * The payment transaction covering the proposer fee
+             * The payment transaction covering the Proposer fee
              */
             payment: AppMethodCallTransactionArgument;
         };
@@ -229,7 +231,7 @@ export type XGovRegistryArgs = {
              */
             kycExpiring: bigint | number;
         };
-        'declare_committee(byte[32],uint64,uint64)void': {
+        'declare_committee(byte[36],uint64,uint64)void': {
             cid: Uint8Array;
             /**
              * The size of the xGov Committee
@@ -248,25 +250,25 @@ export type XGovRegistryArgs = {
         };
         'vote_proposal(uint64,address,uint64,uint64)void': {
             /**
-             * The application id of the proposal app being voted on
+             * The application ID of the Proposal app being voted on
              */
             proposalId: bigint | number;
             /**
-             * (arc4.Address): The address of the xgov being voted on behalf of
+             * (arc4.Address): The address of the xGov being voted on behalf of
              */
             xgovAddress: string;
             /**
-             * (arc4.UInt64): The number of approvals from the xgov allocated
+             * (arc4.UInt64): The number of approvals votes allocated
              */
             approvalVotes: bigint | number;
             /**
-             * (arc4.UInt64): The number of rejections from the xgov allocated
+             * (arc4.UInt64): The number of rejections votes allocated
              */
             rejectionVotes: bigint | number;
         };
         'pay_grant_proposal(uint64)void': {
             /**
-             * The application ID of the approved proposal
+             * The application ID of the approved Proposal
              */
             proposalId: bigint | number;
         };
@@ -282,7 +284,7 @@ export type XGovRegistryArgs = {
              */
             amount: bigint | number;
         };
-        'get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)': Record<string, never>;
+        'get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)': Record<string, never>;
     };
     /**
      * The tuple representation of the arguments for each method
@@ -308,13 +310,13 @@ export type XGovRegistryArgs = {
         'set_voting_account(address,address)void': [xgovAddress: string, votingAddress: string];
         'subscribe_proposer(pay)void': [payment: AppMethodCallTransactionArgument];
         'set_proposer_kyc(address,bool,uint64)void': [proposer: string, kycStatus: boolean, kycExpiring: bigint | number];
-        'declare_committee(byte[32],uint64,uint64)void': [cid: Uint8Array, size: bigint | number, votes: bigint | number];
+        'declare_committee(byte[36],uint64,uint64)void': [cid: Uint8Array, size: bigint | number, votes: bigint | number];
         'open_proposal(pay)uint64': [payment: AppMethodCallTransactionArgument];
         'vote_proposal(uint64,address,uint64,uint64)void': [proposalId: bigint | number, xgovAddress: string, approvalVotes: bigint | number, rejectionVotes: bigint | number];
         'pay_grant_proposal(uint64)void': [proposalId: bigint | number];
         'deposit_funds(pay)void': [payment: AppMethodCallTransactionArgument];
         'withdraw_funds(uint64)void': [amount: bigint | number];
-        'get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)': [];
+        'get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)': [];
     };
 };
 /**
@@ -341,13 +343,13 @@ export type XGovRegistryReturns = {
     'set_voting_account(address,address)void': void;
     'subscribe_proposer(pay)void': void;
     'set_proposer_kyc(address,bool,uint64)void': void;
-    'declare_committee(byte[32],uint64,uint64)void': void;
+    'declare_committee(byte[36],uint64,uint64)void': void;
     'open_proposal(pay)uint64': bigint;
     'vote_proposal(uint64,address,uint64,uint64)void': void;
     'pay_grant_proposal(uint64)void': void;
     'deposit_funds(pay)void': void;
     'withdraw_funds(uint64)void': void;
-    'get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)': TypedGlobalState;
+    'get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)': TypedGlobalState;
 };
 /**
  * Defines the types of available calls and state of the XGovRegistry smart contract.
@@ -436,10 +438,10 @@ export type XGovRegistryTypes = {
         argsObj: XGovRegistryArgs['obj']['set_proposer_kyc(address,bool,uint64)void'];
         argsTuple: XGovRegistryArgs['tuple']['set_proposer_kyc(address,bool,uint64)void'];
         returns: XGovRegistryReturns['set_proposer_kyc(address,bool,uint64)void'];
-    }> & Record<'declare_committee(byte[32],uint64,uint64)void' | 'declare_committee', {
-        argsObj: XGovRegistryArgs['obj']['declare_committee(byte[32],uint64,uint64)void'];
-        argsTuple: XGovRegistryArgs['tuple']['declare_committee(byte[32],uint64,uint64)void'];
-        returns: XGovRegistryReturns['declare_committee(byte[32],uint64,uint64)void'];
+    }> & Record<'declare_committee(byte[36],uint64,uint64)void' | 'declare_committee', {
+        argsObj: XGovRegistryArgs['obj']['declare_committee(byte[36],uint64,uint64)void'];
+        argsTuple: XGovRegistryArgs['tuple']['declare_committee(byte[36],uint64,uint64)void'];
+        returns: XGovRegistryReturns['declare_committee(byte[36],uint64,uint64)void'];
     }> & Record<'open_proposal(pay)uint64' | 'open_proposal', {
         argsObj: XGovRegistryArgs['obj']['open_proposal(pay)uint64'];
         argsTuple: XGovRegistryArgs['tuple']['open_proposal(pay)uint64'];
@@ -460,10 +462,10 @@ export type XGovRegistryTypes = {
         argsObj: XGovRegistryArgs['obj']['withdraw_funds(uint64)void'];
         argsTuple: XGovRegistryArgs['tuple']['withdraw_funds(uint64)void'];
         returns: XGovRegistryReturns['withdraw_funds(uint64)void'];
-    }> & Record<'get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)' | 'get_state', {
-        argsObj: XGovRegistryArgs['obj']['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'];
-        argsTuple: XGovRegistryArgs['tuple']['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'];
-        returns: XGovRegistryReturns['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'];
+    }> & Record<'get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)' | 'get_state', {
+        argsObj: XGovRegistryArgs['obj']['get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)'];
+        argsTuple: XGovRegistryArgs['tuple']['get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)'];
+        returns: XGovRegistryReturns['get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)'];
     }>;
     /**
      * Defines the shape of the state of the application.
@@ -728,7 +730,7 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the subscribe_xgov(address,pay)void ABI method
      *
-     * Subscribes the sender to being an xGov
+     * Subscribes the sender to being an xGov.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -737,7 +739,7 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the unsubscribe_xgov(address)void ABI method
      *
-     * Unsubscribes the designated address from being an xGov
+     * Unsubscribes the designated address from being an xGov.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -746,7 +748,7 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the subscribe_xgov_app(uint64,address,pay)void ABI method
      *
-     * Subscribes the app to being an xGov
+     * The App Creator subscribes the App to being an xGov.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -755,7 +757,7 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the unsubscribe_xgov_app(uint64)void ABI method
      *
-     * Unsubscribes the designated app from being an xGov
+     * Unsubscribes the designated App from being an xGov.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -764,7 +766,7 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the request_subscribe_xgov(address,address,uint64,pay)void ABI method
      *
-     * Requests to subscribe to the xGov
+     * Requests to subscribe to the xGov.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -773,7 +775,7 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the approve_subscribe_xgov(uint64)void ABI method
      *
-     * Approves a request to subscribe to xGov
+     * Approves a subscribe request to xGov.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -782,7 +784,7 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the reject_subscribe_xgov(uint64)void ABI method
      *
-     * Rejects a request to subscribe to xGov
+     * Rejects a subscribe request to xGov.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -791,7 +793,7 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the set_voting_account(address,address)void ABI method
      *
-     * Sets the voting address for the xGov
+     * Sets the Voting Address for the xGov.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -800,7 +802,7 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the subscribe_proposer(pay)void ABI method
      *
-     * Subscribes the sender to being a Proposer
+     * Subscribes the sender to being a Proposer.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -809,25 +811,25 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the set_proposer_kyc(address,bool,uint64)void ABI method
      *
-     * Sets a proposer's KYC status
+     * Sets a proposer's KYC status.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
      */
     static setProposerKyc(params: CallParams<XGovRegistryArgs['obj']['set_proposer_kyc(address,bool,uint64)void'] | XGovRegistryArgs['tuple']['set_proposer_kyc(address,bool,uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
-     * Constructs a no op call for the declare_committee(byte[32],uint64,uint64)void ABI method
+     * Constructs a no op call for the declare_committee(byte[36],uint64,uint64)void ABI method
      *
-     * Sets the xGov Committee in charge
+     * Sets the xGov Committee in charge.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
      */
-    static declareCommittee(params: CallParams<XGovRegistryArgs['obj']['declare_committee(byte[32],uint64,uint64)void'] | XGovRegistryArgs['tuple']['declare_committee(byte[32],uint64,uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    static declareCommittee(params: CallParams<XGovRegistryArgs['obj']['declare_committee(byte[36],uint64,uint64)void'] | XGovRegistryArgs['tuple']['declare_committee(byte[36],uint64,uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
      * Constructs a no op call for the open_proposal(pay)uint64 ABI method
      *
-     * Creates a new Proposal
+     * Creates a new Proposal.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -836,7 +838,7 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the vote_proposal(uint64,address,uint64,uint64)void ABI method
      *
-     * Votes on a proposal
+     * Votes on a Proposal.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -845,7 +847,7 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the pay_grant_proposal(uint64)void ABI method
      *
-     * Disburses the funds for an approved proposal
+     * Disburses the funds for an approved Proposal.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -854,7 +856,7 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the deposit_funds(pay)void ABI method
      *
-     * Tracks deposits to the xGov Treasury (xGov Registry Account)
+     * Deposits xGov program funds into the xGov Treasury (xGov Registry Account).
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -863,21 +865,21 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the withdraw_funds(uint64)void ABI method
      *
-     * Remove funds from the xGov Treasury (xGov Registry Account)
+     * Remove xGov program funds from the xGov Treasury (xGov Registry Account).
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
      */
     static withdrawFunds(params: CallParams<XGovRegistryArgs['obj']['withdraw_funds(uint64)void'] | XGovRegistryArgs['tuple']['withdraw_funds(uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
-     * Constructs a no op call for the get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64) ABI method
+     * Constructs a no op call for the get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64) ABI method
      *
-     * Returns the xGov Registry state
+     * Returns the xGov Registry state.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
      */
-    static getState(params: CallParams<XGovRegistryArgs['obj']['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'] | XGovRegistryArgs['tuple']['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    static getState(params: CallParams<XGovRegistryArgs['obj']['get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)'] | XGovRegistryArgs['tuple']['get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
 }
 /**
  * A factory to create and deploy one or more instance of the XGovRegistry smart contract and to create one or more app clients to interact with those (or other) app instances
@@ -1126,7 +1128,7 @@ export declare class XGovRegistryFactory {
             /**
              * Updates an existing instance of the XGovRegistry smart contract using the update_xgov_registry()void ABI method.
              *
-             * Updates the xGov Registry contract
+             * Updates the xGov Registry contract.
              *
              * @param params The params for the smart contract call
              * @returns The deployUpdate params
@@ -1252,7 +1254,7 @@ export declare class XGovRegistryFactory {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 result: {
-                    return: undefined | XGovRegistryReturns["create()void"];
+                    return: (undefined | XGovRegistryReturns["create()void"]);
                     compiledApproval?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                     compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                     appId: bigint;
@@ -1330,7 +1332,7 @@ export declare class XGovRegistryClient {
             /**
              * Updates an existing instance of the XGovRegistry smart contract using the `update_xgov_registry()void` ABI method.
              *
-             * Updates the xGov Registry contract
+             * Updates the xGov Registry contract.
              *
              * @param params The params for the smart contract call
              * @returns The update params
@@ -1516,7 +1518,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `subscribe_xgov(address,pay)void` ABI method.
          *
-         * Subscribes the sender to being an xGov
+         * Subscribes the sender to being an xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1527,7 +1529,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `unsubscribe_xgov(address)void` ABI method.
          *
-         * Unsubscribes the designated address from being an xGov
+         * Unsubscribes the designated address from being an xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1538,7 +1540,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `subscribe_xgov_app(uint64,address,pay)void` ABI method.
          *
-         * Subscribes the app to being an xGov
+         * The App Creator subscribes the App to being an xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1549,7 +1551,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `unsubscribe_xgov_app(uint64)void` ABI method.
          *
-         * Unsubscribes the designated app from being an xGov
+         * Unsubscribes the designated App from being an xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1560,7 +1562,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `request_subscribe_xgov(address,address,uint64,pay)void` ABI method.
          *
-         * Requests to subscribe to the xGov
+         * Requests to subscribe to the xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1571,7 +1573,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `approve_subscribe_xgov(uint64)void` ABI method.
          *
-         * Approves a request to subscribe to xGov
+         * Approves a subscribe request to xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1582,7 +1584,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `reject_subscribe_xgov(uint64)void` ABI method.
          *
-         * Rejects a request to subscribe to xGov
+         * Rejects a subscribe request to xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1593,7 +1595,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `set_voting_account(address,address)void` ABI method.
          *
-         * Sets the voting address for the xGov
+         * Sets the Voting Address for the xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1604,7 +1606,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `subscribe_proposer(pay)void` ABI method.
          *
-         * Subscribes the sender to being a Proposer
+         * Subscribes the sender to being a Proposer.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1615,7 +1617,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `set_proposer_kyc(address,bool,uint64)void` ABI method.
          *
-         * Sets a proposer's KYC status
+         * Sets a proposer's KYC status.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1624,20 +1626,20 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
-         * Makes a call to the XGovRegistry smart contract using the `declare_committee(byte[32],uint64,uint64)void` ABI method.
+         * Makes a call to the XGovRegistry smart contract using the `declare_committee(byte[36],uint64,uint64)void` ABI method.
          *
-         * Sets the xGov Committee in charge
+         * Sets the xGov Committee in charge.
          *
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        declareCommittee: (params: CallParams<XGovRegistryArgs["obj"]["declare_committee(byte[32],uint64,uint64)void"] | XGovRegistryArgs["tuple"]["declare_committee(byte[32],uint64,uint64)void"]> & {
+        declareCommittee: (params: CallParams<XGovRegistryArgs["obj"]["declare_committee(byte[36],uint64,uint64)void"] | XGovRegistryArgs["tuple"]["declare_committee(byte[36],uint64,uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
          * Makes a call to the XGovRegistry smart contract using the `open_proposal(pay)uint64` ABI method.
          *
-         * Creates a new Proposal
+         * Creates a new Proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1648,7 +1650,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `vote_proposal(uint64,address,uint64,uint64)void` ABI method.
          *
-         * Votes on a proposal
+         * Votes on a Proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1659,7 +1661,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `pay_grant_proposal(uint64)void` ABI method.
          *
-         * Disburses the funds for an approved proposal
+         * Disburses the funds for an approved Proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1670,7 +1672,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `deposit_funds(pay)void` ABI method.
          *
-         * Tracks deposits to the xGov Treasury (xGov Registry Account)
+         * Deposits xGov program funds into the xGov Treasury (xGov Registry Account).
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1681,7 +1683,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `withdraw_funds(uint64)void` ABI method.
          *
-         * Remove funds from the xGov Treasury (xGov Registry Account)
+         * Remove xGov program funds from the xGov Treasury (xGov Registry Account).
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1690,16 +1692,16 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
-         * Makes a call to the XGovRegistry smart contract using the `get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)` ABI method.
+         * Makes a call to the XGovRegistry smart contract using the `get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)` ABI method.
          *
          * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
          *
-         * Returns the xGov Registry state
+         * Returns the xGov Registry state.
          *
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        getState: (params?: CallParams<XGovRegistryArgs["obj"]["get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"] | XGovRegistryArgs["tuple"]["get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"]> & {
+        getState: (params?: CallParams<XGovRegistryArgs["obj"]["get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)"] | XGovRegistryArgs["tuple"]["get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
     };
@@ -1714,7 +1716,7 @@ export declare class XGovRegistryClient {
             /**
              * Updates an existing instance of the XGovRegistry smart contract using the `update_xgov_registry()void` ABI method.
              *
-             * Updates the xGov Registry contract
+             * Updates the xGov Registry contract.
              *
              * @param params The params for the smart contract call
              * @returns The update transaction
@@ -1855,7 +1857,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `subscribe_xgov(address,pay)void` ABI method.
          *
-         * Subscribes the sender to being an xGov
+         * Subscribes the sender to being an xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -1870,7 +1872,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `unsubscribe_xgov(address)void` ABI method.
          *
-         * Unsubscribes the designated address from being an xGov
+         * Unsubscribes the designated address from being an xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -1885,7 +1887,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `subscribe_xgov_app(uint64,address,pay)void` ABI method.
          *
-         * Subscribes the app to being an xGov
+         * The App Creator subscribes the App to being an xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -1900,7 +1902,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `unsubscribe_xgov_app(uint64)void` ABI method.
          *
-         * Unsubscribes the designated app from being an xGov
+         * Unsubscribes the designated App from being an xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -1915,7 +1917,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `request_subscribe_xgov(address,address,uint64,pay)void` ABI method.
          *
-         * Requests to subscribe to the xGov
+         * Requests to subscribe to the xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -1930,7 +1932,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `approve_subscribe_xgov(uint64)void` ABI method.
          *
-         * Approves a request to subscribe to xGov
+         * Approves a subscribe request to xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -1945,7 +1947,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `reject_subscribe_xgov(uint64)void` ABI method.
          *
-         * Rejects a request to subscribe to xGov
+         * Rejects a subscribe request to xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -1960,7 +1962,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `set_voting_account(address,address)void` ABI method.
          *
-         * Sets the voting address for the xGov
+         * Sets the Voting Address for the xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -1975,7 +1977,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `subscribe_proposer(pay)void` ABI method.
          *
-         * Subscribes the sender to being a Proposer
+         * Subscribes the sender to being a Proposer.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -1990,7 +1992,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `set_proposer_kyc(address,bool,uint64)void` ABI method.
          *
-         * Sets a proposer's KYC status
+         * Sets a proposer's KYC status.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -2003,14 +2005,14 @@ export declare class XGovRegistryClient {
             signers: Map<number, TransactionSigner>;
         }>;
         /**
-         * Makes a call to the XGovRegistry smart contract using the `declare_committee(byte[32],uint64,uint64)void` ABI method.
+         * Makes a call to the XGovRegistry smart contract using the `declare_committee(byte[36],uint64,uint64)void` ABI method.
          *
-         * Sets the xGov Committee in charge
+         * Sets the xGov Committee in charge.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        declareCommittee: (params: CallParams<XGovRegistryArgs["obj"]["declare_committee(byte[32],uint64,uint64)void"] | XGovRegistryArgs["tuple"]["declare_committee(byte[32],uint64,uint64)void"]> & {
+        declareCommittee: (params: CallParams<XGovRegistryArgs["obj"]["declare_committee(byte[36],uint64,uint64)void"] | XGovRegistryArgs["tuple"]["declare_committee(byte[36],uint64,uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2020,7 +2022,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `open_proposal(pay)uint64` ABI method.
          *
-         * Creates a new Proposal
+         * Creates a new Proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -2035,7 +2037,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `vote_proposal(uint64,address,uint64,uint64)void` ABI method.
          *
-         * Votes on a proposal
+         * Votes on a Proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -2050,7 +2052,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `pay_grant_proposal(uint64)void` ABI method.
          *
-         * Disburses the funds for an approved proposal
+         * Disburses the funds for an approved Proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -2065,7 +2067,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `deposit_funds(pay)void` ABI method.
          *
-         * Tracks deposits to the xGov Treasury (xGov Registry Account)
+         * Deposits xGov program funds into the xGov Treasury (xGov Registry Account).
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -2080,7 +2082,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `withdraw_funds(uint64)void` ABI method.
          *
-         * Remove funds from the xGov Treasury (xGov Registry Account)
+         * Remove xGov program funds from the xGov Treasury (xGov Registry Account).
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -2093,16 +2095,16 @@ export declare class XGovRegistryClient {
             signers: Map<number, TransactionSigner>;
         }>;
         /**
-         * Makes a call to the XGovRegistry smart contract using the `get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)` ABI method.
+         * Makes a call to the XGovRegistry smart contract using the `get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)` ABI method.
          *
          * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
          *
-         * Returns the xGov Registry state
+         * Returns the xGov Registry state.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        getState: (params?: CallParams<XGovRegistryArgs["obj"]["get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"] | XGovRegistryArgs["tuple"]["get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"]> & {
+        getState: (params?: CallParams<XGovRegistryArgs["obj"]["get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)"] | XGovRegistryArgs["tuple"]["get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2121,13 +2123,13 @@ export declare class XGovRegistryClient {
             /**
              * Updates an existing instance of the XGovRegistry smart contract using the `update_xgov_registry()void` ABI method.
              *
-             * Updates the xGov Registry contract
+             * Updates the xGov Registry contract.
              *
              * @param params The params for the smart contract call
              * @returns The update result
              */
             updateXgovRegistry: (params?: CallParams<XGovRegistryArgs["obj"]["update_xgov_registry()void"] | XGovRegistryArgs["tuple"]["update_xgov_registry()void"]> & AppClientCompilationParams & SendParams) => Promise<{
-                return: undefined | XGovRegistryReturns["update_xgov_registry()void"];
+                return: (undefined | XGovRegistryReturns["update_xgov_registry()void"]);
                 compiledApproval?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                 compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                 groupId: string;
@@ -2166,7 +2168,7 @@ export declare class XGovRegistryClient {
         setXgovManager: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_manager(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_manager(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["set_xgov_manager(address)void"];
+            return: (undefined | XGovRegistryReturns["set_xgov_manager(address)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2186,7 +2188,7 @@ export declare class XGovRegistryClient {
         setPayor: (params: CallParams<XGovRegistryArgs["obj"]["set_payor(address)void"] | XGovRegistryArgs["tuple"]["set_payor(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["set_payor(address)void"];
+            return: (undefined | XGovRegistryReturns["set_payor(address)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2206,7 +2208,7 @@ export declare class XGovRegistryClient {
         setXgovReviewer: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_reviewer(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_reviewer(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["set_xgov_reviewer(address)void"];
+            return: (undefined | XGovRegistryReturns["set_xgov_reviewer(address)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2226,7 +2228,7 @@ export declare class XGovRegistryClient {
         setXgovSubscriber: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_subscriber(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_subscriber(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["set_xgov_subscriber(address)void"];
+            return: (undefined | XGovRegistryReturns["set_xgov_subscriber(address)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2246,7 +2248,7 @@ export declare class XGovRegistryClient {
         setKycProvider: (params: CallParams<XGovRegistryArgs["obj"]["set_kyc_provider(address)void"] | XGovRegistryArgs["tuple"]["set_kyc_provider(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["set_kyc_provider(address)void"];
+            return: (undefined | XGovRegistryReturns["set_kyc_provider(address)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2266,7 +2268,7 @@ export declare class XGovRegistryClient {
         setCommitteeManager: (params: CallParams<XGovRegistryArgs["obj"]["set_committee_manager(address)void"] | XGovRegistryArgs["tuple"]["set_committee_manager(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["set_committee_manager(address)void"];
+            return: (undefined | XGovRegistryReturns["set_committee_manager(address)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2286,7 +2288,7 @@ export declare class XGovRegistryClient {
         setCommitteePublisher: (params: CallParams<XGovRegistryArgs["obj"]["set_committee_publisher(address)void"] | XGovRegistryArgs["tuple"]["set_committee_publisher(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["set_committee_publisher(address)void"];
+            return: (undefined | XGovRegistryReturns["set_committee_publisher(address)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2306,7 +2308,7 @@ export declare class XGovRegistryClient {
         configXgovRegistry: (params: CallParams<XGovRegistryArgs["obj"]["config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3]))void"] | XGovRegistryArgs["tuple"]["config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3]))void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3]))void"];
+            return: (undefined | XGovRegistryReturns["config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3]))void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2318,7 +2320,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `subscribe_xgov(address,pay)void` ABI method.
          *
-         * Subscribes the sender to being an xGov
+         * Subscribes the sender to being an xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2326,7 +2328,7 @@ export declare class XGovRegistryClient {
         subscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["subscribe_xgov(address,pay)void"] | XGovRegistryArgs["tuple"]["subscribe_xgov(address,pay)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["subscribe_xgov(address,pay)void"];
+            return: (undefined | XGovRegistryReturns["subscribe_xgov(address,pay)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2338,7 +2340,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `unsubscribe_xgov(address)void` ABI method.
          *
-         * Unsubscribes the designated address from being an xGov
+         * Unsubscribes the designated address from being an xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2346,7 +2348,7 @@ export declare class XGovRegistryClient {
         unsubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["unsubscribe_xgov(address)void"] | XGovRegistryArgs["tuple"]["unsubscribe_xgov(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["unsubscribe_xgov(address)void"];
+            return: (undefined | XGovRegistryReturns["unsubscribe_xgov(address)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2358,7 +2360,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `subscribe_xgov_app(uint64,address,pay)void` ABI method.
          *
-         * Subscribes the app to being an xGov
+         * The App Creator subscribes the App to being an xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2366,7 +2368,7 @@ export declare class XGovRegistryClient {
         subscribeXgovApp: (params: CallParams<XGovRegistryArgs["obj"]["subscribe_xgov_app(uint64,address,pay)void"] | XGovRegistryArgs["tuple"]["subscribe_xgov_app(uint64,address,pay)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["subscribe_xgov_app(uint64,address,pay)void"];
+            return: (undefined | XGovRegistryReturns["subscribe_xgov_app(uint64,address,pay)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2378,7 +2380,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `unsubscribe_xgov_app(uint64)void` ABI method.
          *
-         * Unsubscribes the designated app from being an xGov
+         * Unsubscribes the designated App from being an xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2386,7 +2388,7 @@ export declare class XGovRegistryClient {
         unsubscribeXgovApp: (params: CallParams<XGovRegistryArgs["obj"]["unsubscribe_xgov_app(uint64)void"] | XGovRegistryArgs["tuple"]["unsubscribe_xgov_app(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["unsubscribe_xgov_app(uint64)void"];
+            return: (undefined | XGovRegistryReturns["unsubscribe_xgov_app(uint64)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2398,7 +2400,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `request_subscribe_xgov(address,address,uint64,pay)void` ABI method.
          *
-         * Requests to subscribe to the xGov
+         * Requests to subscribe to the xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2406,7 +2408,7 @@ export declare class XGovRegistryClient {
         requestSubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["request_subscribe_xgov(address,address,uint64,pay)void"] | XGovRegistryArgs["tuple"]["request_subscribe_xgov(address,address,uint64,pay)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["request_subscribe_xgov(address,address,uint64,pay)void"];
+            return: (undefined | XGovRegistryReturns["request_subscribe_xgov(address,address,uint64,pay)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2418,7 +2420,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `approve_subscribe_xgov(uint64)void` ABI method.
          *
-         * Approves a request to subscribe to xGov
+         * Approves a subscribe request to xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2426,7 +2428,7 @@ export declare class XGovRegistryClient {
         approveSubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["approve_subscribe_xgov(uint64)void"] | XGovRegistryArgs["tuple"]["approve_subscribe_xgov(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["approve_subscribe_xgov(uint64)void"];
+            return: (undefined | XGovRegistryReturns["approve_subscribe_xgov(uint64)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2438,7 +2440,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `reject_subscribe_xgov(uint64)void` ABI method.
          *
-         * Rejects a request to subscribe to xGov
+         * Rejects a subscribe request to xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2446,7 +2448,7 @@ export declare class XGovRegistryClient {
         rejectSubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["reject_subscribe_xgov(uint64)void"] | XGovRegistryArgs["tuple"]["reject_subscribe_xgov(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["reject_subscribe_xgov(uint64)void"];
+            return: (undefined | XGovRegistryReturns["reject_subscribe_xgov(uint64)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2458,7 +2460,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `set_voting_account(address,address)void` ABI method.
          *
-         * Sets the voting address for the xGov
+         * Sets the Voting Address for the xGov.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2466,7 +2468,7 @@ export declare class XGovRegistryClient {
         setVotingAccount: (params: CallParams<XGovRegistryArgs["obj"]["set_voting_account(address,address)void"] | XGovRegistryArgs["tuple"]["set_voting_account(address,address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["set_voting_account(address,address)void"];
+            return: (undefined | XGovRegistryReturns["set_voting_account(address,address)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2478,7 +2480,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `subscribe_proposer(pay)void` ABI method.
          *
-         * Subscribes the sender to being a Proposer
+         * Subscribes the sender to being a Proposer.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2486,7 +2488,7 @@ export declare class XGovRegistryClient {
         subscribeProposer: (params: CallParams<XGovRegistryArgs["obj"]["subscribe_proposer(pay)void"] | XGovRegistryArgs["tuple"]["subscribe_proposer(pay)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["subscribe_proposer(pay)void"];
+            return: (undefined | XGovRegistryReturns["subscribe_proposer(pay)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2498,7 +2500,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `set_proposer_kyc(address,bool,uint64)void` ABI method.
          *
-         * Sets a proposer's KYC status
+         * Sets a proposer's KYC status.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2506,7 +2508,7 @@ export declare class XGovRegistryClient {
         setProposerKyc: (params: CallParams<XGovRegistryArgs["obj"]["set_proposer_kyc(address,bool,uint64)void"] | XGovRegistryArgs["tuple"]["set_proposer_kyc(address,bool,uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["set_proposer_kyc(address,bool,uint64)void"];
+            return: (undefined | XGovRegistryReturns["set_proposer_kyc(address,bool,uint64)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2516,17 +2518,17 @@ export declare class XGovRegistryClient {
             transaction: Transaction;
         }>;
         /**
-         * Makes a call to the XGovRegistry smart contract using the `declare_committee(byte[32],uint64,uint64)void` ABI method.
+         * Makes a call to the XGovRegistry smart contract using the `declare_committee(byte[36],uint64,uint64)void` ABI method.
          *
-         * Sets the xGov Committee in charge
+         * Sets the xGov Committee in charge.
          *
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        declareCommittee: (params: CallParams<XGovRegistryArgs["obj"]["declare_committee(byte[32],uint64,uint64)void"] | XGovRegistryArgs["tuple"]["declare_committee(byte[32],uint64,uint64)void"]> & SendParams & {
+        declareCommittee: (params: CallParams<XGovRegistryArgs["obj"]["declare_committee(byte[36],uint64,uint64)void"] | XGovRegistryArgs["tuple"]["declare_committee(byte[36],uint64,uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["declare_committee(byte[32],uint64,uint64)void"];
+            return: (undefined | XGovRegistryReturns["declare_committee(byte[36],uint64,uint64)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2538,7 +2540,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `open_proposal(pay)uint64` ABI method.
          *
-         * Creates a new Proposal
+         * Creates a new Proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2546,7 +2548,7 @@ export declare class XGovRegistryClient {
         openProposal: (params: CallParams<XGovRegistryArgs["obj"]["open_proposal(pay)uint64"] | XGovRegistryArgs["tuple"]["open_proposal(pay)uint64"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["open_proposal(pay)uint64"];
+            return: (undefined | XGovRegistryReturns["open_proposal(pay)uint64"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2558,7 +2560,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `vote_proposal(uint64,address,uint64,uint64)void` ABI method.
          *
-         * Votes on a proposal
+         * Votes on a Proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2566,7 +2568,7 @@ export declare class XGovRegistryClient {
         voteProposal: (params: CallParams<XGovRegistryArgs["obj"]["vote_proposal(uint64,address,uint64,uint64)void"] | XGovRegistryArgs["tuple"]["vote_proposal(uint64,address,uint64,uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["vote_proposal(uint64,address,uint64,uint64)void"];
+            return: (undefined | XGovRegistryReturns["vote_proposal(uint64,address,uint64,uint64)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2578,7 +2580,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `pay_grant_proposal(uint64)void` ABI method.
          *
-         * Disburses the funds for an approved proposal
+         * Disburses the funds for an approved Proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2586,7 +2588,7 @@ export declare class XGovRegistryClient {
         payGrantProposal: (params: CallParams<XGovRegistryArgs["obj"]["pay_grant_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["pay_grant_proposal(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["pay_grant_proposal(uint64)void"];
+            return: (undefined | XGovRegistryReturns["pay_grant_proposal(uint64)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2598,7 +2600,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `deposit_funds(pay)void` ABI method.
          *
-         * Tracks deposits to the xGov Treasury (xGov Registry Account)
+         * Deposits xGov program funds into the xGov Treasury (xGov Registry Account).
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2606,7 +2608,7 @@ export declare class XGovRegistryClient {
         depositFunds: (params: CallParams<XGovRegistryArgs["obj"]["deposit_funds(pay)void"] | XGovRegistryArgs["tuple"]["deposit_funds(pay)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["deposit_funds(pay)void"];
+            return: (undefined | XGovRegistryReturns["deposit_funds(pay)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2618,7 +2620,7 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `withdraw_funds(uint64)void` ABI method.
          *
-         * Remove funds from the xGov Treasury (xGov Registry Account)
+         * Remove xGov program funds from the xGov Treasury (xGov Registry Account).
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2626,7 +2628,7 @@ export declare class XGovRegistryClient {
         withdrawFunds: (params: CallParams<XGovRegistryArgs["obj"]["withdraw_funds(uint64)void"] | XGovRegistryArgs["tuple"]["withdraw_funds(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["withdraw_funds(uint64)void"];
+            return: (undefined | XGovRegistryReturns["withdraw_funds(uint64)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2636,19 +2638,19 @@ export declare class XGovRegistryClient {
             transaction: Transaction;
         }>;
         /**
-         * Makes a call to the XGovRegistry smart contract using the `get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)` ABI method.
+         * Makes a call to the XGovRegistry smart contract using the `get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)` ABI method.
          *
          * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
          *
-         * Returns the xGov Registry state
+         * Returns the xGov Registry state.
          *
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        getState: (params?: CallParams<XGovRegistryArgs["obj"]["get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"] | XGovRegistryArgs["tuple"]["get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"]> & SendParams & {
+        getState: (params?: CallParams<XGovRegistryArgs["obj"]["get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)"] | XGovRegistryArgs["tuple"]["get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | XGovRegistryReturns["get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"];
+            return: (undefined | XGovRegistryReturns["get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -2666,16 +2668,16 @@ export declare class XGovRegistryClient {
      */
     clone(params: CloneAppClientParams): XGovRegistryClient;
     /**
-     * Makes a readonly (simulated) call to the XGovRegistry smart contract using the `get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)` ABI method.
+     * Makes a readonly (simulated) call to the XGovRegistry smart contract using the `get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)` ABI method.
      *
      * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
      *
-     * Returns the xGov Registry state
+     * Returns the xGov Registry state.
      *
      * @param params The params for the smart contract call
      * @returns The call result
      */
-    getState(params?: CallParams<XGovRegistryArgs['obj']['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'] | XGovRegistryArgs['tuple']['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)']>): Promise<TypedGlobalState>;
+    getState(params?: CallParams<XGovRegistryArgs['obj']['get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)'] | XGovRegistryArgs['tuple']['get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)']>): Promise<TypedGlobalState>;
     /**
      * Methods to access state for the current XGovRegistry app
      */
@@ -2932,7 +2934,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the subscribe_xgov(address,pay)void ABI method.
      *
-     * Subscribes the sender to being an xGov
+     * Subscribes the sender to being an xGov.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -2942,7 +2944,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the unsubscribe_xgov(address)void ABI method.
      *
-     * Unsubscribes the designated address from being an xGov
+     * Unsubscribes the designated address from being an xGov.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -2952,7 +2954,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the subscribe_xgov_app(uint64,address,pay)void ABI method.
      *
-     * Subscribes the app to being an xGov
+     * The App Creator subscribes the App to being an xGov.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -2962,7 +2964,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the unsubscribe_xgov_app(uint64)void ABI method.
      *
-     * Unsubscribes the designated app from being an xGov
+     * Unsubscribes the designated App from being an xGov.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -2972,7 +2974,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the request_subscribe_xgov(address,address,uint64,pay)void ABI method.
      *
-     * Requests to subscribe to the xGov
+     * Requests to subscribe to the xGov.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -2982,7 +2984,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the approve_subscribe_xgov(uint64)void ABI method.
      *
-     * Approves a request to subscribe to xGov
+     * Approves a subscribe request to xGov.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -2992,7 +2994,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the reject_subscribe_xgov(uint64)void ABI method.
      *
-     * Rejects a request to subscribe to xGov
+     * Rejects a subscribe request to xGov.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -3002,7 +3004,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the set_voting_account(address,address)void ABI method.
      *
-     * Sets the voting address for the xGov
+     * Sets the Voting Address for the xGov.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -3012,7 +3014,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the subscribe_proposer(pay)void ABI method.
      *
-     * Subscribes the sender to being a Proposer
+     * Subscribes the sender to being a Proposer.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -3022,7 +3024,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the set_proposer_kyc(address,bool,uint64)void ABI method.
      *
-     * Sets a proposer's KYC status
+     * Sets a proposer's KYC status.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -3030,19 +3032,19 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
      */
     setProposerKyc(params?: CallParams<XGovRegistryArgs['obj']['set_proposer_kyc(address,bool,uint64)void'] | XGovRegistryArgs['tuple']['set_proposer_kyc(address,bool,uint64)void']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['set_proposer_kyc(address,bool,uint64)void'] | undefined]>;
     /**
-     * Calls the declare_committee(byte[32],uint64,uint64)void ABI method.
+     * Calls the declare_committee(byte[36],uint64,uint64)void ABI method.
      *
-     * Sets the xGov Committee in charge
+     * Sets the xGov Committee in charge.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
-    declareCommittee(params?: CallParams<XGovRegistryArgs['obj']['declare_committee(byte[32],uint64,uint64)void'] | XGovRegistryArgs['tuple']['declare_committee(byte[32],uint64,uint64)void']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['declare_committee(byte[32],uint64,uint64)void'] | undefined]>;
+    declareCommittee(params?: CallParams<XGovRegistryArgs['obj']['declare_committee(byte[36],uint64,uint64)void'] | XGovRegistryArgs['tuple']['declare_committee(byte[36],uint64,uint64)void']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['declare_committee(byte[36],uint64,uint64)void'] | undefined]>;
     /**
      * Calls the open_proposal(pay)uint64 ABI method.
      *
-     * Creates a new Proposal
+     * Creates a new Proposal.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -3052,7 +3054,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the vote_proposal(uint64,address,uint64,uint64)void ABI method.
      *
-     * Votes on a proposal
+     * Votes on a Proposal.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -3062,7 +3064,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the pay_grant_proposal(uint64)void ABI method.
      *
-     * Disburses the funds for an approved proposal
+     * Disburses the funds for an approved Proposal.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -3072,7 +3074,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the deposit_funds(pay)void ABI method.
      *
-     * Tracks deposits to the xGov Treasury (xGov Registry Account)
+     * Deposits xGov program funds into the xGov Treasury (xGov Registry Account).
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -3082,7 +3084,7 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the withdraw_funds(uint64)void ABI method.
      *
-     * Remove funds from the xGov Treasury (xGov Registry Account)
+     * Remove xGov program funds from the xGov Treasury (xGov Registry Account).
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
@@ -3090,15 +3092,15 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
      */
     withdrawFunds(params?: CallParams<XGovRegistryArgs['obj']['withdraw_funds(uint64)void'] | XGovRegistryArgs['tuple']['withdraw_funds(uint64)void']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['withdraw_funds(uint64)void'] | undefined]>;
     /**
-     * Calls the get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64) ABI method.
+     * Calls the get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64) ABI method.
      *
-     * Returns the xGov Registry state
+     * Returns the xGov Registry state.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
-    getState(params?: CallParams<XGovRegistryArgs['obj']['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'] | XGovRegistryArgs['tuple']['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'] | undefined]>;
+    getState(params?: CallParams<XGovRegistryArgs['obj']['get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)'] | XGovRegistryArgs['tuple']['get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['get_state()(address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[36],uint64,uint64)'] | undefined]>;
     /**
      * Makes a clear_state call to an existing instance of the XGovRegistry smart contract.
      *
