@@ -452,7 +452,7 @@ export class ProposalFactory {
   public async deploy(params: ProposalDeployParams = {}) {
     const result = await this.appFactory.deploy({
       ...params,
-      createParams: params.createParams?.method ? ProposalParamsFactory.create._resolveByMethod(params.createParams) : params.createParams,
+      createParams: params.createParams?.method ? ProposalParamsFactory.create._resolveByMethod(params.createParams) : params.createParams ? params.createParams as (ProposalCreateCallParams & { args: Uint8Array[] }) : undefined,
     })
     return { result: result.result, appClient: new ProposalClient(result.appClient) }
   }
@@ -521,7 +521,7 @@ export class ProposalFactory {
        */
       create: async (params: CallParams<ProposalArgs['obj']['create(address)void'] | ProposalArgs['tuple']['create(address)void']> & AppClientCompilationParams & CreateSchema & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
         const result = await this.appFactory.send.create(ProposalParamsFactory.create.create(params))
-        return { result: { ...result.result, return: result.result.return as undefined | ProposalReturns['create(address)void'] }, appClient: new ProposalClient(result.appClient) }
+        return { result: { ...result.result, return: result.result.return as unknown as (undefined | ProposalReturns['create(address)void']) }, appClient: new ProposalClient(result.appClient) }
       },
     },
 
@@ -787,7 +787,7 @@ export class ProposalClient {
      */
     submit: async (params: CallParams<ProposalArgs['obj']['submit(pay,string,byte[59],uint64,uint64)void'] | ProposalArgs['tuple']['submit(pay,string,byte[59],uint64,uint64)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(ProposalParamsFactory.submit(params))
-      return {...result, return: result.return as undefined | ProposalReturns['submit(pay,string,byte[59],uint64,uint64)void']}
+      return {...result, return: result.return as unknown as (undefined | ProposalReturns['submit(pay,string,byte[59],uint64,uint64)void'])}
     },
 
     /**
@@ -800,7 +800,7 @@ export class ProposalClient {
      */
     update: async (params: CallParams<ProposalArgs['obj']['update(string,byte[59])void'] | ProposalArgs['tuple']['update(string,byte[59])void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(ProposalParamsFactory.update(params))
-      return {...result, return: result.return as undefined | ProposalReturns['update(string,byte[59])void']}
+      return {...result, return: result.return as unknown as (undefined | ProposalReturns['update(string,byte[59])void'])}
     },
 
     /**
@@ -813,7 +813,7 @@ export class ProposalClient {
      */
     drop: async (params: CallParams<ProposalArgs['obj']['drop()void'] | ProposalArgs['tuple']['drop()void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC} = {args: []}) => {
       const result = await this.appClient.send.call(ProposalParamsFactory.drop(params))
-      return {...result, return: result.return as undefined | ProposalReturns['drop()void']}
+      return {...result, return: result.return as unknown as (undefined | ProposalReturns['drop()void'])}
     },
 
     /**
@@ -826,7 +826,7 @@ export class ProposalClient {
      */
     finalize: async (params: CallParams<ProposalArgs['obj']['finalize()void'] | ProposalArgs['tuple']['finalize()void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC} = {args: []}) => {
       const result = await this.appClient.send.call(ProposalParamsFactory.finalize(params))
-      return {...result, return: result.return as undefined | ProposalReturns['finalize()void']}
+      return {...result, return: result.return as unknown as (undefined | ProposalReturns['finalize()void'])}
     },
 
     /**
@@ -839,7 +839,7 @@ export class ProposalClient {
      */
     assignVoter: async (params: CallParams<ProposalArgs['obj']['assign_voter(address,uint64)void'] | ProposalArgs['tuple']['assign_voter(address,uint64)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(ProposalParamsFactory.assignVoter(params))
-      return {...result, return: result.return as undefined | ProposalReturns['assign_voter(address,uint64)void']}
+      return {...result, return: result.return as unknown as (undefined | ProposalReturns['assign_voter(address,uint64)void'])}
     },
 
   }

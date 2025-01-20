@@ -1160,8 +1160,8 @@ export class XGovRegistryFactory {
   public async deploy(params: XGovRegistryDeployParams = {}) {
     const result = await this.appFactory.deploy({
       ...params,
-      createParams: params.createParams?.method ? XGovRegistryParamsFactory.create._resolveByMethod(params.createParams) : params.createParams,
-      updateParams: params.updateParams?.method ? XGovRegistryParamsFactory.update._resolveByMethod(params.updateParams) : params.updateParams,
+      createParams: params.createParams?.method ? XGovRegistryParamsFactory.create._resolveByMethod(params.createParams) : params.createParams ? params.createParams as (XGovRegistryCreateCallParams & { args: Uint8Array[] }) : undefined,
+      updateParams: params.updateParams?.method ? XGovRegistryParamsFactory.update._resolveByMethod(params.updateParams) : params.updateParams ? params.updateParams as (XGovRegistryUpdateCallParams & { args: Uint8Array[] }) : undefined,
     })
     return { result: result.result, appClient: new XGovRegistryClient(result.appClient) }
   }
@@ -1247,7 +1247,7 @@ export class XGovRegistryFactory {
        */
       create: async (params: CallParams<XGovRegistryArgs['obj']['create()void'] | XGovRegistryArgs['tuple']['create()void']> & AppClientCompilationParams & CreateSchema & SendParams & {onComplete?: OnApplicationComplete.NoOpOC} = {args: []}) => {
         const result = await this.appFactory.send.create(XGovRegistryParamsFactory.create.create(params))
-        return { result: { ...result.result, return: result.result.return as undefined | XGovRegistryReturns['create()void'] }, appClient: new XGovRegistryClient(result.appClient) }
+        return { result: { ...result.result, return: result.result.return as unknown as (undefined | XGovRegistryReturns['create()void']) }, appClient: new XGovRegistryClient(result.appClient) }
       },
     },
 
@@ -2027,7 +2027,7 @@ export class XGovRegistryClient {
        */
       updateXgovRegistry: async (params: CallParams<XGovRegistryArgs['obj']['update_xgov_registry()void'] | XGovRegistryArgs['tuple']['update_xgov_registry()void']> & AppClientCompilationParams & SendParams = {args: []}) => {
         const result = await this.appClient.send.update(XGovRegistryParamsFactory.update.updateXgovRegistry(params))
-        return {...result, return: result.return as undefined | XGovRegistryReturns['update_xgov_registry()void']}
+        return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['update_xgov_registry()void'])}
       },
 
     },
@@ -2052,7 +2052,7 @@ export class XGovRegistryClient {
      */
     setXgovManager: async (params: CallParams<XGovRegistryArgs['obj']['set_xgov_manager(address)void'] | XGovRegistryArgs['tuple']['set_xgov_manager(address)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.setXgovManager(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['set_xgov_manager(address)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['set_xgov_manager(address)void'])}
     },
 
     /**
@@ -2065,7 +2065,7 @@ export class XGovRegistryClient {
      */
     setPayor: async (params: CallParams<XGovRegistryArgs['obj']['set_payor(address)void'] | XGovRegistryArgs['tuple']['set_payor(address)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.setPayor(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['set_payor(address)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['set_payor(address)void'])}
     },
 
     /**
@@ -2078,7 +2078,7 @@ export class XGovRegistryClient {
      */
     setXgovReviewer: async (params: CallParams<XGovRegistryArgs['obj']['set_xgov_reviewer(address)void'] | XGovRegistryArgs['tuple']['set_xgov_reviewer(address)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.setXgovReviewer(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['set_xgov_reviewer(address)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['set_xgov_reviewer(address)void'])}
     },
 
     /**
@@ -2091,7 +2091,7 @@ export class XGovRegistryClient {
      */
     setXgovSubscriber: async (params: CallParams<XGovRegistryArgs['obj']['set_xgov_subscriber(address)void'] | XGovRegistryArgs['tuple']['set_xgov_subscriber(address)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.setXgovSubscriber(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['set_xgov_subscriber(address)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['set_xgov_subscriber(address)void'])}
     },
 
     /**
@@ -2104,7 +2104,7 @@ export class XGovRegistryClient {
      */
     setKycProvider: async (params: CallParams<XGovRegistryArgs['obj']['set_kyc_provider(address)void'] | XGovRegistryArgs['tuple']['set_kyc_provider(address)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.setKycProvider(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['set_kyc_provider(address)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['set_kyc_provider(address)void'])}
     },
 
     /**
@@ -2117,7 +2117,7 @@ export class XGovRegistryClient {
      */
     setCommitteeManager: async (params: CallParams<XGovRegistryArgs['obj']['set_committee_manager(address)void'] | XGovRegistryArgs['tuple']['set_committee_manager(address)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.setCommitteeManager(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['set_committee_manager(address)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['set_committee_manager(address)void'])}
     },
 
     /**
@@ -2130,7 +2130,7 @@ export class XGovRegistryClient {
      */
     setCommitteePublisher: async (params: CallParams<XGovRegistryArgs['obj']['set_committee_publisher(address)void'] | XGovRegistryArgs['tuple']['set_committee_publisher(address)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.setCommitteePublisher(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['set_committee_publisher(address)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['set_committee_publisher(address)void'])}
     },
 
     /**
@@ -2143,7 +2143,7 @@ export class XGovRegistryClient {
      */
     configXgovRegistry: async (params: CallParams<XGovRegistryArgs['obj']['config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3]))void'] | XGovRegistryArgs['tuple']['config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3]))void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.configXgovRegistry(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3]))void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3]))void'])}
     },
 
     /**
@@ -2156,7 +2156,7 @@ export class XGovRegistryClient {
      */
     subscribeXgov: async (params: CallParams<XGovRegistryArgs['obj']['subscribe_xgov(address,pay)void'] | XGovRegistryArgs['tuple']['subscribe_xgov(address,pay)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.subscribeXgov(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['subscribe_xgov(address,pay)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['subscribe_xgov(address,pay)void'])}
     },
 
     /**
@@ -2169,7 +2169,7 @@ export class XGovRegistryClient {
      */
     unsubscribeXgov: async (params: CallParams<XGovRegistryArgs['obj']['unsubscribe_xgov(address)void'] | XGovRegistryArgs['tuple']['unsubscribe_xgov(address)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.unsubscribeXgov(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['unsubscribe_xgov(address)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['unsubscribe_xgov(address)void'])}
     },
 
     /**
@@ -2182,7 +2182,7 @@ export class XGovRegistryClient {
      */
     subscribeXgovApp: async (params: CallParams<XGovRegistryArgs['obj']['subscribe_xgov_app(uint64,address,pay)void'] | XGovRegistryArgs['tuple']['subscribe_xgov_app(uint64,address,pay)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.subscribeXgovApp(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['subscribe_xgov_app(uint64,address,pay)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['subscribe_xgov_app(uint64,address,pay)void'])}
     },
 
     /**
@@ -2195,7 +2195,7 @@ export class XGovRegistryClient {
      */
     unsubscribeXgovApp: async (params: CallParams<XGovRegistryArgs['obj']['unsubscribe_xgov_app(uint64)void'] | XGovRegistryArgs['tuple']['unsubscribe_xgov_app(uint64)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.unsubscribeXgovApp(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['unsubscribe_xgov_app(uint64)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['unsubscribe_xgov_app(uint64)void'])}
     },
 
     /**
@@ -2208,7 +2208,7 @@ export class XGovRegistryClient {
      */
     requestSubscribeXgov: async (params: CallParams<XGovRegistryArgs['obj']['request_subscribe_xgov(address,address,uint64,pay)void'] | XGovRegistryArgs['tuple']['request_subscribe_xgov(address,address,uint64,pay)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.requestSubscribeXgov(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['request_subscribe_xgov(address,address,uint64,pay)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['request_subscribe_xgov(address,address,uint64,pay)void'])}
     },
 
     /**
@@ -2221,7 +2221,7 @@ export class XGovRegistryClient {
      */
     approveSubscribeXgov: async (params: CallParams<XGovRegistryArgs['obj']['approve_subscribe_xgov(uint64)void'] | XGovRegistryArgs['tuple']['approve_subscribe_xgov(uint64)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.approveSubscribeXgov(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['approve_subscribe_xgov(uint64)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['approve_subscribe_xgov(uint64)void'])}
     },
 
     /**
@@ -2234,7 +2234,7 @@ export class XGovRegistryClient {
      */
     rejectSubscribeXgov: async (params: CallParams<XGovRegistryArgs['obj']['reject_subscribe_xgov(uint64)void'] | XGovRegistryArgs['tuple']['reject_subscribe_xgov(uint64)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.rejectSubscribeXgov(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['reject_subscribe_xgov(uint64)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['reject_subscribe_xgov(uint64)void'])}
     },
 
     /**
@@ -2247,7 +2247,7 @@ export class XGovRegistryClient {
      */
     setVotingAccount: async (params: CallParams<XGovRegistryArgs['obj']['set_voting_account(address,address)void'] | XGovRegistryArgs['tuple']['set_voting_account(address,address)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.setVotingAccount(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['set_voting_account(address,address)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['set_voting_account(address,address)void'])}
     },
 
     /**
@@ -2260,7 +2260,7 @@ export class XGovRegistryClient {
      */
     subscribeProposer: async (params: CallParams<XGovRegistryArgs['obj']['subscribe_proposer(pay)void'] | XGovRegistryArgs['tuple']['subscribe_proposer(pay)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.subscribeProposer(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['subscribe_proposer(pay)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['subscribe_proposer(pay)void'])}
     },
 
     /**
@@ -2273,7 +2273,7 @@ export class XGovRegistryClient {
      */
     setProposerKyc: async (params: CallParams<XGovRegistryArgs['obj']['set_proposer_kyc(address,bool,uint64)void'] | XGovRegistryArgs['tuple']['set_proposer_kyc(address,bool,uint64)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.setProposerKyc(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['set_proposer_kyc(address,bool,uint64)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['set_proposer_kyc(address,bool,uint64)void'])}
     },
 
     /**
@@ -2286,7 +2286,7 @@ export class XGovRegistryClient {
      */
     declareCommittee: async (params: CallParams<XGovRegistryArgs['obj']['declare_committee(byte[32],uint64,uint64)void'] | XGovRegistryArgs['tuple']['declare_committee(byte[32],uint64,uint64)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.declareCommittee(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['declare_committee(byte[32],uint64,uint64)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['declare_committee(byte[32],uint64,uint64)void'])}
     },
 
     /**
@@ -2299,7 +2299,7 @@ export class XGovRegistryClient {
      */
     openProposal: async (params: CallParams<XGovRegistryArgs['obj']['open_proposal(pay)uint64'] | XGovRegistryArgs['tuple']['open_proposal(pay)uint64']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.openProposal(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['open_proposal(pay)uint64']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['open_proposal(pay)uint64'])}
     },
 
     /**
@@ -2312,7 +2312,7 @@ export class XGovRegistryClient {
      */
     voteProposal: async (params: CallParams<XGovRegistryArgs['obj']['vote_proposal(uint64,address,uint64,uint64)void'] | XGovRegistryArgs['tuple']['vote_proposal(uint64,address,uint64,uint64)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.voteProposal(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['vote_proposal(uint64,address,uint64,uint64)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['vote_proposal(uint64,address,uint64,uint64)void'])}
     },
 
     /**
@@ -2325,7 +2325,7 @@ export class XGovRegistryClient {
      */
     payGrantProposal: async (params: CallParams<XGovRegistryArgs['obj']['pay_grant_proposal(uint64)void'] | XGovRegistryArgs['tuple']['pay_grant_proposal(uint64)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.payGrantProposal(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['pay_grant_proposal(uint64)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['pay_grant_proposal(uint64)void'])}
     },
 
     /**
@@ -2338,7 +2338,7 @@ export class XGovRegistryClient {
      */
     depositFunds: async (params: CallParams<XGovRegistryArgs['obj']['deposit_funds(pay)void'] | XGovRegistryArgs['tuple']['deposit_funds(pay)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.depositFunds(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['deposit_funds(pay)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['deposit_funds(pay)void'])}
     },
 
     /**
@@ -2351,7 +2351,7 @@ export class XGovRegistryClient {
      */
     withdrawFunds: async (params: CallParams<XGovRegistryArgs['obj']['withdraw_funds(uint64)void'] | XGovRegistryArgs['tuple']['withdraw_funds(uint64)void']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.withdrawFunds(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['withdraw_funds(uint64)void']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['withdraw_funds(uint64)void'])}
     },
 
     /**
@@ -2366,7 +2366,7 @@ export class XGovRegistryClient {
      */
     getState: async (params: CallParams<XGovRegistryArgs['obj']['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'] | XGovRegistryArgs['tuple']['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)']> & SendParams & {onComplete?: OnApplicationComplete.NoOpOC} = {args: []}) => {
       const result = await this.appClient.send.call(XGovRegistryParamsFactory.getState(params))
-      return {...result, return: result.return as undefined | XGovRegistryReturns['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)']}
+      return {...result, return: result.return as unknown as (undefined | XGovRegistryReturns['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'])}
     },
 
   }
@@ -2393,7 +2393,7 @@ export class XGovRegistryClient {
    */
   async getState(params: CallParams<XGovRegistryArgs['obj']['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'] | XGovRegistryArgs['tuple']['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)']> = {args: []}) {
     const result = await this.appClient.send.call(XGovRegistryParamsFactory.getState(params))
-    return result.return as XGovRegistryReturns['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)']
+    return result.return as unknown as XGovRegistryReturns['get_state()(address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)']
   }
 
   /**
