@@ -47,7 +47,7 @@ export type ProposalArgs = {
              */
             proposer: string;
         };
-        'submit(pay,string,byte[59],uint64,uint64)void': {
+        'submit(pay,string,byte[36],uint64,uint64)void': {
             /**
              * Commitment payment transaction from the proposer to the contract
              */
@@ -69,7 +69,7 @@ export type ProposalArgs = {
              */
             requestedAmount: bigint | number;
         };
-        'update(string,byte[59])void': {
+        'update(string,byte[36])void': {
             /**
              * Proposal title, max TITLE_MAX_BYTES bytes
              */
@@ -91,17 +91,34 @@ export type ProposalArgs = {
              */
             votingPower: bigint | number;
         };
+        'vote(address,uint64,uint64)string': {
+            /**
+             * Voter address
+             */
+            voter: string;
+            /**
+             * Number of approvals
+             */
+            approvals: bigint | number;
+            /**
+             * Number of rejections
+             */
+            rejections: bigint | number;
+        };
+        'scrutiny()void': Record<string, never>;
     };
     /**
      * The tuple representation of the arguments for each method
      */
     tuple: {
         'create(address)void': [proposer: string];
-        'submit(pay,string,byte[59],uint64,uint64)void': [payment: AppMethodCallTransactionArgument, title: string, cid: Uint8Array, fundingType: bigint | number, requestedAmount: bigint | number];
-        'update(string,byte[59])void': [title: string, cid: Uint8Array];
+        'submit(pay,string,byte[36],uint64,uint64)void': [payment: AppMethodCallTransactionArgument, title: string, cid: Uint8Array, fundingType: bigint | number, requestedAmount: bigint | number];
+        'update(string,byte[36])void': [title: string, cid: Uint8Array];
         'drop()void': [];
         'finalize()void': [];
         'assign_voter(address,uint64)void': [voter: string, votingPower: bigint | number];
+        'vote(address,uint64,uint64)string': [voter: string, approvals: bigint | number, rejections: bigint | number];
+        'scrutiny()void': [];
     };
 };
 /**
@@ -109,11 +126,13 @@ export type ProposalArgs = {
  */
 export type ProposalReturns = {
     'create(address)void': void;
-    'submit(pay,string,byte[59],uint64,uint64)void': void;
-    'update(string,byte[59])void': void;
+    'submit(pay,string,byte[36],uint64,uint64)void': void;
+    'update(string,byte[36])void': void;
     'drop()void': void;
     'finalize()void': void;
     'assign_voter(address,uint64)void': void;
+    'vote(address,uint64,uint64)string': string;
+    'scrutiny()void': void;
 };
 /**
  * Defines the types of available calls and state of the Proposal smart contract.
@@ -126,14 +145,14 @@ export type ProposalTypes = {
         argsObj: ProposalArgs['obj']['create(address)void'];
         argsTuple: ProposalArgs['tuple']['create(address)void'];
         returns: ProposalReturns['create(address)void'];
-    }> & Record<'submit(pay,string,byte[59],uint64,uint64)void' | 'submit', {
-        argsObj: ProposalArgs['obj']['submit(pay,string,byte[59],uint64,uint64)void'];
-        argsTuple: ProposalArgs['tuple']['submit(pay,string,byte[59],uint64,uint64)void'];
-        returns: ProposalReturns['submit(pay,string,byte[59],uint64,uint64)void'];
-    }> & Record<'update(string,byte[59])void' | 'update', {
-        argsObj: ProposalArgs['obj']['update(string,byte[59])void'];
-        argsTuple: ProposalArgs['tuple']['update(string,byte[59])void'];
-        returns: ProposalReturns['update(string,byte[59])void'];
+    }> & Record<'submit(pay,string,byte[36],uint64,uint64)void' | 'submit', {
+        argsObj: ProposalArgs['obj']['submit(pay,string,byte[36],uint64,uint64)void'];
+        argsTuple: ProposalArgs['tuple']['submit(pay,string,byte[36],uint64,uint64)void'];
+        returns: ProposalReturns['submit(pay,string,byte[36],uint64,uint64)void'];
+    }> & Record<'update(string,byte[36])void' | 'update', {
+        argsObj: ProposalArgs['obj']['update(string,byte[36])void'];
+        argsTuple: ProposalArgs['tuple']['update(string,byte[36])void'];
+        returns: ProposalReturns['update(string,byte[36])void'];
     }> & Record<'drop()void' | 'drop', {
         argsObj: ProposalArgs['obj']['drop()void'];
         argsTuple: ProposalArgs['tuple']['drop()void'];
@@ -146,6 +165,14 @@ export type ProposalTypes = {
         argsObj: ProposalArgs['obj']['assign_voter(address,uint64)void'];
         argsTuple: ProposalArgs['tuple']['assign_voter(address,uint64)void'];
         returns: ProposalReturns['assign_voter(address,uint64)void'];
+    }> & Record<'vote(address,uint64,uint64)string' | 'vote', {
+        argsObj: ProposalArgs['obj']['vote(address,uint64,uint64)string'];
+        argsTuple: ProposalArgs['tuple']['vote(address,uint64,uint64)string'];
+        returns: ProposalReturns['vote(address,uint64,uint64)string'];
+    }> & Record<'scrutiny()void' | 'scrutiny', {
+        argsObj: ProposalArgs['obj']['scrutiny()void'];
+        argsTuple: ProposalArgs['tuple']['scrutiny()void'];
+        returns: ProposalReturns['scrutiny()void'];
     }>;
     /**
      * Defines the shape of the state of the application.
@@ -273,23 +300,23 @@ export declare abstract class ProposalParamsFactory {
         };
     };
     /**
-     * Constructs a no op call for the submit(pay,string,byte[59],uint64,uint64)void ABI method
+     * Constructs a no op call for the submit(pay,string,byte[36],uint64,uint64)void ABI method
      *
      * Submit the first draft of the proposal.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
      */
-    static submit(params: CallParams<ProposalArgs['obj']['submit(pay,string,byte[59],uint64,uint64)void'] | ProposalArgs['tuple']['submit(pay,string,byte[59],uint64,uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    static submit(params: CallParams<ProposalArgs['obj']['submit(pay,string,byte[36],uint64,uint64)void'] | ProposalArgs['tuple']['submit(pay,string,byte[36],uint64,uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
-     * Constructs a no op call for the update(string,byte[59])void ABI method
+     * Constructs a no op call for the update(string,byte[36])void ABI method
      *
      * Update the proposal.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
      */
-    static update(params: CallParams<ProposalArgs['obj']['update(string,byte[59])void'] | ProposalArgs['tuple']['update(string,byte[59])void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    static update(params: CallParams<ProposalArgs['obj']['update(string,byte[36])void'] | ProposalArgs['tuple']['update(string,byte[36])void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
      * Constructs a no op call for the drop()void ABI method
      *
@@ -317,6 +344,24 @@ export declare abstract class ProposalParamsFactory {
      * @returns An `AppClientMethodCallParams` object for the call
      */
     static assignVoter(params: CallParams<ProposalArgs['obj']['assign_voter(address,uint64)void'] | ProposalArgs['tuple']['assign_voter(address,uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    /**
+     * Constructs a no op call for the vote(address,uint64,uint64)string ABI method
+     *
+     * Vote on the proposal.
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static vote(params: CallParams<ProposalArgs['obj']['vote(address,uint64,uint64)string'] | ProposalArgs['tuple']['vote(address,uint64,uint64)string']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    /**
+     * Constructs a no op call for the scrutiny()void ABI method
+     *
+     * Scrutinize the proposal.
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static scrutiny(params: CallParams<ProposalArgs['obj']['scrutiny()void'] | ProposalArgs['tuple']['scrutiny()void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
 }
 /**
  * A factory to create and deploy one or more instance of the Proposal smart contract and to create one or more app clients to interact with those (or other) app instances
@@ -604,7 +649,7 @@ export declare class ProposalFactory {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 result: {
-                    return: undefined | ProposalReturns["create(address)void"];
+                    return: (undefined | ProposalReturns["create(address)void"]);
                     compiledApproval?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                     compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                     appId: bigint;
@@ -646,7 +691,7 @@ export declare class ProposalClient {
      * Checks for decode errors on the given return value and maps the return value to the return type for the given method
      * @returns The typed return value or undefined if there was no value
      */
-    decodeReturnValue<TSignature extends ProposalNonVoidMethodSignatures>(method: TSignature, returnValue: ABIReturn | undefined): undefined;
+    decodeReturnValue<TSignature extends ProposalNonVoidMethodSignatures>(method: TSignature, returnValue: ABIReturn | undefined): MethodReturn<TSignature> | undefined;
     /**
      * Returns a new `ProposalClient` client, resolving the app by creator address and name
      * using AlgoKit app deployment semantics (i.e. looking for the app creation transaction note).
@@ -683,25 +728,25 @@ export declare class ProposalClient {
          */
         clearState: (params?: Expand<AppClientBareCallParams>) => import("@algorandfoundation/algokit-utils/types/composer").AppCallParams;
         /**
-         * Makes a call to the Proposal smart contract using the `submit(pay,string,byte[59],uint64,uint64)void` ABI method.
+         * Makes a call to the Proposal smart contract using the `submit(pay,string,byte[36],uint64,uint64)void` ABI method.
          *
          * Submit the first draft of the proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        submit: (params: CallParams<ProposalArgs["obj"]["submit(pay,string,byte[59],uint64,uint64)void"] | ProposalArgs["tuple"]["submit(pay,string,byte[59],uint64,uint64)void"]> & {
+        submit: (params: CallParams<ProposalArgs["obj"]["submit(pay,string,byte[36],uint64,uint64)void"] | ProposalArgs["tuple"]["submit(pay,string,byte[36],uint64,uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
-         * Makes a call to the Proposal smart contract using the `update(string,byte[59])void` ABI method.
+         * Makes a call to the Proposal smart contract using the `update(string,byte[36])void` ABI method.
          *
          * Update the proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        update: (params: CallParams<ProposalArgs["obj"]["update(string,byte[59])void"] | ProposalArgs["tuple"]["update(string,byte[59])void"]> & {
+        update: (params: CallParams<ProposalArgs["obj"]["update(string,byte[36])void"] | ProposalArgs["tuple"]["update(string,byte[36])void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -735,6 +780,28 @@ export declare class ProposalClient {
          * @returns The call params
          */
         assignVoter: (params: CallParams<ProposalArgs["obj"]["assign_voter(address,uint64)void"] | ProposalArgs["tuple"]["assign_voter(address,uint64)void"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<AppCallMethodCall>;
+        /**
+         * Makes a call to the Proposal smart contract using the `vote(address,uint64,uint64)string` ABI method.
+         *
+         * Vote on the proposal.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        vote: (params: CallParams<ProposalArgs["obj"]["vote(address,uint64,uint64)string"] | ProposalArgs["tuple"]["vote(address,uint64,uint64)string"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<AppCallMethodCall>;
+        /**
+         * Makes a call to the Proposal smart contract using the `scrutiny()void` ABI method.
+         *
+         * Scrutinize the proposal.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        scrutiny: (params?: CallParams<ProposalArgs["obj"]["scrutiny()void"] | ProposalArgs["tuple"]["scrutiny()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
     };
@@ -750,14 +817,14 @@ export declare class ProposalClient {
          */
         clearState: (params?: Expand<AppClientBareCallParams>) => Promise<Transaction>;
         /**
-         * Makes a call to the Proposal smart contract using the `submit(pay,string,byte[59],uint64,uint64)void` ABI method.
+         * Makes a call to the Proposal smart contract using the `submit(pay,string,byte[36],uint64,uint64)void` ABI method.
          *
          * Submit the first draft of the proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        submit: (params: CallParams<ProposalArgs["obj"]["submit(pay,string,byte[59],uint64,uint64)void"] | ProposalArgs["tuple"]["submit(pay,string,byte[59],uint64,uint64)void"]> & {
+        submit: (params: CallParams<ProposalArgs["obj"]["submit(pay,string,byte[36],uint64,uint64)void"] | ProposalArgs["tuple"]["submit(pay,string,byte[36],uint64,uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -765,14 +832,14 @@ export declare class ProposalClient {
             signers: Map<number, TransactionSigner>;
         }>;
         /**
-         * Makes a call to the Proposal smart contract using the `update(string,byte[59])void` ABI method.
+         * Makes a call to the Proposal smart contract using the `update(string,byte[36])void` ABI method.
          *
          * Update the proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        update: (params: CallParams<ProposalArgs["obj"]["update(string,byte[59])void"] | ProposalArgs["tuple"]["update(string,byte[59])void"]> & {
+        update: (params: CallParams<ProposalArgs["obj"]["update(string,byte[36])void"] | ProposalArgs["tuple"]["update(string,byte[36])void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -818,6 +885,36 @@ export declare class ProposalClient {
          * @returns The call transaction
          */
         assignVoter: (params: CallParams<ProposalArgs["obj"]["assign_voter(address,uint64)void"] | ProposalArgs["tuple"]["assign_voter(address,uint64)void"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            transactions: Transaction[];
+            methodCalls: Map<number, import("algosdk").ABIMethod>;
+            signers: Map<number, TransactionSigner>;
+        }>;
+        /**
+         * Makes a call to the Proposal smart contract using the `vote(address,uint64,uint64)string` ABI method.
+         *
+         * Vote on the proposal.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        vote: (params: CallParams<ProposalArgs["obj"]["vote(address,uint64,uint64)string"] | ProposalArgs["tuple"]["vote(address,uint64,uint64)string"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            transactions: Transaction[];
+            methodCalls: Map<number, import("algosdk").ABIMethod>;
+            signers: Map<number, TransactionSigner>;
+        }>;
+        /**
+         * Makes a call to the Proposal smart contract using the `scrutiny()void` ABI method.
+         *
+         * Scrutinize the proposal.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        scrutiny: (params?: CallParams<ProposalArgs["obj"]["scrutiny()void"] | ProposalArgs["tuple"]["scrutiny()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -846,17 +943,17 @@ export declare class ProposalClient {
             return?: ABIReturn | undefined;
         }>;
         /**
-         * Makes a call to the Proposal smart contract using the `submit(pay,string,byte[59],uint64,uint64)void` ABI method.
+         * Makes a call to the Proposal smart contract using the `submit(pay,string,byte[36],uint64,uint64)void` ABI method.
          *
          * Submit the first draft of the proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        submit: (params: CallParams<ProposalArgs["obj"]["submit(pay,string,byte[59],uint64,uint64)void"] | ProposalArgs["tuple"]["submit(pay,string,byte[59],uint64,uint64)void"]> & SendParams & {
+        submit: (params: CallParams<ProposalArgs["obj"]["submit(pay,string,byte[36],uint64,uint64)void"] | ProposalArgs["tuple"]["submit(pay,string,byte[36],uint64,uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | ProposalReturns["submit(pay,string,byte[59],uint64,uint64)void"];
+            return: (undefined | ProposalReturns["submit(pay,string,byte[36],uint64,uint64)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -866,17 +963,17 @@ export declare class ProposalClient {
             transaction: Transaction;
         }>;
         /**
-         * Makes a call to the Proposal smart contract using the `update(string,byte[59])void` ABI method.
+         * Makes a call to the Proposal smart contract using the `update(string,byte[36])void` ABI method.
          *
          * Update the proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        update: (params: CallParams<ProposalArgs["obj"]["update(string,byte[59])void"] | ProposalArgs["tuple"]["update(string,byte[59])void"]> & SendParams & {
+        update: (params: CallParams<ProposalArgs["obj"]["update(string,byte[36])void"] | ProposalArgs["tuple"]["update(string,byte[36])void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | ProposalReturns["update(string,byte[59])void"];
+            return: (undefined | ProposalReturns["update(string,byte[36])void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -896,7 +993,7 @@ export declare class ProposalClient {
         drop: (params?: CallParams<ProposalArgs["obj"]["drop()void"] | ProposalArgs["tuple"]["drop()void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | ProposalReturns["drop()void"];
+            return: (undefined | ProposalReturns["drop()void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -916,7 +1013,7 @@ export declare class ProposalClient {
         finalize: (params?: CallParams<ProposalArgs["obj"]["finalize()void"] | ProposalArgs["tuple"]["finalize()void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | ProposalReturns["finalize()void"];
+            return: (undefined | ProposalReturns["finalize()void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -936,7 +1033,47 @@ export declare class ProposalClient {
         assignVoter: (params: CallParams<ProposalArgs["obj"]["assign_voter(address,uint64)void"] | ProposalArgs["tuple"]["assign_voter(address,uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: undefined | ProposalReturns["assign_voter(address,uint64)void"];
+            return: (undefined | ProposalReturns["assign_voter(address,uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
+            groupId: string;
+            txIds: string[];
+            confirmations: modelsv2.PendingTransactionResponse[];
+            transactions: Transaction[];
+            confirmation: modelsv2.PendingTransactionResponse;
+            transaction: Transaction;
+        }>;
+        /**
+         * Makes a call to the Proposal smart contract using the `vote(address,uint64,uint64)string` ABI method.
+         *
+         * Vote on the proposal.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        vote: (params: CallParams<ProposalArgs["obj"]["vote(address,uint64,uint64)string"] | ProposalArgs["tuple"]["vote(address,uint64,uint64)string"]> & SendParams & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            return: (undefined | ProposalReturns["vote(address,uint64,uint64)string"]);
+            returns?: ABIReturn[] | undefined | undefined;
+            groupId: string;
+            txIds: string[];
+            confirmations: modelsv2.PendingTransactionResponse[];
+            transactions: Transaction[];
+            confirmation: modelsv2.PendingTransactionResponse;
+            transaction: Transaction;
+        }>;
+        /**
+         * Makes a call to the Proposal smart contract using the `scrutiny()void` ABI method.
+         *
+         * Scrutinize the proposal.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        scrutiny: (params?: CallParams<ProposalArgs["obj"]["scrutiny()void"] | ProposalArgs["tuple"]["scrutiny()void"]> & SendParams & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            return: (undefined | ProposalReturns["scrutiny()void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -1059,7 +1196,7 @@ export declare class ProposalClient {
 }
 export type ProposalComposer<TReturns extends [...any[]] = []> = {
     /**
-     * Calls the submit(pay,string,byte[59],uint64,uint64)void ABI method.
+     * Calls the submit(pay,string,byte[36],uint64,uint64)void ABI method.
      *
      * Submit the first draft of the proposal.
      *
@@ -1067,9 +1204,9 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      * @param params Any additional parameters for the call
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
-    submit(params?: CallParams<ProposalArgs['obj']['submit(pay,string,byte[59],uint64,uint64)void'] | ProposalArgs['tuple']['submit(pay,string,byte[59],uint64,uint64)void']>): ProposalComposer<[...TReturns, ProposalReturns['submit(pay,string,byte[59],uint64,uint64)void'] | undefined]>;
+    submit(params?: CallParams<ProposalArgs['obj']['submit(pay,string,byte[36],uint64,uint64)void'] | ProposalArgs['tuple']['submit(pay,string,byte[36],uint64,uint64)void']>): ProposalComposer<[...TReturns, ProposalReturns['submit(pay,string,byte[36],uint64,uint64)void'] | undefined]>;
     /**
-     * Calls the update(string,byte[59])void ABI method.
+     * Calls the update(string,byte[36])void ABI method.
      *
      * Update the proposal.
      *
@@ -1077,7 +1214,7 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      * @param params Any additional parameters for the call
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
-    update(params?: CallParams<ProposalArgs['obj']['update(string,byte[59])void'] | ProposalArgs['tuple']['update(string,byte[59])void']>): ProposalComposer<[...TReturns, ProposalReturns['update(string,byte[59])void'] | undefined]>;
+    update(params?: CallParams<ProposalArgs['obj']['update(string,byte[36])void'] | ProposalArgs['tuple']['update(string,byte[36])void']>): ProposalComposer<[...TReturns, ProposalReturns['update(string,byte[36])void'] | undefined]>;
     /**
      * Calls the drop()void ABI method.
      *
@@ -1108,6 +1245,26 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
     assignVoter(params?: CallParams<ProposalArgs['obj']['assign_voter(address,uint64)void'] | ProposalArgs['tuple']['assign_voter(address,uint64)void']>): ProposalComposer<[...TReturns, ProposalReturns['assign_voter(address,uint64)void'] | undefined]>;
+    /**
+     * Calls the vote(address,uint64,uint64)string ABI method.
+     *
+     * Vote on the proposal.
+     *
+     * @param args The arguments for the contract call
+     * @param params Any additional parameters for the call
+     * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+     */
+    vote(params?: CallParams<ProposalArgs['obj']['vote(address,uint64,uint64)string'] | ProposalArgs['tuple']['vote(address,uint64,uint64)string']>): ProposalComposer<[...TReturns, ProposalReturns['vote(address,uint64,uint64)string'] | undefined]>;
+    /**
+     * Calls the scrutiny()void ABI method.
+     *
+     * Scrutinize the proposal.
+     *
+     * @param args The arguments for the contract call
+     * @param params Any additional parameters for the call
+     * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+     */
+    scrutiny(params?: CallParams<ProposalArgs['obj']['scrutiny()void'] | ProposalArgs['tuple']['scrutiny()void']>): ProposalComposer<[...TReturns, ProposalReturns['scrutiny()void'] | undefined]>;
     /**
      * Makes a clear_state call to an existing instance of the Proposal smart contract.
      *
