@@ -105,7 +105,7 @@ export type ProposalArgs = {
              */
             isFirstInGroup: boolean;
         };
-        'drop()void': Record<string, never>;
+        'drop()string': Record<string, never>;
         'finalize()void': Record<string, never>;
         'assign_voter(address,uint64)void': {
             /**
@@ -145,7 +145,7 @@ export type ProposalArgs = {
              */
             voters: string[];
         };
-        'decommission()void': Record<string, never>;
+        'decommission()string': Record<string, never>;
         'delete()string': Record<string, never>;
         'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64,uint64)': Record<string, never>;
     };
@@ -156,7 +156,7 @@ export type ProposalArgs = {
         'create(address)void': [proposer: string];
         'submit(pay,string,uint64,uint64,uint8)void': [payment: AppMethodCallTransactionArgument, title: string, fundingType: bigint | number, requestedAmount: bigint | number, focus: bigint | number];
         'upload_metadata(byte[],bool)void': [payload: Uint8Array, isFirstInGroup: boolean];
-        'drop()void': [];
+        'drop()string': [];
         'finalize()void': [];
         'assign_voter(address,uint64)void': [voter: string, votingPower: bigint | number];
         'vote(address,uint64,uint64)string': [voter: string, approvals: bigint | number, rejections: bigint | number];
@@ -164,7 +164,7 @@ export type ProposalArgs = {
         'review(bool)void': [block: boolean];
         'fund()string': [];
         'unassign_voters(address[])void': [voters: string[]];
-        'decommission()void': [];
+        'decommission()string': [];
         'delete()string': [];
         'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64,uint64)': [];
     };
@@ -176,7 +176,7 @@ export type ProposalReturns = {
     'create(address)void': void;
     'submit(pay,string,uint64,uint64,uint8)void': void;
     'upload_metadata(byte[],bool)void': void;
-    'drop()void': void;
+    'drop()string': string;
     'finalize()void': void;
     'assign_voter(address,uint64)void': void;
     'vote(address,uint64,uint64)string': string;
@@ -184,7 +184,7 @@ export type ProposalReturns = {
     'review(bool)void': void;
     'fund()string': string;
     'unassign_voters(address[])void': void;
-    'decommission()void': void;
+    'decommission()string': string;
     'delete()string': string;
     'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64,uint64)': ProposalTypedGlobalState;
 };
@@ -207,10 +207,10 @@ export type ProposalTypes = {
         argsObj: ProposalArgs['obj']['upload_metadata(byte[],bool)void'];
         argsTuple: ProposalArgs['tuple']['upload_metadata(byte[],bool)void'];
         returns: ProposalReturns['upload_metadata(byte[],bool)void'];
-    }> & Record<'drop()void' | 'drop', {
-        argsObj: ProposalArgs['obj']['drop()void'];
-        argsTuple: ProposalArgs['tuple']['drop()void'];
-        returns: ProposalReturns['drop()void'];
+    }> & Record<'drop()string' | 'drop', {
+        argsObj: ProposalArgs['obj']['drop()string'];
+        argsTuple: ProposalArgs['tuple']['drop()string'];
+        returns: ProposalReturns['drop()string'];
     }> & Record<'finalize()void' | 'finalize', {
         argsObj: ProposalArgs['obj']['finalize()void'];
         argsTuple: ProposalArgs['tuple']['finalize()void'];
@@ -239,10 +239,10 @@ export type ProposalTypes = {
         argsObj: ProposalArgs['obj']['unassign_voters(address[])void'];
         argsTuple: ProposalArgs['tuple']['unassign_voters(address[])void'];
         returns: ProposalReturns['unassign_voters(address[])void'];
-    }> & Record<'decommission()void' | 'decommission', {
-        argsObj: ProposalArgs['obj']['decommission()void'];
-        argsTuple: ProposalArgs['tuple']['decommission()void'];
-        returns: ProposalReturns['decommission()void'];
+    }> & Record<'decommission()string' | 'decommission', {
+        argsObj: ProposalArgs['obj']['decommission()string'];
+        argsTuple: ProposalArgs['tuple']['decommission()string'];
+        returns: ProposalReturns['decommission()string'];
     }> & Record<'delete()string' | 'delete', {
         argsObj: ProposalArgs['obj']['delete()string'];
         argsTuple: ProposalArgs['tuple']['delete()string'];
@@ -445,14 +445,14 @@ export declare abstract class ProposalParamsFactory {
      */
     static uploadMetadata(params: CallParams<ProposalArgs['obj']['upload_metadata(byte[],bool)void'] | ProposalArgs['tuple']['upload_metadata(byte[],bool)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
-     * Constructs a no op call for the drop()void ABI method
+     * Constructs a no op call for the drop()string ABI method
      *
-     * Drop the proposal.
+     * Drop the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
      */
-    static drop(params: CallParams<ProposalArgs['obj']['drop()void'] | ProposalArgs['tuple']['drop()void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    static drop(params: CallParams<ProposalArgs['obj']['drop()string'] | ProposalArgs['tuple']['drop()string']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
      * Constructs a no op call for the finalize()void ABI method
      *
@@ -517,14 +517,14 @@ export declare abstract class ProposalParamsFactory {
      */
     static unassignVoters(params: CallParams<ProposalArgs['obj']['unassign_voters(address[])void'] | ProposalArgs['tuple']['unassign_voters(address[])void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
-     * Constructs a no op call for the decommission()void ABI method
+     * Constructs a no op call for the decommission()string ABI method
      *
-     * Decommission the proposal.
+     * Decommission the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
      */
-    static decommission(params: CallParams<ProposalArgs['obj']['decommission()void'] | ProposalArgs['tuple']['decommission()void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    static decommission(params: CallParams<ProposalArgs['obj']['decommission()string'] | ProposalArgs['tuple']['decommission()string']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
      * Constructs a no op call for the get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64,uint64) ABI method
      *
@@ -1023,14 +1023,14 @@ export declare class ProposalClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
-         * Makes a call to the Proposal smart contract using the `drop()void` ABI method.
+         * Makes a call to the Proposal smart contract using the `drop()string` ABI method.
          *
-         * Drop the proposal.
+         * Drop the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
          *
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        drop: (params?: CallParams<ProposalArgs["obj"]["drop()void"] | ProposalArgs["tuple"]["drop()void"]> & {
+        drop: (params?: CallParams<ProposalArgs["obj"]["drop()string"] | ProposalArgs["tuple"]["drop()string"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1111,14 +1111,14 @@ export declare class ProposalClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
-         * Makes a call to the Proposal smart contract using the `decommission()void` ABI method.
+         * Makes a call to the Proposal smart contract using the `decommission()string` ABI method.
          *
-         * Decommission the proposal.
+         * Decommission the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
          *
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        decommission: (params?: CallParams<ProposalArgs["obj"]["decommission()void"] | ProposalArgs["tuple"]["decommission()void"]> & {
+        decommission: (params?: CallParams<ProposalArgs["obj"]["decommission()string"] | ProposalArgs["tuple"]["decommission()string"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1195,14 +1195,14 @@ export declare class ProposalClient {
             signers: Map<number, TransactionSigner>;
         }>;
         /**
-         * Makes a call to the Proposal smart contract using the `drop()void` ABI method.
+         * Makes a call to the Proposal smart contract using the `drop()string` ABI method.
          *
-         * Drop the proposal.
+         * Drop the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        drop: (params?: CallParams<ProposalArgs["obj"]["drop()void"] | ProposalArgs["tuple"]["drop()void"]> & {
+        drop: (params?: CallParams<ProposalArgs["obj"]["drop()string"] | ProposalArgs["tuple"]["drop()string"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -1315,14 +1315,14 @@ export declare class ProposalClient {
             signers: Map<number, TransactionSigner>;
         }>;
         /**
-         * Makes a call to the Proposal smart contract using the `decommission()void` ABI method.
+         * Makes a call to the Proposal smart contract using the `decommission()string` ABI method.
          *
-         * Decommission the proposal.
+         * Decommission the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        decommission: (params?: CallParams<ProposalArgs["obj"]["decommission()void"] | ProposalArgs["tuple"]["decommission()void"]> & {
+        decommission: (params?: CallParams<ProposalArgs["obj"]["decommission()string"] | ProposalArgs["tuple"]["decommission()string"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -1431,17 +1431,17 @@ export declare class ProposalClient {
             transaction: Transaction;
         }>;
         /**
-         * Makes a call to the Proposal smart contract using the `drop()void` ABI method.
+         * Makes a call to the Proposal smart contract using the `drop()string` ABI method.
          *
-         * Drop the proposal.
+         * Drop the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
          *
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        drop: (params?: CallParams<ProposalArgs["obj"]["drop()void"] | ProposalArgs["tuple"]["drop()void"]> & SendParams & {
+        drop: (params?: CallParams<ProposalArgs["obj"]["drop()string"] | ProposalArgs["tuple"]["drop()string"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: (undefined | ProposalReturns["drop()void"]);
+            return: (undefined | ProposalReturns["drop()string"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -1591,17 +1591,17 @@ export declare class ProposalClient {
             transaction: Transaction;
         }>;
         /**
-         * Makes a call to the Proposal smart contract using the `decommission()void` ABI method.
+         * Makes a call to the Proposal smart contract using the `decommission()string` ABI method.
          *
-         * Decommission the proposal.
+         * Decommission the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
          *
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        decommission: (params?: CallParams<ProposalArgs["obj"]["decommission()void"] | ProposalArgs["tuple"]["decommission()void"]> & SendParams & {
+        decommission: (params?: CallParams<ProposalArgs["obj"]["decommission()string"] | ProposalArgs["tuple"]["decommission()string"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: (undefined | ProposalReturns["decommission()void"]);
+            return: (undefined | ProposalReturns["decommission()string"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -1777,15 +1777,15 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      */
     uploadMetadata(params?: CallParams<ProposalArgs['obj']['upload_metadata(byte[],bool)void'] | ProposalArgs['tuple']['upload_metadata(byte[],bool)void']>): ProposalComposer<[...TReturns, ProposalReturns['upload_metadata(byte[],bool)void'] | undefined]>;
     /**
-     * Calls the drop()void ABI method.
+     * Calls the drop()string ABI method.
      *
-     * Drop the proposal.
+     * Drop the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
-    drop(params?: CallParams<ProposalArgs['obj']['drop()void'] | ProposalArgs['tuple']['drop()void']>): ProposalComposer<[...TReturns, ProposalReturns['drop()void'] | undefined]>;
+    drop(params?: CallParams<ProposalArgs['obj']['drop()string'] | ProposalArgs['tuple']['drop()string']>): ProposalComposer<[...TReturns, ProposalReturns['drop()string'] | undefined]>;
     /**
      * Calls the finalize()void ABI method.
      *
@@ -1857,15 +1857,15 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      */
     unassignVoters(params?: CallParams<ProposalArgs['obj']['unassign_voters(address[])void'] | ProposalArgs['tuple']['unassign_voters(address[])void']>): ProposalComposer<[...TReturns, ProposalReturns['unassign_voters(address[])void'] | undefined]>;
     /**
-     * Calls the decommission()void ABI method.
+     * Calls the decommission()string ABI method.
      *
-     * Decommission the proposal.
+     * Decommission the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
-    decommission(params?: CallParams<ProposalArgs['obj']['decommission()void'] | ProposalArgs['tuple']['decommission()void']>): ProposalComposer<[...TReturns, ProposalReturns['decommission()void'] | undefined]>;
+    decommission(params?: CallParams<ProposalArgs['obj']['decommission()string'] | ProposalArgs['tuple']['decommission()string']>): ProposalComposer<[...TReturns, ProposalReturns['decommission()string'] | undefined]>;
     /**
      * Calls the get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64,uint64) ABI method.
      *

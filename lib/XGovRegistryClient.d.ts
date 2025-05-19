@@ -281,6 +281,18 @@ export type XGovRegistryArgs = {
              */
             proposalId: bigint | number;
         };
+        'decommission_proposal(uint64)void': {
+            /**
+             * The application ID of the Proposal app to decommission
+             */
+            proposalId: bigint | number;
+        };
+        'drop_proposal(uint64)void': {
+            /**
+             * The application ID of the Proposal app to drop
+             */
+            proposalId: bigint | number;
+        };
         'deposit_funds(pay)void': {
             /**
              * the deposit transaction
@@ -327,6 +339,8 @@ export type XGovRegistryArgs = {
         'open_proposal(pay)uint64': [payment: AppMethodCallTransactionArgument];
         'vote_proposal(uint64,address,uint64,uint64)void': [proposalId: bigint | number, xgovAddress: string, approvalVotes: bigint | number, rejectionVotes: bigint | number];
         'pay_grant_proposal(uint64)void': [proposalId: bigint | number];
+        'decommission_proposal(uint64)void': [proposalId: bigint | number];
+        'drop_proposal(uint64)void': [proposalId: bigint | number];
         'deposit_funds(pay)void': [payment: AppMethodCallTransactionArgument];
         'withdraw_funds(uint64)void': [amount: bigint | number];
         'get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)': [];
@@ -364,6 +378,8 @@ export type XGovRegistryReturns = {
     'open_proposal(pay)uint64': bigint;
     'vote_proposal(uint64,address,uint64,uint64)void': void;
     'pay_grant_proposal(uint64)void': void;
+    'decommission_proposal(uint64)void': void;
+    'drop_proposal(uint64)void': void;
     'deposit_funds(pay)void': void;
     'withdraw_funds(uint64)void': void;
     'get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64,uint64,uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)': TypedGlobalState;
@@ -487,6 +503,14 @@ export type XGovRegistryTypes = {
         argsObj: XGovRegistryArgs['obj']['pay_grant_proposal(uint64)void'];
         argsTuple: XGovRegistryArgs['tuple']['pay_grant_proposal(uint64)void'];
         returns: XGovRegistryReturns['pay_grant_proposal(uint64)void'];
+    }> & Record<'decommission_proposal(uint64)void' | 'decommission_proposal', {
+        argsObj: XGovRegistryArgs['obj']['decommission_proposal(uint64)void'];
+        argsTuple: XGovRegistryArgs['tuple']['decommission_proposal(uint64)void'];
+        returns: XGovRegistryReturns['decommission_proposal(uint64)void'];
+    }> & Record<'drop_proposal(uint64)void' | 'drop_proposal', {
+        argsObj: XGovRegistryArgs['obj']['drop_proposal(uint64)void'];
+        argsTuple: XGovRegistryArgs['tuple']['drop_proposal(uint64)void'];
+        returns: XGovRegistryReturns['drop_proposal(uint64)void'];
     }> & Record<'deposit_funds(pay)void' | 'deposit_funds', {
         argsObj: XGovRegistryArgs['obj']['deposit_funds(pay)void'];
         argsTuple: XGovRegistryArgs['tuple']['deposit_funds(pay)void'];
@@ -924,6 +948,24 @@ export declare abstract class XGovRegistryParamsFactory {
      * @returns An `AppClientMethodCallParams` object for the call
      */
     static payGrantProposal(params: CallParams<XGovRegistryArgs['obj']['pay_grant_proposal(uint64)void'] | XGovRegistryArgs['tuple']['pay_grant_proposal(uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    /**
+     * Constructs a no op call for the decommission_proposal(uint64)void ABI method
+     *
+     * Decommissions a Proposal.
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static decommissionProposal(params: CallParams<XGovRegistryArgs['obj']['decommission_proposal(uint64)void'] | XGovRegistryArgs['tuple']['decommission_proposal(uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    /**
+     * Constructs a no op call for the drop_proposal(uint64)void ABI method
+     *
+     * Drops a Proposal.
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static dropProposal(params: CallParams<XGovRegistryArgs['obj']['drop_proposal(uint64)void'] | XGovRegistryArgs['tuple']['drop_proposal(uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
      * Constructs a no op call for the deposit_funds(pay)void ABI method
      *
@@ -1785,6 +1827,28 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
+         * Makes a call to the XGovRegistry smart contract using the `decommission_proposal(uint64)void` ABI method.
+         *
+         * Decommissions a Proposal.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        decommissionProposal: (params: CallParams<XGovRegistryArgs["obj"]["decommission_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["decommission_proposal(uint64)void"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<AppCallMethodCall>;
+        /**
+         * Makes a call to the XGovRegistry smart contract using the `drop_proposal(uint64)void` ABI method.
+         *
+         * Drops a Proposal.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        dropProposal: (params: CallParams<XGovRegistryArgs["obj"]["drop_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["drop_proposal(uint64)void"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<AppCallMethodCall>;
+        /**
          * Makes a call to the XGovRegistry smart contract using the `deposit_funds(pay)void` ABI method.
          *
          * Deposits xGov program funds into the xGov Treasury (xGov Registry Account).
@@ -2233,6 +2297,36 @@ export declare class XGovRegistryClient {
          * @returns The call transaction
          */
         payGrantProposal: (params: CallParams<XGovRegistryArgs["obj"]["pay_grant_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["pay_grant_proposal(uint64)void"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            transactions: Transaction[];
+            methodCalls: Map<number, import("algosdk").ABIMethod>;
+            signers: Map<number, TransactionSigner>;
+        }>;
+        /**
+         * Makes a call to the XGovRegistry smart contract using the `decommission_proposal(uint64)void` ABI method.
+         *
+         * Decommissions a Proposal.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        decommissionProposal: (params: CallParams<XGovRegistryArgs["obj"]["decommission_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["decommission_proposal(uint64)void"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            transactions: Transaction[];
+            methodCalls: Map<number, import("algosdk").ABIMethod>;
+            signers: Map<number, TransactionSigner>;
+        }>;
+        /**
+         * Makes a call to the XGovRegistry smart contract using the `drop_proposal(uint64)void` ABI method.
+         *
+         * Drops a Proposal.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        dropProposal: (params: CallParams<XGovRegistryArgs["obj"]["drop_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["drop_proposal(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2853,6 +2947,46 @@ export declare class XGovRegistryClient {
             transaction: Transaction;
         }>;
         /**
+         * Makes a call to the XGovRegistry smart contract using the `decommission_proposal(uint64)void` ABI method.
+         *
+         * Decommissions a Proposal.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        decommissionProposal: (params: CallParams<XGovRegistryArgs["obj"]["decommission_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["decommission_proposal(uint64)void"]> & SendParams & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            return: (undefined | XGovRegistryReturns["decommission_proposal(uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
+            groupId: string;
+            txIds: string[];
+            confirmations: modelsv2.PendingTransactionResponse[];
+            transactions: Transaction[];
+            confirmation: modelsv2.PendingTransactionResponse;
+            transaction: Transaction;
+        }>;
+        /**
+         * Makes a call to the XGovRegistry smart contract using the `drop_proposal(uint64)void` ABI method.
+         *
+         * Drops a Proposal.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        dropProposal: (params: CallParams<XGovRegistryArgs["obj"]["drop_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["drop_proposal(uint64)void"]> & SendParams & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            return: (undefined | XGovRegistryReturns["drop_proposal(uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
+            groupId: string;
+            txIds: string[];
+            confirmations: modelsv2.PendingTransactionResponse[];
+            transactions: Transaction[];
+            confirmation: modelsv2.PendingTransactionResponse;
+            transaction: Transaction;
+        }>;
+        /**
          * Makes a call to the XGovRegistry smart contract using the `deposit_funds(pay)void` ABI method.
          *
          * Deposits xGov program funds into the xGov Treasury (xGov Registry Account).
@@ -3374,6 +3508,26 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
     payGrantProposal(params?: CallParams<XGovRegistryArgs['obj']['pay_grant_proposal(uint64)void'] | XGovRegistryArgs['tuple']['pay_grant_proposal(uint64)void']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['pay_grant_proposal(uint64)void'] | undefined]>;
+    /**
+     * Calls the decommission_proposal(uint64)void ABI method.
+     *
+     * Decommissions a Proposal.
+     *
+     * @param args The arguments for the contract call
+     * @param params Any additional parameters for the call
+     * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+     */
+    decommissionProposal(params?: CallParams<XGovRegistryArgs['obj']['decommission_proposal(uint64)void'] | XGovRegistryArgs['tuple']['decommission_proposal(uint64)void']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['decommission_proposal(uint64)void'] | undefined]>;
+    /**
+     * Calls the drop_proposal(uint64)void ABI method.
+     *
+     * Drops a Proposal.
+     *
+     * @param args The arguments for the contract call
+     * @param params Any additional parameters for the call
+     * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+     */
+    dropProposal(params?: CallParams<XGovRegistryArgs['obj']['drop_proposal(uint64)void'] | XGovRegistryArgs['tuple']['drop_proposal(uint64)void']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['drop_proposal(uint64)void'] | undefined]>;
     /**
      * Calls the deposit_funds(pay)void ABI method.
      *
