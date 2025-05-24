@@ -19,7 +19,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "npm run generate && tsc",
+    "build": "npm run generate && tsdown src/*.ts -d lib --dts",
     "generate": "npm run generate:proposal && npm run generate:registry",
     "generate:proposal": "algokit generate client -l typescript -o src/ProposalClient.ts contract/smart_contracts/artifacts/proposal/Proposal.arc32.json",
     "generate:registry": "algokit generate client -l typescript -o src/XGovRegistryClient.ts contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc32.json"
@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
+    "tsdown": "^0.12.2",
     "typescript": "^5.5.4"
   }
 }
