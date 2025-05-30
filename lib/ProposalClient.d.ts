@@ -153,6 +153,7 @@ export type ProposalArgs = {
         'decommission()string': Record<string, never>;
         'delete()string': Record<string, never>;
         'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': Record<string, never>;
+        'op_up()void': Record<string, never>;
     };
     /**
      * The tuple representation of the arguments for each method
@@ -173,6 +174,7 @@ export type ProposalArgs = {
         'decommission()string': [];
         'delete()string': [];
         'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': [];
+        'op_up()void': [];
     };
 };
 /**
@@ -194,6 +196,7 @@ export type ProposalReturns = {
     'decommission()string': string;
     'delete()string': string;
     'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': ProposalTypedGlobalState;
+    'op_up()void': void;
 };
 /**
  * Defines the types of available calls and state of the Proposal smart contract.
@@ -265,6 +268,10 @@ export type ProposalTypes = {
          * The proposal state
          */
         returns: ProposalReturns['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'];
+    }> & Record<'op_up()void' | 'op_up', {
+        argsObj: ProposalArgs['obj']['op_up()void'];
+        argsTuple: ProposalArgs['tuple']['op_up()void'];
+        returns: ProposalReturns['op_up()void'];
     }>;
     /**
      * Defines the shape of the state of the application.
@@ -553,6 +560,13 @@ export declare abstract class ProposalParamsFactory {
      * @returns An `AppClientMethodCallParams` object for the call
      */
     static getState(params: CallParams<ProposalArgs['obj']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'] | ProposalArgs['tuple']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    /**
+     * Constructs a no op call for the op_up()void ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static opUp(params: CallParams<ProposalArgs['obj']['op_up()void'] | ProposalArgs['tuple']['op_up()void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
 }
 /**
  * A factory to create and deploy one or more instance of the Proposal smart contract and to create one or more app clients to interact with those (or other) app instances
@@ -1164,6 +1178,15 @@ export declare class ProposalClient {
         getState: (params?: CallParams<ProposalArgs["obj"]["get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)"] | ProposalArgs["tuple"]["get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
+        /**
+         * Makes a call to the Proposal smart contract using the `op_up()void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        opUp: (params?: CallParams<ProposalArgs["obj"]["op_up()void"] | ProposalArgs["tuple"]["op_up()void"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<AppCallMethodCall>;
     };
     /**
      * Create transactions for the current app
@@ -1385,6 +1408,19 @@ export declare class ProposalClient {
          * @returns The call transaction: The proposal state
          */
         getState: (params?: CallParams<ProposalArgs["obj"]["get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)"] | ProposalArgs["tuple"]["get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            transactions: Transaction[];
+            methodCalls: Map<number, import("algosdk").ABIMethod>;
+            signers: Map<number, TransactionSigner>;
+        }>;
+        /**
+         * Makes a call to the Proposal smart contract using the `op_up()void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        opUp: (params?: CallParams<ProposalArgs["obj"]["op_up()void"] | ProposalArgs["tuple"]["op_up()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -1697,6 +1733,24 @@ export declare class ProposalClient {
             confirmation: modelsv2.PendingTransactionResponse;
             transaction: Transaction;
         }>;
+        /**
+         * Makes a call to the Proposal smart contract using the `op_up()void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        opUp: (params?: CallParams<ProposalArgs["obj"]["op_up()void"] | ProposalArgs["tuple"]["op_up()void"]> & SendParams & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            return: (undefined | ProposalReturns["op_up()void"]);
+            returns?: ABIReturn[] | undefined | undefined;
+            groupId: string;
+            txIds: string[];
+            confirmations: modelsv2.PendingTransactionResponse[];
+            transactions: Transaction[];
+            confirmation: modelsv2.PendingTransactionResponse;
+            transaction: Transaction;
+        }>;
     };
     /**
      * Clone this app client with different params
@@ -1947,6 +2001,14 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
     getState(params?: CallParams<ProposalArgs['obj']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'] | ProposalArgs['tuple']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)']>): ProposalComposer<[...TReturns, ProposalReturns['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'] | undefined]>;
+    /**
+     * Calls the op_up()void ABI method.
+     *
+     * @param args The arguments for the contract call
+     * @param params Any additional parameters for the call
+     * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+     */
+    opUp(params?: CallParams<ProposalArgs['obj']['op_up()void'] | ProposalArgs['tuple']['op_up()void']>): ProposalComposer<[...TReturns, ProposalReturns['op_up()void'] | undefined]>;
     /**
      * Gets available delete methods
      */
