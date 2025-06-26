@@ -3,7 +3,7 @@
  * DO NOT MODIFY IT BY HAND.
  * requires: @algorandfoundation/algokit-utils: ^7
  */
-import { type AlgorandClient } from '@algorandfoundation/algokit-utils/types/algorand-client';
+import { AlgorandClientInterface } from '@algorandfoundation/algokit-utils/types/algorand-client-interface';
 import { ABIReturn } from '@algorandfoundation/algokit-utils/types/app';
 import { Arc56Contract } from '@algorandfoundation/algokit-utils/types/app-arc56';
 import { AppClient as _AppClient, AppClientMethodCallParams, AppClientParams, AppClientBareCallParams, CallOnComplete, AppClientCompilationParams, ResolveAppClientByCreatorAndName, ResolveAppClientByNetwork, CloneAppClientParams } from '@algorandfoundation/algokit-utils/types/app-client';
@@ -151,7 +151,7 @@ export type ProposalArgs = {
             voters: string[];
         };
         'decommission()string': Record<string, never>;
-        'delete()string': Record<string, never>;
+        'delete()void': Record<string, never>;
         'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': Record<string, never>;
         'op_up()void': Record<string, never>;
     };
@@ -172,7 +172,7 @@ export type ProposalArgs = {
         'fund()string': [];
         'unassign_voters(address[])void': [voters: string[]];
         'decommission()string': [];
-        'delete()string': [];
+        'delete()void': [];
         'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': [];
         'op_up()void': [];
     };
@@ -194,7 +194,7 @@ export type ProposalReturns = {
     'fund()string': string;
     'unassign_voters(address[])void': void;
     'decommission()string': string;
-    'delete()string': string;
+    'delete()void': void;
     'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': ProposalTypedGlobalState;
     'op_up()void': void;
 };
@@ -257,10 +257,10 @@ export type ProposalTypes = {
         argsObj: ProposalArgs['obj']['decommission()string'];
         argsTuple: ProposalArgs['tuple']['decommission()string'];
         returns: ProposalReturns['decommission()string'];
-    }> & Record<'delete()string' | 'delete', {
-        argsObj: ProposalArgs['obj']['delete()string'];
-        argsTuple: ProposalArgs['tuple']['delete()string'];
-        returns: ProposalReturns['delete()string'];
+    }> & Record<'delete()void' | 'delete', {
+        argsObj: ProposalArgs['obj']['delete()void'];
+        argsTuple: ProposalArgs['tuple']['delete()void'];
+        returns: ProposalReturns['delete()void'];
     }> & Record<'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)' | 'get_state', {
         argsObj: ProposalArgs['obj']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'];
         argsTuple: ProposalArgs['tuple']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'];
@@ -347,10 +347,10 @@ export type ProposalCreateCallParams = Expand<CallParams<ProposalArgs['obj']['cr
 /**
  * Defines supported delete method params for this smart contract
  */
-export type ProposalDeleteCallParams = Expand<CallParams<ProposalArgs['obj']['delete()string'] | ProposalArgs['tuple']['delete()string']> & {
+export type ProposalDeleteCallParams = Expand<CallParams<ProposalArgs['obj']['delete()void'] | ProposalArgs['tuple']['delete()void']> & {
     method: 'delete';
-}> | Expand<CallParams<ProposalArgs['obj']['delete()string'] | ProposalArgs['tuple']['delete()string']> & {
-    method: 'delete()string';
+}> | Expand<CallParams<ProposalArgs['obj']['delete()void'] | ProposalArgs['tuple']['delete()void']> & {
+    method: 'delete()void';
 }>;
 /**
  * Defines arguments required for the deploy method.
@@ -436,12 +436,12 @@ export declare abstract class ProposalParamsFactory {
             args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
         };
         /**
-         * Constructs delete ABI call params for the Proposal smart contract using the delete()string ABI method
+         * Constructs delete ABI call params for the Proposal smart contract using the delete()void ABI method
          *
          * @param params Parameters for the call
          * @returns An `AppClientMethodCallParams` object for the call
          */
-        delete(params: CallParams<ProposalArgs["obj"]["delete()string"] | ProposalArgs["tuple"]["delete()string"]>): AppClientMethodCallParams;
+        delete(params: CallParams<ProposalArgs["obj"]["delete()void"] | ProposalArgs["tuple"]["delete()void"]>): AppClientMethodCallParams;
     };
     /**
      * Constructs a no op call for the submit(pay,string,uint64,uint64,uint8)void ABI method
@@ -587,7 +587,7 @@ export declare class ProposalFactory {
     /** The ARC-56 app spec being used */
     get appSpec(): Arc56Contract;
     /** A reference to the underlying `AlgorandClient` this app factory is using. */
-    get algorand(): AlgorandClient;
+    get algorand(): AlgorandClientInterface;
     /**
      * Returns a new `AppClient` client for an app instance of the given ID.
      *
@@ -813,14 +813,14 @@ export declare class ProposalFactory {
          */
         deployDelete: {
             /**
-             * Deletes an existing instance of the Proposal smart contract using the delete()string ABI method.
+             * Deletes an existing instance of the Proposal smart contract using the delete()void ABI method.
              *
-             * Delete the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
+             * Delete the proposal.
              *
              * @param params The params for the smart contract call
              * @returns The deployDelete params
              */
-            delete: (params?: CallParams<ProposalArgs["obj"]["delete()string"] | ProposalArgs["tuple"]["delete()string"]>) => {
+            delete: (params?: CallParams<ProposalArgs["obj"]["delete()void"] | ProposalArgs["tuple"]["delete()void"]>) => {
                 lease?: string | Uint8Array | undefined;
                 note?: string | Uint8Array | undefined;
                 maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -1007,7 +1007,7 @@ export declare class ProposalClient {
     /** The ARC-56 app spec being used */
     get appSpec(): Arc56Contract;
     /** A reference to the underlying `AlgorandClient` this app client is using. */
-    get algorand(): AlgorandClient;
+    get algorand(): AlgorandClientInterface;
     /**
      * Get parameters to create transactions for the current app. A good mental model for this is that these parameters represent a deferred transaction creation.
      */
@@ -1017,14 +1017,14 @@ export declare class ProposalClient {
          */
         delete: {
             /**
-             * Deletes an existing instance of the Proposal smart contract using the `delete()string` ABI method.
+             * Deletes an existing instance of the Proposal smart contract using the `delete()void` ABI method.
              *
-             * Delete the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
+             * Delete the proposal.
              *
              * @param params The params for the smart contract call
              * @returns The delete params
              */
-            delete: (params?: CallParams<ProposalArgs["obj"]["delete()string"] | ProposalArgs["tuple"]["delete()string"]>) => Promise<import("@algorandfoundation/algokit-utils/types/composer").AppDeleteMethodCall>;
+            delete: (params?: CallParams<ProposalArgs["obj"]["delete()void"] | ProposalArgs["tuple"]["delete()void"]>) => Promise<import("@algorandfoundation/algokit-utils/types/composer").AppDeleteMethodCall>;
         };
         /**
          * Makes a clear_state call to an existing instance of the Proposal smart contract.
@@ -1197,14 +1197,14 @@ export declare class ProposalClient {
          */
         delete: {
             /**
-             * Deletes an existing instance of the Proposal smart contract using the `delete()string` ABI method.
+             * Deletes an existing instance of the Proposal smart contract using the `delete()void` ABI method.
              *
-             * Delete the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
+             * Delete the proposal.
              *
              * @param params The params for the smart contract call
              * @returns The delete transaction
              */
-            delete: (params?: CallParams<ProposalArgs["obj"]["delete()string"] | ProposalArgs["tuple"]["delete()string"]>) => Promise<{
+            delete: (params?: CallParams<ProposalArgs["obj"]["delete()void"] | ProposalArgs["tuple"]["delete()void"]>) => Promise<{
                 transactions: Transaction[];
                 methodCalls: Map<number, import("algosdk").ABIMethod>;
                 signers: Map<number, TransactionSigner>;
@@ -1437,15 +1437,15 @@ export declare class ProposalClient {
          */
         delete: {
             /**
-             * Deletes an existing instance of the Proposal smart contract using the `delete()string` ABI method.
+             * Deletes an existing instance of the Proposal smart contract using the `delete()void` ABI method.
              *
-             * Delete the proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
+             * Delete the proposal.
              *
              * @param params The params for the smart contract call
              * @returns The delete result
              */
-            delete: (params?: CallParams<ProposalArgs["obj"]["delete()string"] | ProposalArgs["tuple"]["delete()string"]> & SendParams) => Promise<{
-                return: (undefined | ProposalReturns["delete()string"]);
+            delete: (params?: CallParams<ProposalArgs["obj"]["delete()void"] | ProposalArgs["tuple"]["delete()void"]> & SendParams) => Promise<{
+                return: (undefined | ProposalReturns["delete()void"]);
                 returns?: ABIReturn[] | undefined | undefined;
                 groupId: string;
                 txIds: string[];
@@ -2014,13 +2014,13 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      */
     readonly delete: {
         /**
-         * Deletes an existing instance of the Proposal smart contract using the delete()string ABI method.
+         * Deletes an existing instance of the Proposal smart contract using the delete()void ABI method.
          *
          * @param args The arguments for the smart contract call
          * @param params Any additional parameters for the call
          * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
          */
-        delete(params?: CallParams<ProposalArgs['obj']['delete()string'] | ProposalArgs['tuple']['delete()string']>): ProposalComposer<[...TReturns, ProposalReturns['delete()string'] | undefined]>;
+        delete(params?: CallParams<ProposalArgs['obj']['delete()void'] | ProposalArgs['tuple']['delete()void']>): ProposalComposer<[...TReturns, ProposalReturns['delete()void'] | undefined]>;
     };
     /**
      * Makes a clear_state call to an existing instance of the Proposal smart contract.
