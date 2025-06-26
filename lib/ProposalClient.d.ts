@@ -106,16 +106,6 @@ export type ProposalArgs = {
         };
         'drop()string': Record<string, never>;
         'finalize()void': Record<string, never>;
-        'assign_voter(address,uint64)void': {
-            /**
-             * Voter address
-             */
-            voter: string;
-            /**
-             * Voting power
-             */
-            votingPower: bigint | number;
-        };
         'assign_voters((address,uint64)[])void': {
             /**
              * List of voter addresses with their voting power
@@ -164,7 +154,6 @@ export type ProposalArgs = {
         'upload_metadata(byte[],bool)void': [payload: Uint8Array, isFirstInGroup: boolean];
         'drop()string': [];
         'finalize()void': [];
-        'assign_voter(address,uint64)void': [voter: string, votingPower: bigint | number];
         'assign_voters((address,uint64)[])void': [voters: [string, bigint | number][]];
         'vote(address,uint64,uint64)string': [voter: string, approvals: bigint | number, rejections: bigint | number];
         'scrutiny()void': [];
@@ -186,7 +175,6 @@ export type ProposalReturns = {
     'upload_metadata(byte[],bool)void': void;
     'drop()string': string;
     'finalize()void': void;
-    'assign_voter(address,uint64)void': void;
     'assign_voters((address,uint64)[])void': void;
     'vote(address,uint64,uint64)string': string;
     'scrutiny()void': void;
@@ -225,10 +213,6 @@ export type ProposalTypes = {
         argsObj: ProposalArgs['obj']['finalize()void'];
         argsTuple: ProposalArgs['tuple']['finalize()void'];
         returns: ProposalReturns['finalize()void'];
-    }> & Record<'assign_voter(address,uint64)void' | 'assign_voter', {
-        argsObj: ProposalArgs['obj']['assign_voter(address,uint64)void'];
-        argsTuple: ProposalArgs['tuple']['assign_voter(address,uint64)void'];
-        returns: ProposalReturns['assign_voter(address,uint64)void'];
     }> & Record<'assign_voters((address,uint64)[])void' | 'assign_voters', {
         argsObj: ProposalArgs['obj']['assign_voters((address,uint64)[])void'];
         argsTuple: ProposalArgs['tuple']['assign_voters((address,uint64)[])void'];
@@ -479,15 +463,6 @@ export declare abstract class ProposalParamsFactory {
      * @returns An `AppClientMethodCallParams` object for the call
      */
     static finalize(params: CallParams<ProposalArgs['obj']['finalize()void'] | ProposalArgs['tuple']['finalize()void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
-    /**
-     * Constructs a no op call for the assign_voter(address,uint64)void ABI method
-     *
-     * Assign a voter to the proposal.
-     *
-     * @param params Parameters for the call
-     * @returns An `AppClientMethodCallParams` object for the call
-     */
-    static assignVoter(params: CallParams<ProposalArgs['obj']['assign_voter(address,uint64)void'] | ProposalArgs['tuple']['assign_voter(address,uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
      * Constructs a no op call for the assign_voters((address,uint64)[])void ABI method
      *
@@ -1078,17 +1053,6 @@ export declare class ProposalClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
-         * Makes a call to the Proposal smart contract using the `assign_voter(address,uint64)void` ABI method.
-         *
-         * Assign a voter to the proposal.
-         *
-         * @param params The params for the smart contract call
-         * @returns The call params
-         */
-        assignVoter: (params: CallParams<ProposalArgs["obj"]["assign_voter(address,uint64)void"] | ProposalArgs["tuple"]["assign_voter(address,uint64)void"]> & {
-            onComplete?: OnApplicationComplete.NoOpOC;
-        }) => Promise<AppCallMethodCall>;
-        /**
          * Makes a call to the Proposal smart contract using the `assign_voters((address,uint64)[])void` ABI method.
          *
          * Assign multiple voters to the proposal.
@@ -1271,21 +1235,6 @@ export declare class ProposalClient {
          * @returns The call transaction
          */
         finalize: (params?: CallParams<ProposalArgs["obj"]["finalize()void"] | ProposalArgs["tuple"]["finalize()void"]> & {
-            onComplete?: OnApplicationComplete.NoOpOC;
-        }) => Promise<{
-            transactions: Transaction[];
-            methodCalls: Map<number, import("algosdk").ABIMethod>;
-            signers: Map<number, TransactionSigner>;
-        }>;
-        /**
-         * Makes a call to the Proposal smart contract using the `assign_voter(address,uint64)void` ABI method.
-         *
-         * Assign a voter to the proposal.
-         *
-         * @param params The params for the smart contract call
-         * @returns The call transaction
-         */
-        assignVoter: (params: CallParams<ProposalArgs["obj"]["assign_voter(address,uint64)void"] | ProposalArgs["tuple"]["assign_voter(address,uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -1543,26 +1492,6 @@ export declare class ProposalClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             return: (undefined | ProposalReturns["finalize()void"]);
-            returns?: ABIReturn[] | undefined | undefined;
-            groupId: string;
-            txIds: string[];
-            confirmations: modelsv2.PendingTransactionResponse[];
-            transactions: Transaction[];
-            confirmation: modelsv2.PendingTransactionResponse;
-            transaction: Transaction;
-        }>;
-        /**
-         * Makes a call to the Proposal smart contract using the `assign_voter(address,uint64)void` ABI method.
-         *
-         * Assign a voter to the proposal.
-         *
-         * @param params The params for the smart contract call
-         * @returns The call result
-         */
-        assignVoter: (params: CallParams<ProposalArgs["obj"]["assign_voter(address,uint64)void"] | ProposalArgs["tuple"]["assign_voter(address,uint64)void"]> & SendParams & {
-            onComplete?: OnApplicationComplete.NoOpOC;
-        }) => Promise<{
-            return: (undefined | ProposalReturns["assign_voter(address,uint64)void"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -1911,16 +1840,6 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
     finalize(params?: CallParams<ProposalArgs['obj']['finalize()void'] | ProposalArgs['tuple']['finalize()void']>): ProposalComposer<[...TReturns, ProposalReturns['finalize()void'] | undefined]>;
-    /**
-     * Calls the assign_voter(address,uint64)void ABI method.
-     *
-     * Assign a voter to the proposal.
-     *
-     * @param args The arguments for the contract call
-     * @param params Any additional parameters for the call
-     * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
-     */
-    assignVoter(params?: CallParams<ProposalArgs['obj']['assign_voter(address,uint64)void'] | ProposalArgs['tuple']['assign_voter(address,uint64)void']>): ProposalComposer<[...TReturns, ProposalReturns['assign_voter(address,uint64)void'] | undefined]>;
     /**
      * Calls the assign_voters((address,uint64)[])void ABI method.
      *

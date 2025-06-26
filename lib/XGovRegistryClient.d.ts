@@ -36,8 +36,8 @@ export type Expand<T> = T extends (...args: infer A) => infer R ? (...args: Expa
 export type XGovRegistryConfig = {
     xgovFee: bigint;
     proposerFee: bigint;
-    proposalFee: bigint;
-    proposalPublishingBps: bigint;
+    openProposalFee: bigint;
+    daemonOpsFundingBps: bigint;
     proposalCommitmentBps: bigint;
     minRequestedAmount: bigint;
     maxRequestedAmount: [bigint, bigint, bigint];
@@ -62,8 +62,8 @@ export type TypedGlobalState = {
     xgovDaemon: string;
     xgovFee: bigint;
     proposerFee: bigint;
-    proposalFee: bigint;
-    proposalPublishingBps: bigint;
+    openProposalFee: bigint;
+    daemonOpsFundingBps: bigint;
     proposalCommitmentBps: bigint;
     minRequestedAmount: bigint;
     maxRequestedAmount: [bigint, bigint, bigint];
@@ -546,22 +546,23 @@ export type XGovRegistryTypes = {
                 committeeManager: BinaryState;
                 committeeMembers: bigint;
                 committeeVotes: bigint;
+                daemonOpsFundingBps: bigint;
                 discussionDurationLarge: bigint;
                 discussionDurationMedium: bigint;
                 discussionDurationSmall: bigint;
                 discussionDurationXlarge: bigint;
                 kycProvider: BinaryState;
+                maxCommitteeSize: bigint;
                 maxRequestedAmountLarge: bigint;
                 maxRequestedAmountMedium: bigint;
                 maxRequestedAmountSmall: bigint;
                 minRequestedAmount: bigint;
+                openProposalFee: bigint;
                 outstandingFunds: bigint;
                 pausedProposals: bigint;
                 pausedRegistry: bigint;
                 pendingProposals: bigint;
                 proposalCommitmentBps: bigint;
-                proposalFee: bigint;
-                proposalPublishingBps: bigint;
                 proposerFee: bigint;
                 quorumLarge: bigint;
                 quorumMedium: bigint;
@@ -3208,6 +3209,10 @@ export declare class XGovRegistryClient {
              */
             committeeVotes: () => Promise<bigint | undefined>;
             /**
+             * Get the current value of the daemon_ops_funding_bps key in global state
+             */
+            daemonOpsFundingBps: () => Promise<bigint | undefined>;
+            /**
              * Get the current value of the discussion_duration_large key in global state
              */
             discussionDurationLarge: () => Promise<bigint | undefined>;
@@ -3228,6 +3233,10 @@ export declare class XGovRegistryClient {
              */
             kycProvider: () => Promise<BinaryState>;
             /**
+             * Get the current value of the max_committee_size key in global state
+             */
+            maxCommitteeSize: () => Promise<bigint | undefined>;
+            /**
              * Get the current value of the max_requested_amount_large key in global state
              */
             maxRequestedAmountLarge: () => Promise<bigint | undefined>;
@@ -3243,6 +3252,10 @@ export declare class XGovRegistryClient {
              * Get the current value of the min_requested_amount key in global state
              */
             minRequestedAmount: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the open_proposal_fee key in global state
+             */
+            openProposalFee: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the outstanding_funds key in global state
              */
@@ -3263,14 +3276,6 @@ export declare class XGovRegistryClient {
              * Get the current value of the proposal_commitment_bps key in global state
              */
             proposalCommitmentBps: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the proposal_fee key in global state
-             */
-            proposalFee: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the proposal_publishing_bps key in global state
-             */
-            proposalPublishingBps: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the proposer_fee key in global state
              */
