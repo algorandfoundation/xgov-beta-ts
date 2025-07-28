@@ -21,18 +21,18 @@
     "test": "echo \"Error: no test specified\" && exit 0",
     "build": "npm run generate && tsc",
     "generate": "npm run generate:proposal && npm run generate:registry",
-    "generate:proposal": "npx @algorandfoundation/algokit-client-generator generate -o src/ProposalClient.ts -a contract/smart_contracts/artifacts/proposal/Proposal.arc32.json",
-    "generate:registry": "npx @algorandfoundation/algokit-client-generator generate -o src/XGovRegistryClient.ts -a contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc32.json"
+    "generate:proposal": "npx @algorandfoundation/algokit-client-generator generate -o src/ProposalClient.ts -a contract/smart_contracts/artifacts/proposal/Proposal.arc56.json",
+    "generate:registry": "npx @algorandfoundation/algokit-client-generator generate -o src/XGovRegistryClient.ts -a contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc56.json"
   },
   "author": "Algorand Foundation",
   "license": "AGPL-3.0-or-later",
   "peerDependencies": {
-    "@algorandfoundation/algokit-utils": "^7.0.0",
-    "algosdk": "^2.9.0"
+    "@algorandfoundation/algokit-utils": "^9.1.2",
+    "algosdk": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
     "typescript": "^5.5.4",
-    "@algorandfoundation/algokit-client-generator": "^4.0.9"
+    "@algorandfoundation/algokit-client-generator": "^6.0.0"
   }
 }
