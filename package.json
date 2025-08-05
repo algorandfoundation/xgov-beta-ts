@@ -27,12 +27,12 @@
   "author": "Algorand Foundation",
   "license": "AGPL-3.0-or-later",
   "peerDependencies": {
-    "@algorandfoundation/algokit-utils": "^7.0.0",
-    "algosdk": "^2.9.0"
+    "@algorandfoundation/algokit-utils": "^9.1.2",
+    "algosdk": "^3.4.0"
   },
   "devDependencies": {
+    "@algorandfoundation/algokit-client-generator": "^6.0.0",
     "@types/node": "^22.10.1",
-    "typescript": "^5.5.4",
-    "@algorandfoundation/algokit-client-generator": "^4.0.9"
+    "typescript": "^5.5.4"
   }
 }
