@@ -21,8 +21,8 @@
     "test": "echo \"Error: no test specified\" && exit 0",
     "build": "npm run generate && tsc",
     "generate": "npm run generate:proposal && npm run generate:registry",
-    "generate:proposal": "npx @algorandfoundation/algokit-client-generator generate -o src/ProposalClient.ts -a contract/smart_contracts/artifacts/proposal/Proposal.arc32.json",
-    "generate:registry": "npx @algorandfoundation/algokit-client-generator generate -o src/XGovRegistryClient.ts -a contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc32.json"
+    "generate:proposal": "npx @algorandfoundation/algokit-client-generator generate -o src/ProposalClient.ts -a contract/smart_contracts/artifacts/proposal/Proposal.arc56.json",
+    "generate:registry": "npx @algorandfoundation/algokit-client-generator generate -o src/XGovRegistryClient.ts -a contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc56.json"
   },
   "author": "Algorand Foundation",
   "license": "AGPL-3.0-or-later",

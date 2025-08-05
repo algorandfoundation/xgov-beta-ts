@@ -32,23 +32,15 @@ export interface BinaryState {
 export type Expand<T> = T extends (...args: infer A) => infer R ? (...args: Expand<A>) => Expand<R> : T extends infer O ? {
     [K in keyof O]: O[K];
 } : never;
-export type XGovRegistryConfig = {
-    xgovFee: bigint;
-    proposerFee: bigint;
-    openProposalFee: bigint;
-    daemonOpsFundingBps: bigint;
-    proposalCommitmentBps: bigint;
-    minRequestedAmount: bigint;
-    maxRequestedAmount: [bigint, bigint, bigint];
-    discussionDuration: [bigint, bigint, bigint, bigint];
-    votingDuration: [bigint, bigint, bigint, bigint];
-    quorum: [bigint, bigint, bigint];
-    weightedQuorum: [bigint, bigint, bigint];
+export type ProposerBoxValue = {
+    activeProposal: boolean;
+    kycStatus: boolean;
+    kycExpiring: bigint;
 };
 /**
- * Converts the ABI tuple representation of a XGovRegistryConfig to the struct representation
+ * Converts the ABI tuple representation of a ProposerBoxValue to the struct representation
  */
-export declare function XGovRegistryConfigFromTuple(abiTuple: [bigint, bigint, bigint, bigint, bigint, bigint, [bigint, bigint, bigint], [bigint, bigint, bigint, bigint], [bigint, bigint, bigint, bigint], [bigint, bigint, bigint], [bigint, bigint, bigint]]): XGovRegistryConfig;
+export declare function ProposerBoxValueFromTuple(abiTuple: [boolean, boolean, bigint]): ProposerBoxValue;
 export type TypedGlobalState = {
     pausedRegistry: boolean;
     pausedProposals: boolean;
@@ -80,6 +72,14 @@ export type TypedGlobalState = {
  * Converts the ABI tuple representation of a TypedGlobalState to the struct representation
  */
 export declare function TypedGlobalStateFromTuple(abiTuple: [boolean, boolean, string, string, string, string, string, string, string, bigint, bigint, bigint, bigint, bigint, bigint, [bigint, bigint, bigint], [bigint, bigint, bigint, bigint], [bigint, bigint, bigint, bigint], [bigint, bigint, bigint], [bigint, bigint, bigint], bigint, bigint, Uint8Array, bigint, bigint]): TypedGlobalState;
+export type VoterBox = {
+    votes: bigint;
+    voted: boolean;
+};
+/**
+ * Converts the ABI tuple representation of a VoterBox to the struct representation
+ */
+export declare function VoterBoxFromTuple(abiTuple: [bigint, boolean]): VoterBox;
 export type XGovBoxValue = {
     votingAddress: string;
     votedProposals: bigint;
@@ -90,15 +90,38 @@ export type XGovBoxValue = {
  * Converts the ABI tuple representation of a XGovBoxValue to the struct representation
  */
 export declare function XGovBoxValueFromTuple(abiTuple: [string, bigint, bigint, bigint]): XGovBoxValue;
-export type ProposerBoxValue = {
-    activeProposal: boolean;
-    kycStatus: boolean;
-    kycExpiring: bigint;
+export type XGovRegistryConfig = {
+    xgovFee: bigint;
+    proposerFee: bigint;
+    openProposalFee: bigint;
+    daemonOpsFundingBps: bigint;
+    proposalCommitmentBps: bigint;
+    minRequestedAmount: bigint;
+    maxRequestedAmount: [bigint, bigint, bigint];
+    discussionDuration: [bigint, bigint, bigint, bigint];
+    votingDuration: [bigint, bigint, bigint, bigint];
+    quorum: [bigint, bigint, bigint];
+    weightedQuorum: [bigint, bigint, bigint];
 };
 /**
- * Converts the ABI tuple representation of a ProposerBoxValue to the struct representation
+ * Converts the ABI tuple representation of a XGovRegistryConfig to the struct representation
  */
-export declare function ProposerBoxValueFromTuple(abiTuple: [boolean, boolean, bigint]): ProposerBoxValue;
+export declare function XGovRegistryConfigFromTuple(abiTuple: [bigint, bigint, bigint, bigint, bigint, bigint, [bigint, bigint, bigint], [bigint, bigint, bigint, bigint], [bigint, bigint, bigint, bigint], [bigint, bigint, bigint], [bigint, bigint, bigint]]): XGovRegistryConfig;
+export type XGovSubscribeRequestBoxValue = {
+    xgovAddr: string;
+    ownerAddr: string;
+    relationType: bigint;
+};
+/**
+ * Converts the ABI tuple representation of a XGovSubscribeRequestBoxValue to the struct representation
+ */
+export declare function XGovSubscribeRequestBoxValueFromTuple(abiTuple: [string, string, bigint]): XGovSubscribeRequestBoxValue;
+/**
+ * Deploy-time template variables
+ */
+export type TemplateVariables = {
+    entropy: Uint8Array;
+};
 /**
  * The argument types for the XGovRegistry contract
  */
@@ -564,48 +587,57 @@ export type XGovRegistryTypes = {
     state: {
         global: {
             keys: {
-                committeeId: BinaryState;
-                committeeManager: BinaryState;
+                pausedRegistry: bigint;
+                pausedProposals: bigint;
+                xgovManager: string;
+                xgovSubscriber: string;
+                xgovPayor: string;
+                xgovCouncil: string;
+                kycProvider: string;
+                committeeManager: string;
+                xgovDaemon: string;
+                xgovFee: bigint;
+                xgovs: bigint;
+                proposerFee: bigint;
+                openProposalFee: bigint;
+                daemonOpsFundingBps: bigint;
+                proposalCommitmentBps: bigint;
+                minRequestedAmount: bigint;
+                maxRequestedAmountSmall: bigint;
+                maxRequestedAmountMedium: bigint;
+                maxRequestedAmountLarge: bigint;
+                discussionDurationSmall: bigint;
+                discussionDurationMedium: bigint;
+                discussionDurationLarge: bigint;
+                discussionDurationXlarge: bigint;
+                votingDurationSmall: bigint;
+                votingDurationMedium: bigint;
+                votingDurationLarge: bigint;
+                votingDurationXlarge: bigint;
+                quorumSmall: bigint;
+                quorumMedium: bigint;
+                quorumLarge: bigint;
+                weightedQuorumSmall: bigint;
+                weightedQuorumMedium: bigint;
+                weightedQuorumLarge: bigint;
+                outstandingFunds: bigint;
+                committeeId: Uint8Array;
                 committeeMembers: bigint;
                 committeeVotes: bigint;
-                daemonOpsFundingBps: bigint;
-                discussionDurationLarge: bigint;
-                discussionDurationMedium: bigint;
-                discussionDurationSmall: bigint;
-                discussionDurationXlarge: bigint;
-                kycProvider: BinaryState;
-                maxCommitteeSize: bigint;
-                maxRequestedAmountLarge: bigint;
-                maxRequestedAmountMedium: bigint;
-                maxRequestedAmountSmall: bigint;
-                minRequestedAmount: bigint;
-                openProposalFee: bigint;
-                outstandingFunds: bigint;
-                pausedProposals: bigint;
-                pausedRegistry: bigint;
                 pendingProposals: bigint;
-                proposalCommitmentBps: bigint;
-                proposerFee: bigint;
-                quorumLarge: bigint;
-                quorumMedium: bigint;
-                quorumSmall: bigint;
                 requestId: bigint;
-                votingDurationLarge: bigint;
-                votingDurationMedium: bigint;
-                votingDurationSmall: bigint;
-                votingDurationXlarge: bigint;
-                weightedQuorumLarge: bigint;
-                weightedQuorumMedium: bigint;
-                weightedQuorumSmall: bigint;
-                xgovCouncil: BinaryState;
-                xgovDaemon: BinaryState;
-                xgovFee: bigint;
-                xgovManager: BinaryState;
-                xgovPayor: BinaryState;
-                xgovSubscriber: BinaryState;
-                xgovs: bigint;
+                maxCommitteeSize: bigint;
             };
             maps: {};
+        };
+        box: {
+            keys: {};
+            maps: {
+                xgovBox: Map<string, XGovBoxValue>;
+                requestBox: Map<bigint | number, XGovSubscribeRequestBoxValue>;
+                proposerBox: Map<string, ProposerBoxValue>;
+                voters: Map<string, VoterBox>;
+            };
         };
     };
 };
@@ -636,6 +668,10 @@ export type MethodReturn<TSignature extends XGovRegistrySignatures> = XGovRegist
  * Defines the shape of the keyed global state of the application.
  */
 export type GlobalKeysState = XGovRegistryTypes['state']['global']['keys'];
+/**
+ * Defines the shape of the keyed box state of the application.
+ */
+export type BoxKeysState = XGovRegistryTypes['state']['box']['keys'];
 /**
  * Defines supported create method params for this smart contract
  */
@@ -3249,13 +3285,145 @@ export declare class XGovRegistryClient {
              */
             getAll: () => Promise<Partial<Expand<GlobalKeysState>>>;
             /**
-             * Get the current value of the committee_id key in global state
+             * Get the current value of the paused_registry key in global state
              */
-            committeeId: () => Promise<BinaryState>;
+            pausedRegistry: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the paused_proposals key in global state
+             */
+            pausedProposals: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the xgov_manager key in global state
+             */
+            xgovManager: () => Promise<string | undefined>;
+            /**
+             * Get the current value of the xgov_subscriber key in global state
+             */
+            xgovSubscriber: () => Promise<string | undefined>;
+            /**
+             * Get the current value of the xgov_payor key in global state
+             */
+            xgovPayor: () => Promise<string | undefined>;
+            /**
+             * Get the current value of the xgov_council key in global state
+             */
+            xgovCouncil: () => Promise<string | undefined>;
+            /**
+             * Get the current value of the kyc_provider key in global state
+             */
+            kycProvider: () => Promise<string | undefined>;
             /**
              * Get the current value of the committee_manager key in global state
              */
-            committeeManager: () => Promise<BinaryState>;
+            committeeManager: () => Promise<string | undefined>;
+            /**
+             * Get the current value of the xgov_daemon key in global state
+             */
+            xgovDaemon: () => Promise<string | undefined>;
+            /**
+             * Get the current value of the xgov_fee key in global state
+             */
+            xgovFee: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the xgovs key in global state
+             */
+            xgovs: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the proposer_fee key in global state
+             */
+            proposerFee: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the open_proposal_fee key in global state
+             */
+            openProposalFee: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the daemon_ops_funding_bps key in global state
+             */
+            daemonOpsFundingBps: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the proposal_commitment_bps key in global state
+             */
+            proposalCommitmentBps: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the min_requested_amount key in global state
+             */
+            minRequestedAmount: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the max_requested_amount_small key in global state
+             */
+            maxRequestedAmountSmall: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the max_requested_amount_medium key in global state
+             */
+            maxRequestedAmountMedium: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the max_requested_amount_large key in global state
+             */
+            maxRequestedAmountLarge: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the discussion_duration_small key in global state
+             */
+            discussionDurationSmall: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the discussion_duration_medium key in global state
+             */
+            discussionDurationMedium: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the discussion_duration_large key in global state
+             */
+            discussionDurationLarge: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the discussion_duration_xlarge key in global state
+             */
+            discussionDurationXlarge: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the voting_duration_small key in global state
+             */
+            votingDurationSmall: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the voting_duration_medium key in global state
+             */
+            votingDurationMedium: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the voting_duration_large key in global state
+             */
+            votingDurationLarge: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the voting_duration_xlarge key in global state
+             */
+            votingDurationXlarge: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the quorum_small key in global state
+             */
+            quorumSmall: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the quorum_medium key in global state
+             */
+            quorumMedium: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the quorum_large key in global state
+             */
+            quorumLarge: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the weighted_quorum_small key in global state
+             */
+            weightedQuorumSmall: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the weighted_quorum_medium key in global state
+             */
+            weightedQuorumMedium: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the weighted_quorum_large key in global state
+             */
+            weightedQuorumLarge: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the outstanding_funds key in global state
+             */
+            outstandingFunds: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the committee_id key in global state
+             */
+            committeeId: () => Promise<Uint8Array | undefined>;
             /**
              * Get the current value of the committee_members key in global state
              */
@@ -3265,149 +3433,78 @@ export declare class XGovRegistryClient {
              */
             committeeVotes: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the daemon_ops_funding_bps key in global state
-             */
-            daemonOpsFundingBps: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the discussion_duration_large key in global state
-             */
-            discussionDurationLarge: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the discussion_duration_medium key in global state
-             */
-            discussionDurationMedium: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the discussion_duration_small key in global state
-             */
-            discussionDurationSmall: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the discussion_duration_xlarge key in global state
-             */
-            discussionDurationXlarge: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the kyc_provider key in global state
-             */
-            kycProvider: () => Promise<BinaryState>;
-            /**
-             * Get the current value of the max_committee_size key in global state
-             */
-            maxCommitteeSize: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the max_requested_amount_large key in global state
-             */
-            maxRequestedAmountLarge: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the max_requested_amount_medium key in global state
-             */
-            maxRequestedAmountMedium: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the max_requested_amount_small key in global state
-             */
-            maxRequestedAmountSmall: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the min_requested_amount key in global state
-             */
-            minRequestedAmount: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the open_proposal_fee key in global state
-             */
-            openProposalFee: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the outstanding_funds key in global state
-             */
-            outstandingFunds: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the paused_proposals key in global state
-             */
-            pausedProposals: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the paused_registry key in global state
-             */
-            pausedRegistry: () => Promise<bigint | undefined>;
-            /**
              * Get the current value of the pending_proposals key in global state
              */
             pendingProposals: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the proposal_commitment_bps key in global state
-             */
-            proposalCommitmentBps: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the proposer_fee key in global state
-             */
-            proposerFee: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the quorum_large key in global state
-             */
-            quorumLarge: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the quorum_medium key in global state
-             */
-            quorumMedium: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the quorum_small key in global state
-             */
-            quorumSmall: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the request_id key in global state
              */
             requestId: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the voting_duration_large key in global state
+             * Get the current value of the max_committee_size key in global state
              */
-            votingDurationLarge: () => Promise<bigint | undefined>;
+            maxCommitteeSize: () => Promise<bigint | undefined>;
+        };
+        /**
+         * Methods to access box state for the current XGovRegistry app
+         */
+        box: {
             /**
-             * Get the current value of the voting_duration_medium key in global state
+             * Get all current keyed values from box state
              */
-            votingDurationMedium: () => Promise<bigint | undefined>;
+            getAll: () => Promise<Partial<Expand<BoxKeysState>>>;
             /**
-             * Get the current value of the voting_duration_small key in global state
+             * Get values from the xgov_box map in box state
              */
-            votingDurationSmall: () => Promise<bigint | undefined>;
+            xgovBox: {
+                /**
+                 * Get all current values of the xgov_box map in box state
+                 */
+                getMap: () => Promise<Map<string, XGovBoxValue>>;
+                /**
+                 * Get a current value of the xgov_box map by key from box state
+                 */
+                value: (key: string) => Promise<XGovBoxValue | undefined>;
+            };
             /**
-             * Get the current value of the voting_duration_xlarge key in global state
+             * Get values from the request_box map in box state
              */
-            votingDurationXlarge: () => Promise<bigint | undefined>;
+            requestBox: {
+                /**
+                 * Get all current values of the request_box map in box state
+                 */
+                getMap: () => Promise<Map<bigint, XGovSubscribeRequestBoxValue>>;
+                /**
+                 * Get a current value of the request_box map by key from box state
+                 */
+                value: (key: bigint | number) => Promise<XGovSubscribeRequestBoxValue | undefined>;
+            };
             /**
-             * Get the current value of the weighted_quorum_large key in global state
+             * Get values from the proposer_box map in box state
              */
-            weightedQuorumLarge: () => Promise<bigint | undefined>;
+            proposerBox: {
+                /**
+                 * Get all current values of the proposer_box map in box state
+                 */
+                getMap: () => Promise<Map<string, ProposerBoxValue>>;
+                /**
+                 * Get a current value of the proposer_box map by key from box state
+                 */
+                value: (key: string) => Promise<ProposerBoxValue | undefined>;
+            };
             /**
-             * Get the current value of the weighted_quorum_medium key in global state
+             * Get values from the voters map in box state
              */
-            weightedQuorumMedium: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the weighted_quorum_small key in global state
-             */
-            weightedQuorumSmall: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the xgov_council key in global state
-             */
-            xgovCouncil: () => Promise<BinaryState>;
-            /**
-             * Get the current value of the xgov_daemon key in global state
-             */
-            xgovDaemon: () => Promise<BinaryState>;
-            /**
-             * Get the current value of the xgov_fee key in global state
-             */
-            xgovFee: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the xgov_manager key in global state
-             */
-            xgovManager: () => Promise<BinaryState>;
-            /**
-             * Get the current value of the xgov_payor key in global state
-             */
-            xgovPayor: () => Promise<BinaryState>;
-            /**
-             * Get the current value of the xgov_subscriber key in global state
-             */
-            xgovSubscriber: () => Promise<BinaryState>;
-            /**
-             * Get the current value of the xgovs key in global state
-             */
-            xgovs: () => Promise<bigint | undefined>;
+            voters: {
+                /**
+                 * Get all current values of the voters map in box state
+                 */
+                getMap: () => Promise<Map<string, VoterBox>>;
+                /**
+                 * Get a current value of the voters map by key from box state
+                 */
+                value: (key: string) => Promise<VoterBox | undefined>;
+            };
         };
     };
     newGroup(): XGovRegistryComposer;

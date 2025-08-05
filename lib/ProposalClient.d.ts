@@ -58,6 +58,14 @@ export type ProposalTypedGlobalState = {
  * Converts the ABI tuple representation of a ProposalTypedGlobalState to the struct representation
  */
 export declare function ProposalTypedGlobalStateFromTuple(abiTuple: [string, bigint, string, bigint, bigint, bigint, bigint, boolean, bigint, number, bigint, bigint, bigint, Uint8Array, bigint, bigint, bigint, bigint, bigint, bigint]): ProposalTypedGlobalState;
+export type VoterBox = {
+    votes: bigint;
+    voted: boolean;
+};
+/**
+ * Converts the ABI tuple representation of a VoterBox to the struct representation
+ */
+export declare function VoterBoxFromTuple(abiTuple: [bigint, boolean]): VoterBox;
 /**
  * The argument types for the Proposal contract
  */
@@ -263,31 +271,39 @@ export type ProposalTypes = {
     state: {
         global: {
             keys: {
-                approvals: bigint;
-                assignedVotes: bigint;
-                committeeId: BinaryState;
+                proposer: string;
+                registryAppId: bigint;
+                title: string;
+                openTs: bigint;
+                submissionTs: bigint;
+                voteOpenTs: bigint;
+                status: bigint;
+                finalized: bigint;
+                fundingCategory: bigint;
+                focus: bigint;
+                fundingType: bigint;
+                requestedAmount: bigint;
+                lockedAmount: bigint;
+                committeeId: Uint8Array;
                 committeeMembers: bigint;
                 committeeVotes: bigint;
-                finalized: bigint;
-                focus: bigint;
-                fundingCategory: bigint;
-                fundingType: bigint;
-                lockedAmount: bigint;
-                metadataUploaded: bigint;
-                nulls: bigint;
-                openTs: bigint;
-                proposer: BinaryState;
-                registryAppId: bigint;
-                rejections: bigint;
-                requestedAmount: bigint;
-                status: bigint;
-                submissionTs: bigint;
-                title: BinaryState;
-                voteOpenTs: bigint;
                 votedMembers: bigint;
+                approvals: bigint;
+                rejections: bigint;
+                nulls: bigint;
                 votersCount: bigint;
+                assignedVotes: bigint;
+                metadataUploaded: bigint;
             };
             maps: {};
+        };
+        box: {
+            keys: {
+                metadata: BinaryState;
+            };
+            maps: {
+                voters: Map<string, VoterBox>;
+            };
         };
     };
 };
@@ -318,6 +334,10 @@ export type MethodReturn<TSignature extends ProposalSignatures> = ProposalTypes[
  * Defines the shape of the keyed global state of the application.
  */
 export type GlobalKeysState = ProposalTypes['state']['global']['keys'];
+/**
+ * Defines the shape of the keyed box state of the application.
+ */
+export type BoxKeysState = ProposalTypes['state']['box']['keys'];
 /**
  * Defines supported create method params for this smart contract
  */
@@ -1714,17 +1734,61 @@ export declare class ProposalClient {
              */
             getAll: () => Promise<Partial<Expand<GlobalKeysState>>>;
             /**
-             * Get the current value of the approvals key in global state
+             * Get the current value of the proposer key in global state
              */
-            approvals: () => Promise<bigint | undefined>;
+            proposer: () => Promise<string | undefined>;
             /**
-             * Get the current value of the assigned_votes key in global state
+             * Get the current value of the registry_app_id key in global state
              */
-            assignedVotes: () => Promise<bigint | undefined>;
+            registryAppId: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the title key in global state
+             */
+            title: () => Promise<string | undefined>;
+            /**
+             * Get the current value of the open_ts key in global state
+             */
+            openTs: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the submission_ts key in global state
+             */
+            submissionTs: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the vote_open_ts key in global state
+             */
+            voteOpenTs: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the status key in global state
+             */
+            status: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the finalized key in global state
+             */
+            finalized: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the funding_category key in global state
+             */
+            fundingCategory: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the focus key in global state
+             */
+            focus: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the funding_type key in global state
+             */
+            fundingType: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the requested_amount key in global state
+             */
+            requestedAmount: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the locked_amount key in global state
+             */
+            lockedAmount: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the committee_id key in global state
              */
-            committeeId: () => Promise<BinaryState>;
+            committeeId: () => Promise<Uint8Array | undefined>;
             /**
              * Get the current value of the committee_members key in global state
              */
@@ -1734,77 +1798,59 @@ export declare class ProposalClient {
              */
             committeeVotes: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the finalized key in global state
+             * Get the current value of the voted_members key in global state
              */
-            finalized: () => Promise<bigint | undefined>;
+            votedMembers: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the focus key in global state
+             * Get the current value of the approvals key in global state
              */
-            focus: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the funding_category key in global state
-             */
-            fundingCategory: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the funding_type key in global state
-             */
-            fundingType: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the locked_amount key in global state
-             */
-            lockedAmount: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the metadata_uploaded key in global state
-             */
-            metadataUploaded: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the nulls key in global state
-             */
-            nulls: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the open_ts key in global state
-             */
-            openTs: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the proposer key in global state
-             */
-            proposer: () => Promise<BinaryState>;
-            /**
-             * Get the current value of the registry_app_id key in global state
-             */
-            registryAppId: () => Promise<bigint | undefined>;
+            approvals: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the rejections key in global state
              */
             rejections: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the requested_amount key in global state
+             * Get the current value of the nulls key in global state
              */
-            requestedAmount: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the status key in global state
-             */
-            status: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the submission_ts key in global state
-             */
-            submissionTs: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the title key in global state
-             */
-            title: () => Promise<BinaryState>;
-            /**
-             * Get the current value of the vote_open_ts key in global state
-             */
-            voteOpenTs: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the voted_members key in global state
-             */
-            votedMembers: () => Promise<bigint | undefined>;
+            nulls: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the voters_count key in global state
              */
             votersCount: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the assigned_votes key in global state
+             */
+            assignedVotes: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the metadata_uploaded key in global state
+             */
+            metadataUploaded: () => Promise<bigint | undefined>;
+        };
+        /**
+         * Methods to access box state for the current Proposal app
+         */
+        box: {
+            /**
+             * Get all current keyed values from box state
+             */
+            getAll: () => Promise<Partial<Expand<BoxKeysState>>>;
+            /**
+             * Get the current value of the metadata key in box state
+             */
+            metadata: () => Promise<BinaryState>;
+            /**
+             * Get values from the voters map in box state
+             */
+            voters: {
+                /**
+                 * Get all current values of the voters map in box state
+                 */
+                getMap: () => Promise<Map<string, VoterBox>>;
+                /**
+                 * Get a current value of the voters map by key from box state
+                 */
+                value: (key: string) => Promise<VoterBox | undefined>;
+            };
         };
     };
     newGroup(): ProposalComposer;
