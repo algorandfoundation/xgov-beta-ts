@@ -1,20 +1,19 @@
 {
   "name": "@algorandfoundation/xgov",
-  "version": "0.0.0",
+  "version": "3.0.0",
   "type": "module",
   "description": "xGov Beta Smart Contract Clients",
+  "files": [
+    "dist"
+  ],
   "exports": {
-    ".": {
-      "types": "./lib/ProposalClient.d.ts",
-      "default": "./lib/ProposalClient.js"
-    },
     "./proposal": {
-      "types": "./lib/ProposalClient.d.ts",
-      "default": "./lib/ProposalClient.js"
+      "types": "./dist/ProposalClient.d.ts",
+      "default": "./dist/ProposalClient.js"
     },
     "./registry": {
-      "types": "./lib/XGovRegistryClient.d.ts",
-      "default": "./lib/XGovRegistryClient.js"
+      "types": "./dist/XGovRegistryClient.d.ts",
+      "default": "./dist/XGovRegistryClient.js"
     }
   },
   "scripts": {
