@@ -58,6 +58,14 @@ export type ProposalTypedGlobalState = {
  * Converts the ABI tuple representation of a ProposalTypedGlobalState to the struct representation
  */
 export declare function ProposalTypedGlobalStateFromTuple(abiTuple: [string, bigint, string, bigint, bigint, bigint, bigint, boolean, bigint, number, bigint, bigint, bigint, Uint8Array, bigint, bigint, bigint, bigint, bigint, bigint]): ProposalTypedGlobalState;
+export type VoterBox = {
+    votes: bigint;
+    voted: boolean;
+};
+/**
+ * Converts the ABI tuple representation of a VoterBox to the struct representation
+ */
+export declare function VoterBoxFromTuple(abiTuple: [bigint, boolean]): VoterBox;
 /**
  * The argument types for the Proposal contract
  */
@@ -143,6 +151,12 @@ export type ProposalArgs = {
         'finalize()string': Record<string, never>;
         'delete()void': Record<string, never>;
         'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': Record<string, never>;
+        'get_voter_box(address)((uint64,bool),bool)': {
+            /**
+             * The address of the Voter
+             */
+            voterAddress: string;
+        };
         'op_up()void': Record<string, never>;
     };
     /**
@@ -163,6 +177,7 @@ export type ProposalArgs = {
         'finalize()string': [];
         'delete()void': [];
         'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': [];
+        'get_voter_box(address)((uint64,bool),bool)': [voterAddress: string];
         'op_up()void': [];
     };
 };
@@ -184,6 +199,7 @@ export type ProposalReturns = {
     'finalize()string': string;
     'delete()void': void;
     'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': ProposalTypedGlobalState;
+    'get_voter_box(address)((uint64,bool),bool)': [[bigint, boolean], boolean];
     'op_up()void': void;
 };
 /**
@@ -252,6 +268,13 @@ export type ProposalTypes = {
          * The proposal state
          */
         returns: ProposalReturns['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'];
+    }> & Record<'get_voter_box(address)((uint64,bool),bool)' | 'get_voter_box', {
+        argsObj: ProposalArgs['obj']['get_voter_box(address)((uint64,bool),bool)'];
+        argsTuple: ProposalArgs['tuple']['get_voter_box(address)((uint64,bool),bool)'];
+        /**
+         * The voter's box value bool: `True` if voter's box exists, else `False`
+         */
+        returns: ProposalReturns['get_voter_box(address)((uint64,bool),bool)'];
     }> & Record<'op_up()void' | 'op_up', {
         argsObj: ProposalArgs['obj']['op_up()void'];
         argsTuple: ProposalArgs['tuple']['op_up()void'];
@@ -263,31 +286,39 @@ export type ProposalTypes = {
     state: {
         global: {
             keys: {
-                approvals: bigint;
-                assignedVotes: bigint;
-                committeeId: BinaryState;
+                proposer: string;
+                registryAppId: bigint;
+                title: string;
+                openTs: bigint;
+                submissionTs: bigint;
+                voteOpenTs: bigint;
+                status: bigint;
+                finalized: bigint;
+                fundingCategory: bigint;
+                focus: bigint;
+                fundingType: bigint;
+                requestedAmount: bigint;
+                lockedAmount: bigint;
+                committeeId: Uint8Array;
                 committeeMembers: bigint;
                 committeeVotes: bigint;
-                finalized: bigint;
-                focus: bigint;
-                fundingCategory: bigint;
-                fundingType: bigint;
-                lockedAmount: bigint;
-                metadataUploaded: bigint;
-                nulls: bigint;
-                openTs: bigint;
-                proposer: BinaryState;
-                registryAppId: bigint;
-                rejections: bigint;
-                requestedAmount: bigint;
-                status: bigint;
-                submissionTs: bigint;
-                title: BinaryState;
-                voteOpenTs: bigint;
                 votedMembers: bigint;
+                approvals: bigint;
+                rejections: bigint;
+                nulls: bigint;
                 votersCount: bigint;
+                assignedVotes: bigint;
+                metadataUploaded: bigint;
             };
             maps: {};
+        };
+        box: {
+            keys: {
+                metadata: BinaryState;
+            };
+            maps: {
+                voters: Map<string, VoterBox>;
+            };
         };
     };
 };
@@ -318,6 +349,10 @@ export type MethodReturn<TSignature extends ProposalSignatures> = ProposalTypes[
  * Defines the shape of the keyed global state of the application.
  */
 export type GlobalKeysState = ProposalTypes['state']['global']['keys'];
+/**
+ * Defines the shape of the keyed box state of the application.
+ */
+export type BoxKeysState = ProposalTypes['state']['box']['keys'];
 /**
  * Defines supported create method params for this smart contract
  */
@@ -537,6 +572,15 @@ export declare abstract class ProposalParamsFactory {
      * @returns An `AppClientMethodCallParams` object for the call
      */
     static getState(params: CallParams<ProposalArgs['obj']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'] | ProposalArgs['tuple']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    /**
+     * Constructs a no op call for the get_voter_box(address)((uint64,bool),bool) ABI method
+     *
+     * Returns the Voter box for the given address.
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getVoterBox(params: CallParams<ProposalArgs['obj']['get_voter_box(address)((uint64,bool),bool)'] | ProposalArgs['tuple']['get_voter_box(address)((uint64,bool),bool)']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
      * Constructs a no op call for the op_up()void ABI method
      *
@@ -1145,6 +1189,19 @@ export declare class ProposalClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
+         * Makes a call to the Proposal smart contract using the `get_voter_box(address)((uint64,bool),bool)` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * Returns the Voter box for the given address.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params: The voter's box value bool: `True` if voter's box exists, else `False`
+         */
+        getVoterBox: (params: CallParams<ProposalArgs["obj"]["get_voter_box(address)((uint64,bool),bool)"] | ProposalArgs["tuple"]["get_voter_box(address)((uint64,bool),bool)"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<AppCallMethodCall>;
+        /**
          * Makes a call to the Proposal smart contract using the `op_up()void` ABI method.
          *
          * @param params The params for the smart contract call
@@ -1359,6 +1416,23 @@ export declare class ProposalClient {
          * @returns The call transaction: The proposal state
          */
         getState: (params?: CallParams<ProposalArgs["obj"]["get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)"] | ProposalArgs["tuple"]["get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            transactions: Transaction[];
+            methodCalls: Map<number, import("algosdk").ABIMethod>;
+            signers: Map<number, TransactionSigner>;
+        }>;
+        /**
+         * Makes a call to the Proposal smart contract using the `get_voter_box(address)((uint64,bool),bool)` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * Returns the Voter box for the given address.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction: The voter's box value bool: `True` if voter's box exists, else `False`
+         */
+        getVoterBox: (params: CallParams<ProposalArgs["obj"]["get_voter_box(address)((uint64,bool),bool)"] | ProposalArgs["tuple"]["get_voter_box(address)((uint64,bool),bool)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -1665,6 +1739,28 @@ export declare class ProposalClient {
             transaction: Transaction;
         }>;
         /**
+         * Makes a call to the Proposal smart contract using the `get_voter_box(address)((uint64,bool),bool)` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * Returns the Voter box for the given address.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result: The voter's box value bool: `True` if voter's box exists, else `False`
+         */
+        getVoterBox: (params: CallParams<ProposalArgs["obj"]["get_voter_box(address)((uint64,bool),bool)"] | ProposalArgs["tuple"]["get_voter_box(address)((uint64,bool),bool)"]> & SendParams & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            return: (undefined | ProposalReturns["get_voter_box(address)((uint64,bool),bool)"]);
+            returns?: ABIReturn[] | undefined | undefined;
+            groupId: string;
+            txIds: string[];
+            confirmations: modelsv2.PendingTransactionResponse[];
+            transactions: Transaction[];
+            confirmation: modelsv2.PendingTransactionResponse;
+            transaction: Transaction;
+        }>;
+        /**
          * Makes a call to the Proposal smart contract using the `op_up()void` ABI method.
          *
          * @param params The params for the smart contract call
@@ -1702,6 +1798,17 @@ export declare class ProposalClient {
      */
     getState(params?: CallParams<ProposalArgs['obj']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'] | ProposalArgs['tuple']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)']>): Promise<ProposalTypedGlobalState>;
     /**
+     * Makes a readonly (simulated) call to the Proposal smart contract using the `get_voter_box(address)((uint64,bool),bool)` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * Returns the Voter box for the given address.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result: The voter's box value bool: `True` if voter's box exists, else `False`
+     */
+    getVoterBox(params: CallParams<ProposalArgs['obj']['get_voter_box(address)((uint64,bool),bool)'] | ProposalArgs['tuple']['get_voter_box(address)((uint64,bool),bool)']>): Promise<[[bigint, boolean], boolean]>;
+    /**
      * Methods to access state for the current Proposal app
      */
     state: {
@@ -1714,17 +1821,61 @@ export declare class ProposalClient {
              */
             getAll: () => Promise<Partial<Expand<GlobalKeysState>>>;
             /**
-             * Get the current value of the approvals key in global state
+             * Get the current value of the proposer key in global state
              */
-            approvals: () => Promise<bigint | undefined>;
+            proposer: () => Promise<string | undefined>;
             /**
-             * Get the current value of the assigned_votes key in global state
+             * Get the current value of the registry_app_id key in global state
              */
-            assignedVotes: () => Promise<bigint | undefined>;
+            registryAppId: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the title key in global state
+             */
+            title: () => Promise<string | undefined>;
+            /**
+             * Get the current value of the open_ts key in global state
+             */
+            openTs: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the submission_ts key in global state
+             */
+            submissionTs: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the vote_open_ts key in global state
+             */
+            voteOpenTs: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the status key in global state
+             */
+            status: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the finalized key in global state
+             */
+            finalized: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the funding_category key in global state
+             */
+            fundingCategory: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the focus key in global state
+             */
+            focus: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the funding_type key in global state
+             */
+            fundingType: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the requested_amount key in global state
+             */
+            requestedAmount: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the locked_amount key in global state
+             */
+            lockedAmount: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the committee_id key in global state
              */
-            committeeId: () => Promise<BinaryState>;
+            committeeId: () => Promise<Uint8Array | undefined>;
             /**
              * Get the current value of the committee_members key in global state
              */
@@ -1734,77 +1885,59 @@ export declare class ProposalClient {
              */
             committeeVotes: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the finalized key in global state
+             * Get the current value of the voted_members key in global state
              */
-            finalized: () => Promise<bigint | undefined>;
+            votedMembers: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the focus key in global state
+             * Get the current value of the approvals key in global state
              */
-            focus: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the funding_category key in global state
-             */
-            fundingCategory: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the funding_type key in global state
-             */
-            fundingType: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the locked_amount key in global state
-             */
-            lockedAmount: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the metadata_uploaded key in global state
-             */
-            metadataUploaded: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the nulls key in global state
-             */
-            nulls: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the open_ts key in global state
-             */
-            openTs: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the proposer key in global state
-             */
-            proposer: () => Promise<BinaryState>;
-            /**
-             * Get the current value of the registry_app_id key in global state
-             */
-            registryAppId: () => Promise<bigint | undefined>;
+            approvals: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the rejections key in global state
              */
             rejections: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the requested_amount key in global state
+             * Get the current value of the nulls key in global state
              */
-            requestedAmount: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the status key in global state
-             */
-            status: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the submission_ts key in global state
-             */
-            submissionTs: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the title key in global state
-             */
-            title: () => Promise<BinaryState>;
-            /**
-             * Get the current value of the vote_open_ts key in global state
-             */
-            voteOpenTs: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the voted_members key in global state
-             */
-            votedMembers: () => Promise<bigint | undefined>;
+            nulls: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the voters_count key in global state
              */
             votersCount: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the assigned_votes key in global state
+             */
+            assignedVotes: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the metadata_uploaded key in global state
+             */
+            metadataUploaded: () => Promise<bigint | undefined>;
+        };
+        /**
+         * Methods to access box state for the current Proposal app
+         */
+        box: {
+            /**
+             * Get all current keyed values from box state
+             */
+            getAll: () => Promise<Partial<Expand<BoxKeysState>>>;
+            /**
+             * Get the current value of the metadata key in box state
+             */
+            metadata: () => Promise<BinaryState>;
+            /**
+             * Get values from the voters map in box state
+             */
+            voters: {
+                /**
+                 * Get all current values of the voters map in box state
+                 */
+                getMap: () => Promise<Map<string, VoterBox>>;
+                /**
+                 * Get a current value of the voters map by key from box state
+                 */
+                value: (key: string) => Promise<VoterBox | undefined>;
+            };
         };
     };
     newGroup(): ProposalComposer;
@@ -1930,6 +2063,16 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
     getState(params?: CallParams<ProposalArgs['obj']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'] | ProposalArgs['tuple']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)']>): ProposalComposer<[...TReturns, ProposalReturns['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'] | undefined]>;
+    /**
+     * Calls the get_voter_box(address)((uint64,bool),bool) ABI method.
+     *
+     * Returns the Voter box for the given address.
+     *
+     * @param args The arguments for the contract call
+     * @param params Any additional parameters for the call
+     * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+     */
+    getVoterBox(params?: CallParams<ProposalArgs['obj']['get_voter_box(address)((uint64,bool),bool)'] | ProposalArgs['tuple']['get_voter_box(address)((uint64,bool),bool)']>): ProposalComposer<[...TReturns, ProposalReturns['get_voter_box(address)((uint64,bool),bool)'] | undefined]>;
     /**
      * Calls the op_up()void ABI method.
      *
