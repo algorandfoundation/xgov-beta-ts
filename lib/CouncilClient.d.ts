@@ -385,9 +385,6 @@ export declare class CouncilFactory {
             deletable?: boolean | undefined;
             updatable?: boolean | undefined;
             groupId: string;
-            /**
-             * A factory to create and deploy one or more instance of the Council smart contract and to create one or more app clients to interact with those (or other) app instances
-             */
             txIds: string[];
             returns?: ABIReturn[] | undefined;
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -427,6 +424,11 @@ export declare class CouncilFactory {
             operationPerformed: "replace";
             version: string;
             name: string;
+            /**
+             * Creates a new instance of `CouncilFactory`
+             *
+             * @param params The parameters to initialise the app factory with
+             */
             deleted: boolean;
             createdRound: bigint;
             updatedRound: bigint;
@@ -451,6 +453,15 @@ export declare class CouncilFactory {
             operationPerformed: "nothing";
             appId: bigint;
             appAddress: string;
+            /**
+             * Returns a new `AppClient` client, resolving the app by creator address and name
+             * using AlgoKit app deployment semantics (i.e. looking for the app creation transaction note).
+             *
+             * Automatically populates appName, defaultSender and source maps from the factory
+             * if not specified in the params.
+             * @param params The parameters to create the app client
+             * @returns The `AppClient`
+             */
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
@@ -458,14 +469,7 @@ export declare class CouncilFactory {
             name: string;
             version: string;
             deletable?: boolean | undefined;
-            updatable?: boolean | undefined; /**
-             * Creates a new instance of the Council smart contract using the create(uint64)void ABI method.
-             *
-             * Create a new council contract.
-             *
-             * @param params The params for the smart contract call
-             * @returns The create params
-             */
+            updatable?: boolean | undefined;
         };
         appClient: CouncilClient;
     }>;

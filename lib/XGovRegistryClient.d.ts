@@ -769,10 +769,10 @@ export declare abstract class XGovRegistryParamsFactory {
         _resolveByMethod<TParams extends XGovRegistryCreateCallParams & {
             method: string;
         }>(params: TParams): {
-            signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
+            signer?: (TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount) | undefined;
             rekeyTo?: string | undefined;
-            note?: string | Uint8Array | undefined;
-            lease?: string | Uint8Array | undefined;
+            note?: (Uint8Array | string) | undefined;
+            lease?: (Uint8Array | string) | undefined;
             staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -788,7 +788,7 @@ export declare abstract class XGovRegistryParamsFactory {
             method: string;
             args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
         } & AppClientCompilationParams & {
-            onComplete?: OnApplicationComplete.NoOpOC | undefined;
+            onComplete?: OnApplicationComplete.NoOpOC;
         };
         /**
          * Constructs create ABI call params for the XGovRegistry smart contract using the create()void ABI method
@@ -796,7 +796,7 @@ export declare abstract class XGovRegistryParamsFactory {
          * @param params Parameters for the call
          * @returns An `AppClientMethodCallParams` object for the call
          */
-        create(params: CallParams<XGovRegistryArgs['obj']['create()void'] | XGovRegistryArgs['tuple']['create()void']> & AppClientCompilationParams & {
+        create(params: CallParams<XGovRegistryArgs["obj"]["create()void"] | XGovRegistryArgs["tuple"]["create()void"]> & AppClientCompilationParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }): AppClientMethodCallParams & AppClientCompilationParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
@@ -809,10 +809,10 @@ export declare abstract class XGovRegistryParamsFactory {
         _resolveByMethod<TParams extends XGovRegistryUpdateCallParams & {
             method: string;
         }>(params: TParams): {
-            signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
+            signer?: (TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount) | undefined;
             rekeyTo?: string | undefined;
-            note?: string | Uint8Array | undefined;
-            lease?: string | Uint8Array | undefined;
+            note?: (Uint8Array | string) | undefined;
+            lease?: (Uint8Array | string) | undefined;
             staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -834,7 +834,7 @@ export declare abstract class XGovRegistryParamsFactory {
          * @param params Parameters for the call
          * @returns An `AppClientMethodCallParams` object for the call
          */
-        updateXgovRegistry(params: CallParams<XGovRegistryArgs['obj']['update_xgov_registry()void'] | XGovRegistryArgs['tuple']['update_xgov_registry()void']> & AppClientCompilationParams): AppClientMethodCallParams & AppClientCompilationParams;
+        updateXgovRegistry(params: CallParams<XGovRegistryArgs["obj"]["update_xgov_registry()void"] | XGovRegistryArgs["tuple"]["update_xgov_registry()void"]> & AppClientCompilationParams): AppClientMethodCallParams & AppClientCompilationParams;
     };
     /**
      * Constructs a no op call for the init_proposal_contract(uint64)void ABI method
@@ -1230,7 +1230,7 @@ export declare class XGovRegistryFactory {
             updatable?: boolean | undefined;
             groupId: string;
             txIds: string[];
-            returns?: ABIReturn[] | undefined;
+            returns?: import("@algorandfoundation/algokit-utils/types/app").ABIReturn[] | undefined;
             confirmations: modelsv2.PendingTransactionResponse[];
             transactions: Transaction[];
             confirmation: modelsv2.PendingTransactionResponse;
@@ -1255,7 +1255,7 @@ export declare class XGovRegistryFactory {
             updatable?: boolean | undefined;
             groupId: string;
             txIds: string[];
-            returns?: ABIReturn[] | undefined;
+            returns?: import("@algorandfoundation/algokit-utils/types/app").ABIReturn[] | undefined;
             confirmations: modelsv2.PendingTransactionResponse[];
             transactions: Transaction[];
             confirmation: modelsv2.PendingTransactionResponse;
@@ -1276,7 +1276,7 @@ export declare class XGovRegistryFactory {
             updatable?: boolean | undefined;
             groupId: string;
             txIds: string[];
-            returns?: ABIReturn[] | undefined;
+            returns?: import("@algorandfoundation/algokit-utils/types/app").ABIReturn[] | undefined;
             confirmations: modelsv2.PendingTransactionResponse[];
             transactions: Transaction[];
             confirmation: modelsv2.PendingTransactionResponse;
@@ -1319,7 +1319,7 @@ export declare class XGovRegistryFactory {
              * @param params The params for the smart contract call
              * @returns The create params
              */
-            create: (params?: CallParams<XGovRegistryArgs['obj']['create()void'] | XGovRegistryArgs['tuple']['create()void']> & AppClientCompilationParams & CreateSchema & {
+            create: (params?: CallParams<XGovRegistryArgs["obj"]["create()void"] | XGovRegistryArgs["tuple"]["create()void"]> & AppClientCompilationParams & CreateSchema & {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 deployTimeParams: import("@algorandfoundation/algokit-utils/types/app").TealTemplateParams | undefined;
@@ -1345,10 +1345,10 @@ export declare class XGovRegistryFactory {
                 accountReferences?: string[] | undefined;
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
-                boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+                boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
                 sender?: string | undefined;
                 method: string;
-                args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
+                args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
                 updatable?: boolean | undefined;
                 deletable?: boolean | undefined;
                 extraProgramPages?: number | undefined;
@@ -1356,7 +1356,7 @@ export declare class XGovRegistryFactory {
                 sender: string;
                 signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
-                args: (import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Transaction | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
+                args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
                     lease?: string | Uint8Array | undefined;
                     note?: string | Uint8Array | undefined;
                     maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -1373,7 +1373,7 @@ export declare class XGovRegistryFactory {
                     accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
-                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                     schema?: {
@@ -1401,10 +1401,10 @@ export declare class XGovRegistryFactory {
                     accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
-                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
-                }> | undefined)[] | undefined;
+                }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | undefined)[] | undefined;
                 onComplete: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC;
             }>;
         };
@@ -1420,7 +1420,7 @@ export declare class XGovRegistryFactory {
              * @param params The params for the smart contract call
              * @returns The deployUpdate params
              */
-            updateXgovRegistry: (params?: CallParams<XGovRegistryArgs['obj']['update_xgov_registry()void'] | XGovRegistryArgs['tuple']['update_xgov_registry()void']> & AppClientCompilationParams) => {
+            updateXgovRegistry: (params?: CallParams<XGovRegistryArgs["obj"]["update_xgov_registry()void"] | XGovRegistryArgs["tuple"]["update_xgov_registry()void"]> & AppClientCompilationParams) => {
                 lease?: string | Uint8Array | undefined;
                 note?: string | Uint8Array | undefined;
                 maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -1435,15 +1435,15 @@ export declare class XGovRegistryFactory {
                 accountReferences?: string[] | undefined;
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
-                boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+                boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
                 sender?: string | undefined;
                 method: string;
-                args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
+                args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
             } & {
                 sender: string;
                 signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
-                args: (import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Transaction | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
+                args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
                     lease?: string | Uint8Array | undefined;
                     note?: string | Uint8Array | undefined;
                     maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -1460,7 +1460,7 @@ export declare class XGovRegistryFactory {
                     accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
-                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                     schema?: {
@@ -1488,10 +1488,10 @@ export declare class XGovRegistryFactory {
                     accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
-                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
-                }> | undefined)[] | undefined;
+                }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | undefined)[] | undefined;
                 onComplete: OnApplicationComplete.UpdateApplicationOC;
             };
         };
@@ -1512,7 +1512,7 @@ export declare class XGovRegistryFactory {
              * @param params The params for the smart contract call
              * @returns The create transaction
              */
-            create: (params?: CallParams<XGovRegistryArgs['obj']['create()void'] | XGovRegistryArgs['tuple']['create()void']> & AppClientCompilationParams & CreateSchema & {
+            create: (params?: CallParams<XGovRegistryArgs["obj"]["create()void"] | XGovRegistryArgs["tuple"]["create()void"]> & AppClientCompilationParams & CreateSchema & {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 transactions: Transaction[];
@@ -1537,17 +1537,17 @@ export declare class XGovRegistryFactory {
              * @param params The params for the smart contract call
              * @returns The create result
              */
-            create: (params?: CallParams<XGovRegistryArgs['obj']['create()void'] | XGovRegistryArgs['tuple']['create()void']> & AppClientCompilationParams & CreateSchema & SendParams & {
+            create: (params?: CallParams<XGovRegistryArgs["obj"]["create()void"] | XGovRegistryArgs["tuple"]["create()void"]> & AppClientCompilationParams & CreateSchema & SendParams & {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 result: {
-                    return: void | undefined;
+                    return: (undefined | XGovRegistryReturns["create()void"]);
                     compiledApproval?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                     compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                     appId: bigint;
                     groupId: string;
                     txIds: string[];
-                    returns?: ABIReturn[] | undefined;
+                    returns?: import("@algorandfoundation/algokit-utils/types/app").ABIReturn[] | undefined;
                     confirmations: modelsv2.PendingTransactionResponse[];
                     transactions: Transaction[];
                     confirmation: modelsv2.PendingTransactionResponse;
@@ -1624,7 +1624,7 @@ export declare class XGovRegistryClient {
              * @param params The params for the smart contract call
              * @returns The update params
              */
-            updateXgovRegistry: (params?: CallParams<XGovRegistryArgs['obj']['update_xgov_registry()void'] | XGovRegistryArgs['tuple']['update_xgov_registry()void']> & AppClientCompilationParams) => Promise<{
+            updateXgovRegistry: (params?: CallParams<XGovRegistryArgs["obj"]["update_xgov_registry()void"] | XGovRegistryArgs["tuple"]["update_xgov_registry()void"]> & AppClientCompilationParams) => Promise<{
                 approvalProgram: Uint8Array;
                 clearStateProgram: Uint8Array;
                 compiledApproval?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
@@ -1643,10 +1643,10 @@ export declare class XGovRegistryClient {
                 accountReferences?: string[] | undefined;
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
-                boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+                boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
                 sender?: string | undefined;
                 method: string;
-                args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
+                args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
                 deployTimeParams?: import("@algorandfoundation/algokit-utils/types/app").TealTemplateParams | undefined;
                 updatable?: boolean | undefined;
                 deletable?: boolean | undefined;
@@ -1656,7 +1656,7 @@ export declare class XGovRegistryClient {
                 signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
                 onComplete: OnApplicationComplete.UpdateApplicationOC;
-                args: (import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Transaction | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
+                args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
                     lease?: string | Uint8Array | undefined;
                     note?: string | Uint8Array | undefined;
                     maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -1673,7 +1673,7 @@ export declare class XGovRegistryClient {
                     accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
-                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                     schema?: {
@@ -1701,10 +1701,10 @@ export declare class XGovRegistryClient {
                     accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
-                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
-                }> | undefined)[] | undefined;
+                }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | undefined)[] | undefined;
             }>;
         };
         /**
@@ -1722,7 +1722,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        initProposalContract: (params: CallParams<XGovRegistryArgs['obj']['init_proposal_contract(uint64)void'] | XGovRegistryArgs['tuple']['init_proposal_contract(uint64)void']> & {
+        initProposalContract: (params: CallParams<XGovRegistryArgs["obj"]["init_proposal_contract(uint64)void"] | XGovRegistryArgs["tuple"]["init_proposal_contract(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1733,7 +1733,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        loadProposalContract: (params: CallParams<XGovRegistryArgs['obj']['load_proposal_contract(uint64,byte[])void'] | XGovRegistryArgs['tuple']['load_proposal_contract(uint64,byte[])void']> & {
+        loadProposalContract: (params: CallParams<XGovRegistryArgs["obj"]["load_proposal_contract(uint64,byte[])void"] | XGovRegistryArgs["tuple"]["load_proposal_contract(uint64,byte[])void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1744,7 +1744,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        deleteProposalContractBox: (params?: CallParams<XGovRegistryArgs['obj']['delete_proposal_contract_box()void'] | XGovRegistryArgs['tuple']['delete_proposal_contract_box()void']> & {
+        deleteProposalContractBox: (params?: CallParams<XGovRegistryArgs["obj"]["delete_proposal_contract_box()void"] | XGovRegistryArgs["tuple"]["delete_proposal_contract_box()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1755,7 +1755,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        pauseRegistry: (params?: CallParams<XGovRegistryArgs['obj']['pause_registry()void'] | XGovRegistryArgs['tuple']['pause_registry()void']> & {
+        pauseRegistry: (params?: CallParams<XGovRegistryArgs["obj"]["pause_registry()void"] | XGovRegistryArgs["tuple"]["pause_registry()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1766,7 +1766,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        pauseProposals: (params?: CallParams<XGovRegistryArgs['obj']['pause_proposals()void'] | XGovRegistryArgs['tuple']['pause_proposals()void']> & {
+        pauseProposals: (params?: CallParams<XGovRegistryArgs["obj"]["pause_proposals()void"] | XGovRegistryArgs["tuple"]["pause_proposals()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1777,7 +1777,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        resumeRegistry: (params?: CallParams<XGovRegistryArgs['obj']['resume_registry()void'] | XGovRegistryArgs['tuple']['resume_registry()void']> & {
+        resumeRegistry: (params?: CallParams<XGovRegistryArgs["obj"]["resume_registry()void"] | XGovRegistryArgs["tuple"]["resume_registry()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1788,7 +1788,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        resumeProposals: (params?: CallParams<XGovRegistryArgs['obj']['resume_proposals()void'] | XGovRegistryArgs['tuple']['resume_proposals()void']> & {
+        resumeProposals: (params?: CallParams<XGovRegistryArgs["obj"]["resume_proposals()void"] | XGovRegistryArgs["tuple"]["resume_proposals()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1799,7 +1799,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        setXgovManager: (params: CallParams<XGovRegistryArgs['obj']['set_xgov_manager(address)void'] | XGovRegistryArgs['tuple']['set_xgov_manager(address)void']> & {
+        setXgovManager: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_manager(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_manager(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1810,7 +1810,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        setPayor: (params: CallParams<XGovRegistryArgs['obj']['set_payor(address)void'] | XGovRegistryArgs['tuple']['set_payor(address)void']> & {
+        setPayor: (params: CallParams<XGovRegistryArgs["obj"]["set_payor(address)void"] | XGovRegistryArgs["tuple"]["set_payor(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1821,7 +1821,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        setXgovCouncil: (params: CallParams<XGovRegistryArgs['obj']['set_xgov_council(address)void'] | XGovRegistryArgs['tuple']['set_xgov_council(address)void']> & {
+        setXgovCouncil: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_council(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_council(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1832,7 +1832,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        setXgovSubscriber: (params: CallParams<XGovRegistryArgs['obj']['set_xgov_subscriber(address)void'] | XGovRegistryArgs['tuple']['set_xgov_subscriber(address)void']> & {
+        setXgovSubscriber: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_subscriber(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_subscriber(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1843,7 +1843,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        setKycProvider: (params: CallParams<XGovRegistryArgs['obj']['set_kyc_provider(address)void'] | XGovRegistryArgs['tuple']['set_kyc_provider(address)void']> & {
+        setKycProvider: (params: CallParams<XGovRegistryArgs["obj"]["set_kyc_provider(address)void"] | XGovRegistryArgs["tuple"]["set_kyc_provider(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1854,7 +1854,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        setCommitteeManager: (params: CallParams<XGovRegistryArgs['obj']['set_committee_manager(address)void'] | XGovRegistryArgs['tuple']['set_committee_manager(address)void']> & {
+        setCommitteeManager: (params: CallParams<XGovRegistryArgs["obj"]["set_committee_manager(address)void"] | XGovRegistryArgs["tuple"]["set_committee_manager(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1865,7 +1865,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        setXgovDaemon: (params: CallParams<XGovRegistryArgs['obj']['set_xgov_daemon(address)void'] | XGovRegistryArgs['tuple']['set_xgov_daemon(address)void']> & {
+        setXgovDaemon: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_daemon(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_daemon(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1876,7 +1876,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        configXgovRegistry: (params: CallParams<XGovRegistryArgs['obj']['config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void'] | XGovRegistryArgs['tuple']['config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void']> & {
+        configXgovRegistry: (params: CallParams<XGovRegistryArgs["obj"]["config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void"] | XGovRegistryArgs["tuple"]["config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1887,7 +1887,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        subscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['subscribe_xgov(address,pay)void'] | XGovRegistryArgs['tuple']['subscribe_xgov(address,pay)void']> & {
+        subscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["subscribe_xgov(address,pay)void"] | XGovRegistryArgs["tuple"]["subscribe_xgov(address,pay)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1898,7 +1898,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        unsubscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['unsubscribe_xgov(address)void'] | XGovRegistryArgs['tuple']['unsubscribe_xgov(address)void']> & {
+        unsubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["unsubscribe_xgov(address)void"] | XGovRegistryArgs["tuple"]["unsubscribe_xgov(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1909,7 +1909,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        requestSubscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['request_subscribe_xgov(address,address,uint64,pay)void'] | XGovRegistryArgs['tuple']['request_subscribe_xgov(address,address,uint64,pay)void']> & {
+        requestSubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["request_subscribe_xgov(address,address,uint64,pay)void"] | XGovRegistryArgs["tuple"]["request_subscribe_xgov(address,address,uint64,pay)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1920,7 +1920,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        approveSubscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['approve_subscribe_xgov(uint64)void'] | XGovRegistryArgs['tuple']['approve_subscribe_xgov(uint64)void']> & {
+        approveSubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["approve_subscribe_xgov(uint64)void"] | XGovRegistryArgs["tuple"]["approve_subscribe_xgov(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1931,7 +1931,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        rejectSubscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['reject_subscribe_xgov(uint64)void'] | XGovRegistryArgs['tuple']['reject_subscribe_xgov(uint64)void']> & {
+        rejectSubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["reject_subscribe_xgov(uint64)void"] | XGovRegistryArgs["tuple"]["reject_subscribe_xgov(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1942,7 +1942,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        setVotingAccount: (params: CallParams<XGovRegistryArgs['obj']['set_voting_account(address,address)void'] | XGovRegistryArgs['tuple']['set_voting_account(address,address)void']> & {
+        setVotingAccount: (params: CallParams<XGovRegistryArgs["obj"]["set_voting_account(address,address)void"] | XGovRegistryArgs["tuple"]["set_voting_account(address,address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1953,7 +1953,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        subscribeProposer: (params: CallParams<XGovRegistryArgs['obj']['subscribe_proposer(pay)void'] | XGovRegistryArgs['tuple']['subscribe_proposer(pay)void']> & {
+        subscribeProposer: (params: CallParams<XGovRegistryArgs["obj"]["subscribe_proposer(pay)void"] | XGovRegistryArgs["tuple"]["subscribe_proposer(pay)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1964,7 +1964,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        setProposerKyc: (params: CallParams<XGovRegistryArgs['obj']['set_proposer_kyc(address,bool,uint64)void'] | XGovRegistryArgs['tuple']['set_proposer_kyc(address,bool,uint64)void']> & {
+        setProposerKyc: (params: CallParams<XGovRegistryArgs["obj"]["set_proposer_kyc(address,bool,uint64)void"] | XGovRegistryArgs["tuple"]["set_proposer_kyc(address,bool,uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1975,7 +1975,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        declareCommittee: (params: CallParams<XGovRegistryArgs['obj']['declare_committee(byte[32],uint64,uint64)void'] | XGovRegistryArgs['tuple']['declare_committee(byte[32],uint64,uint64)void']> & {
+        declareCommittee: (params: CallParams<XGovRegistryArgs["obj"]["declare_committee(byte[32],uint64,uint64)void"] | XGovRegistryArgs["tuple"]["declare_committee(byte[32],uint64,uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1986,7 +1986,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        openProposal: (params: CallParams<XGovRegistryArgs['obj']['open_proposal(pay)uint64'] | XGovRegistryArgs['tuple']['open_proposal(pay)uint64']> & {
+        openProposal: (params: CallParams<XGovRegistryArgs["obj"]["open_proposal(pay)uint64"] | XGovRegistryArgs["tuple"]["open_proposal(pay)uint64"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1997,7 +1997,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        voteProposal: (params: CallParams<XGovRegistryArgs['obj']['vote_proposal(uint64,address,uint64,uint64)void'] | XGovRegistryArgs['tuple']['vote_proposal(uint64,address,uint64,uint64)void']> & {
+        voteProposal: (params: CallParams<XGovRegistryArgs["obj"]["vote_proposal(uint64,address,uint64,uint64)void"] | XGovRegistryArgs["tuple"]["vote_proposal(uint64,address,uint64,uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -2008,7 +2008,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        payGrantProposal: (params: CallParams<XGovRegistryArgs['obj']['pay_grant_proposal(uint64)void'] | XGovRegistryArgs['tuple']['pay_grant_proposal(uint64)void']> & {
+        payGrantProposal: (params: CallParams<XGovRegistryArgs["obj"]["pay_grant_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["pay_grant_proposal(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -2019,7 +2019,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        finalizeProposal: (params: CallParams<XGovRegistryArgs['obj']['finalize_proposal(uint64)void'] | XGovRegistryArgs['tuple']['finalize_proposal(uint64)void']> & {
+        finalizeProposal: (params: CallParams<XGovRegistryArgs["obj"]["finalize_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["finalize_proposal(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -2030,7 +2030,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        dropProposal: (params: CallParams<XGovRegistryArgs['obj']['drop_proposal(uint64)void'] | XGovRegistryArgs['tuple']['drop_proposal(uint64)void']> & {
+        dropProposal: (params: CallParams<XGovRegistryArgs["obj"]["drop_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["drop_proposal(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -2041,7 +2041,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        depositFunds: (params: CallParams<XGovRegistryArgs['obj']['deposit_funds(pay)void'] | XGovRegistryArgs['tuple']['deposit_funds(pay)void']> & {
+        depositFunds: (params: CallParams<XGovRegistryArgs["obj"]["deposit_funds(pay)void"] | XGovRegistryArgs["tuple"]["deposit_funds(pay)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -2052,7 +2052,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        withdrawFunds: (params: CallParams<XGovRegistryArgs['obj']['withdraw_funds(uint64)void'] | XGovRegistryArgs['tuple']['withdraw_funds(uint64)void']> & {
+        withdrawFunds: (params: CallParams<XGovRegistryArgs["obj"]["withdraw_funds(uint64)void"] | XGovRegistryArgs["tuple"]["withdraw_funds(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -2063,7 +2063,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        withdrawBalance: (params?: CallParams<XGovRegistryArgs['obj']['withdraw_balance()void'] | XGovRegistryArgs['tuple']['withdraw_balance()void']> & {
+        withdrawBalance: (params?: CallParams<XGovRegistryArgs["obj"]["withdraw_balance()void"] | XGovRegistryArgs["tuple"]["withdraw_balance()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -2076,7 +2076,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        getState: (params?: CallParams<XGovRegistryArgs['obj']['get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'] | XGovRegistryArgs['tuple']['get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)']> & {
+        getState: (params?: CallParams<XGovRegistryArgs["obj"]["get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"] | XGovRegistryArgs["tuple"]["get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -2089,7 +2089,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params: The xGov box value
          */
-        getXgovBox: (params: CallParams<XGovRegistryArgs['obj']['get_xgov_box(address)(address,uint64,uint64,uint64)'] | XGovRegistryArgs['tuple']['get_xgov_box(address)(address,uint64,uint64,uint64)']> & {
+        getXgovBox: (params: CallParams<XGovRegistryArgs["obj"]["get_xgov_box(address)(address,uint64,uint64,uint64)"] | XGovRegistryArgs["tuple"]["get_xgov_box(address)(address,uint64,uint64,uint64)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -2102,7 +2102,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params: The Proposer box value
          */
-        getProposerBox: (params: CallParams<XGovRegistryArgs['obj']['get_proposer_box(address)(bool,bool,uint64)'] | XGovRegistryArgs['tuple']['get_proposer_box(address)(bool,bool,uint64)']> & {
+        getProposerBox: (params: CallParams<XGovRegistryArgs["obj"]["get_proposer_box(address)(bool,bool,uint64)"] | XGovRegistryArgs["tuple"]["get_proposer_box(address)(bool,bool,uint64)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -2115,7 +2115,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params: The subscribe request box value
          */
-        getRequestBox: (params: CallParams<XGovRegistryArgs['obj']['get_request_box(uint64)(address,address,uint64)'] | XGovRegistryArgs['tuple']['get_request_box(uint64)(address,address,uint64)']> & {
+        getRequestBox: (params: CallParams<XGovRegistryArgs["obj"]["get_request_box(uint64)(address,address,uint64)"] | XGovRegistryArgs["tuple"]["get_request_box(uint64)(address,address,uint64)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -2124,7 +2124,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        isProposal: (params: CallParams<XGovRegistryArgs['obj']['is_proposal(uint64)void'] | XGovRegistryArgs['tuple']['is_proposal(uint64)void']> & {
+        isProposal: (params: CallParams<XGovRegistryArgs["obj"]["is_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["is_proposal(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
     };
@@ -2144,7 +2144,7 @@ export declare class XGovRegistryClient {
              * @param params The params for the smart contract call
              * @returns The update transaction
              */
-            updateXgovRegistry: (params?: CallParams<XGovRegistryArgs['obj']['update_xgov_registry()void'] | XGovRegistryArgs['tuple']['update_xgov_registry()void']> & AppClientCompilationParams) => Promise<{
+            updateXgovRegistry: (params?: CallParams<XGovRegistryArgs["obj"]["update_xgov_registry()void"] | XGovRegistryArgs["tuple"]["update_xgov_registry()void"]> & AppClientCompilationParams) => Promise<{
                 transactions: Transaction[];
                 methodCalls: Map<number, import("algosdk").ABIMethod>;
                 signers: Map<number, TransactionSigner>;
@@ -2165,7 +2165,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        initProposalContract: (params: CallParams<XGovRegistryArgs['obj']['init_proposal_contract(uint64)void'] | XGovRegistryArgs['tuple']['init_proposal_contract(uint64)void']> & {
+        initProposalContract: (params: CallParams<XGovRegistryArgs["obj"]["init_proposal_contract(uint64)void"] | XGovRegistryArgs["tuple"]["init_proposal_contract(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2180,7 +2180,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        loadProposalContract: (params: CallParams<XGovRegistryArgs['obj']['load_proposal_contract(uint64,byte[])void'] | XGovRegistryArgs['tuple']['load_proposal_contract(uint64,byte[])void']> & {
+        loadProposalContract: (params: CallParams<XGovRegistryArgs["obj"]["load_proposal_contract(uint64,byte[])void"] | XGovRegistryArgs["tuple"]["load_proposal_contract(uint64,byte[])void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2195,7 +2195,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        deleteProposalContractBox: (params?: CallParams<XGovRegistryArgs['obj']['delete_proposal_contract_box()void'] | XGovRegistryArgs['tuple']['delete_proposal_contract_box()void']> & {
+        deleteProposalContractBox: (params?: CallParams<XGovRegistryArgs["obj"]["delete_proposal_contract_box()void"] | XGovRegistryArgs["tuple"]["delete_proposal_contract_box()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2210,7 +2210,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        pauseRegistry: (params?: CallParams<XGovRegistryArgs['obj']['pause_registry()void'] | XGovRegistryArgs['tuple']['pause_registry()void']> & {
+        pauseRegistry: (params?: CallParams<XGovRegistryArgs["obj"]["pause_registry()void"] | XGovRegistryArgs["tuple"]["pause_registry()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2225,7 +2225,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        pauseProposals: (params?: CallParams<XGovRegistryArgs['obj']['pause_proposals()void'] | XGovRegistryArgs['tuple']['pause_proposals()void']> & {
+        pauseProposals: (params?: CallParams<XGovRegistryArgs["obj"]["pause_proposals()void"] | XGovRegistryArgs["tuple"]["pause_proposals()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2240,7 +2240,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        resumeRegistry: (params?: CallParams<XGovRegistryArgs['obj']['resume_registry()void'] | XGovRegistryArgs['tuple']['resume_registry()void']> & {
+        resumeRegistry: (params?: CallParams<XGovRegistryArgs["obj"]["resume_registry()void"] | XGovRegistryArgs["tuple"]["resume_registry()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2255,7 +2255,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        resumeProposals: (params?: CallParams<XGovRegistryArgs['obj']['resume_proposals()void'] | XGovRegistryArgs['tuple']['resume_proposals()void']> & {
+        resumeProposals: (params?: CallParams<XGovRegistryArgs["obj"]["resume_proposals()void"] | XGovRegistryArgs["tuple"]["resume_proposals()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2270,7 +2270,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        setXgovManager: (params: CallParams<XGovRegistryArgs['obj']['set_xgov_manager(address)void'] | XGovRegistryArgs['tuple']['set_xgov_manager(address)void']> & {
+        setXgovManager: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_manager(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_manager(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2285,7 +2285,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        setPayor: (params: CallParams<XGovRegistryArgs['obj']['set_payor(address)void'] | XGovRegistryArgs['tuple']['set_payor(address)void']> & {
+        setPayor: (params: CallParams<XGovRegistryArgs["obj"]["set_payor(address)void"] | XGovRegistryArgs["tuple"]["set_payor(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2300,7 +2300,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        setXgovCouncil: (params: CallParams<XGovRegistryArgs['obj']['set_xgov_council(address)void'] | XGovRegistryArgs['tuple']['set_xgov_council(address)void']> & {
+        setXgovCouncil: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_council(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_council(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2315,7 +2315,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        setXgovSubscriber: (params: CallParams<XGovRegistryArgs['obj']['set_xgov_subscriber(address)void'] | XGovRegistryArgs['tuple']['set_xgov_subscriber(address)void']> & {
+        setXgovSubscriber: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_subscriber(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_subscriber(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2330,7 +2330,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        setKycProvider: (params: CallParams<XGovRegistryArgs['obj']['set_kyc_provider(address)void'] | XGovRegistryArgs['tuple']['set_kyc_provider(address)void']> & {
+        setKycProvider: (params: CallParams<XGovRegistryArgs["obj"]["set_kyc_provider(address)void"] | XGovRegistryArgs["tuple"]["set_kyc_provider(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2345,7 +2345,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        setCommitteeManager: (params: CallParams<XGovRegistryArgs['obj']['set_committee_manager(address)void'] | XGovRegistryArgs['tuple']['set_committee_manager(address)void']> & {
+        setCommitteeManager: (params: CallParams<XGovRegistryArgs["obj"]["set_committee_manager(address)void"] | XGovRegistryArgs["tuple"]["set_committee_manager(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2360,7 +2360,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        setXgovDaemon: (params: CallParams<XGovRegistryArgs['obj']['set_xgov_daemon(address)void'] | XGovRegistryArgs['tuple']['set_xgov_daemon(address)void']> & {
+        setXgovDaemon: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_daemon(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_daemon(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2375,7 +2375,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        configXgovRegistry: (params: CallParams<XGovRegistryArgs['obj']['config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void'] | XGovRegistryArgs['tuple']['config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void']> & {
+        configXgovRegistry: (params: CallParams<XGovRegistryArgs["obj"]["config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void"] | XGovRegistryArgs["tuple"]["config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2390,7 +2390,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        subscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['subscribe_xgov(address,pay)void'] | XGovRegistryArgs['tuple']['subscribe_xgov(address,pay)void']> & {
+        subscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["subscribe_xgov(address,pay)void"] | XGovRegistryArgs["tuple"]["subscribe_xgov(address,pay)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2405,7 +2405,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        unsubscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['unsubscribe_xgov(address)void'] | XGovRegistryArgs['tuple']['unsubscribe_xgov(address)void']> & {
+        unsubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["unsubscribe_xgov(address)void"] | XGovRegistryArgs["tuple"]["unsubscribe_xgov(address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2420,7 +2420,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        requestSubscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['request_subscribe_xgov(address,address,uint64,pay)void'] | XGovRegistryArgs['tuple']['request_subscribe_xgov(address,address,uint64,pay)void']> & {
+        requestSubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["request_subscribe_xgov(address,address,uint64,pay)void"] | XGovRegistryArgs["tuple"]["request_subscribe_xgov(address,address,uint64,pay)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2435,7 +2435,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        approveSubscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['approve_subscribe_xgov(uint64)void'] | XGovRegistryArgs['tuple']['approve_subscribe_xgov(uint64)void']> & {
+        approveSubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["approve_subscribe_xgov(uint64)void"] | XGovRegistryArgs["tuple"]["approve_subscribe_xgov(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2450,7 +2450,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        rejectSubscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['reject_subscribe_xgov(uint64)void'] | XGovRegistryArgs['tuple']['reject_subscribe_xgov(uint64)void']> & {
+        rejectSubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["reject_subscribe_xgov(uint64)void"] | XGovRegistryArgs["tuple"]["reject_subscribe_xgov(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2465,7 +2465,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        setVotingAccount: (params: CallParams<XGovRegistryArgs['obj']['set_voting_account(address,address)void'] | XGovRegistryArgs['tuple']['set_voting_account(address,address)void']> & {
+        setVotingAccount: (params: CallParams<XGovRegistryArgs["obj"]["set_voting_account(address,address)void"] | XGovRegistryArgs["tuple"]["set_voting_account(address,address)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2480,7 +2480,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        subscribeProposer: (params: CallParams<XGovRegistryArgs['obj']['subscribe_proposer(pay)void'] | XGovRegistryArgs['tuple']['subscribe_proposer(pay)void']> & {
+        subscribeProposer: (params: CallParams<XGovRegistryArgs["obj"]["subscribe_proposer(pay)void"] | XGovRegistryArgs["tuple"]["subscribe_proposer(pay)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2495,7 +2495,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        setProposerKyc: (params: CallParams<XGovRegistryArgs['obj']['set_proposer_kyc(address,bool,uint64)void'] | XGovRegistryArgs['tuple']['set_proposer_kyc(address,bool,uint64)void']> & {
+        setProposerKyc: (params: CallParams<XGovRegistryArgs["obj"]["set_proposer_kyc(address,bool,uint64)void"] | XGovRegistryArgs["tuple"]["set_proposer_kyc(address,bool,uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2510,7 +2510,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        declareCommittee: (params: CallParams<XGovRegistryArgs['obj']['declare_committee(byte[32],uint64,uint64)void'] | XGovRegistryArgs['tuple']['declare_committee(byte[32],uint64,uint64)void']> & {
+        declareCommittee: (params: CallParams<XGovRegistryArgs["obj"]["declare_committee(byte[32],uint64,uint64)void"] | XGovRegistryArgs["tuple"]["declare_committee(byte[32],uint64,uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2525,7 +2525,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        openProposal: (params: CallParams<XGovRegistryArgs['obj']['open_proposal(pay)uint64'] | XGovRegistryArgs['tuple']['open_proposal(pay)uint64']> & {
+        openProposal: (params: CallParams<XGovRegistryArgs["obj"]["open_proposal(pay)uint64"] | XGovRegistryArgs["tuple"]["open_proposal(pay)uint64"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2540,7 +2540,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        voteProposal: (params: CallParams<XGovRegistryArgs['obj']['vote_proposal(uint64,address,uint64,uint64)void'] | XGovRegistryArgs['tuple']['vote_proposal(uint64,address,uint64,uint64)void']> & {
+        voteProposal: (params: CallParams<XGovRegistryArgs["obj"]["vote_proposal(uint64,address,uint64,uint64)void"] | XGovRegistryArgs["tuple"]["vote_proposal(uint64,address,uint64,uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2555,7 +2555,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        payGrantProposal: (params: CallParams<XGovRegistryArgs['obj']['pay_grant_proposal(uint64)void'] | XGovRegistryArgs['tuple']['pay_grant_proposal(uint64)void']> & {
+        payGrantProposal: (params: CallParams<XGovRegistryArgs["obj"]["pay_grant_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["pay_grant_proposal(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2570,7 +2570,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        finalizeProposal: (params: CallParams<XGovRegistryArgs['obj']['finalize_proposal(uint64)void'] | XGovRegistryArgs['tuple']['finalize_proposal(uint64)void']> & {
+        finalizeProposal: (params: CallParams<XGovRegistryArgs["obj"]["finalize_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["finalize_proposal(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2585,7 +2585,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        dropProposal: (params: CallParams<XGovRegistryArgs['obj']['drop_proposal(uint64)void'] | XGovRegistryArgs['tuple']['drop_proposal(uint64)void']> & {
+        dropProposal: (params: CallParams<XGovRegistryArgs["obj"]["drop_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["drop_proposal(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2600,7 +2600,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        depositFunds: (params: CallParams<XGovRegistryArgs['obj']['deposit_funds(pay)void'] | XGovRegistryArgs['tuple']['deposit_funds(pay)void']> & {
+        depositFunds: (params: CallParams<XGovRegistryArgs["obj"]["deposit_funds(pay)void"] | XGovRegistryArgs["tuple"]["deposit_funds(pay)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2615,7 +2615,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        withdrawFunds: (params: CallParams<XGovRegistryArgs['obj']['withdraw_funds(uint64)void'] | XGovRegistryArgs['tuple']['withdraw_funds(uint64)void']> & {
+        withdrawFunds: (params: CallParams<XGovRegistryArgs["obj"]["withdraw_funds(uint64)void"] | XGovRegistryArgs["tuple"]["withdraw_funds(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2630,7 +2630,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        withdrawBalance: (params?: CallParams<XGovRegistryArgs['obj']['withdraw_balance()void'] | XGovRegistryArgs['tuple']['withdraw_balance()void']> & {
+        withdrawBalance: (params?: CallParams<XGovRegistryArgs["obj"]["withdraw_balance()void"] | XGovRegistryArgs["tuple"]["withdraw_balance()void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2647,7 +2647,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        getState: (params?: CallParams<XGovRegistryArgs['obj']['get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'] | XGovRegistryArgs['tuple']['get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)']> & {
+        getState: (params?: CallParams<XGovRegistryArgs["obj"]["get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"] | XGovRegistryArgs["tuple"]["get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2664,7 +2664,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction: The xGov box value
          */
-        getXgovBox: (params: CallParams<XGovRegistryArgs['obj']['get_xgov_box(address)(address,uint64,uint64,uint64)'] | XGovRegistryArgs['tuple']['get_xgov_box(address)(address,uint64,uint64,uint64)']> & {
+        getXgovBox: (params: CallParams<XGovRegistryArgs["obj"]["get_xgov_box(address)(address,uint64,uint64,uint64)"] | XGovRegistryArgs["tuple"]["get_xgov_box(address)(address,uint64,uint64,uint64)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2681,7 +2681,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction: The Proposer box value
          */
-        getProposerBox: (params: CallParams<XGovRegistryArgs['obj']['get_proposer_box(address)(bool,bool,uint64)'] | XGovRegistryArgs['tuple']['get_proposer_box(address)(bool,bool,uint64)']> & {
+        getProposerBox: (params: CallParams<XGovRegistryArgs["obj"]["get_proposer_box(address)(bool,bool,uint64)"] | XGovRegistryArgs["tuple"]["get_proposer_box(address)(bool,bool,uint64)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2698,7 +2698,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction: The subscribe request box value
          */
-        getRequestBox: (params: CallParams<XGovRegistryArgs['obj']['get_request_box(uint64)(address,address,uint64)'] | XGovRegistryArgs['tuple']['get_request_box(uint64)(address,address,uint64)']> & {
+        getRequestBox: (params: CallParams<XGovRegistryArgs["obj"]["get_request_box(uint64)(address,address,uint64)"] | XGovRegistryArgs["tuple"]["get_request_box(uint64)(address,address,uint64)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2711,7 +2711,7 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        isProposal: (params: CallParams<XGovRegistryArgs['obj']['is_proposal(uint64)void'] | XGovRegistryArgs['tuple']['is_proposal(uint64)void']> & {
+        isProposal: (params: CallParams<XGovRegistryArgs["obj"]["is_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["is_proposal(uint64)void"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -2735,8 +2735,8 @@ export declare class XGovRegistryClient {
              * @param params The params for the smart contract call
              * @returns The update result
              */
-            updateXgovRegistry: (params?: CallParams<XGovRegistryArgs['obj']['update_xgov_registry()void'] | XGovRegistryArgs['tuple']['update_xgov_registry()void']> & AppClientCompilationParams & SendParams) => Promise<{
-                return: void | undefined;
+            updateXgovRegistry: (params?: CallParams<XGovRegistryArgs["obj"]["update_xgov_registry()void"] | XGovRegistryArgs["tuple"]["update_xgov_registry()void"]> & AppClientCompilationParams & SendParams) => Promise<{
+                return: (undefined | XGovRegistryReturns["update_xgov_registry()void"]);
                 compiledApproval?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                 compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                 groupId: string;
@@ -2772,11 +2772,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        initProposalContract: (params: CallParams<XGovRegistryArgs['obj']['init_proposal_contract(uint64)void'] | XGovRegistryArgs['tuple']['init_proposal_contract(uint64)void']> & SendParams & {
+        initProposalContract: (params: CallParams<XGovRegistryArgs["obj"]["init_proposal_contract(uint64)void"] | XGovRegistryArgs["tuple"]["init_proposal_contract(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["init_proposal_contract(uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2792,11 +2792,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        loadProposalContract: (params: CallParams<XGovRegistryArgs['obj']['load_proposal_contract(uint64,byte[])void'] | XGovRegistryArgs['tuple']['load_proposal_contract(uint64,byte[])void']> & SendParams & {
+        loadProposalContract: (params: CallParams<XGovRegistryArgs["obj"]["load_proposal_contract(uint64,byte[])void"] | XGovRegistryArgs["tuple"]["load_proposal_contract(uint64,byte[])void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["load_proposal_contract(uint64,byte[])void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2812,11 +2812,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        deleteProposalContractBox: (params?: CallParams<XGovRegistryArgs['obj']['delete_proposal_contract_box()void'] | XGovRegistryArgs['tuple']['delete_proposal_contract_box()void']> & SendParams & {
+        deleteProposalContractBox: (params?: CallParams<XGovRegistryArgs["obj"]["delete_proposal_contract_box()void"] | XGovRegistryArgs["tuple"]["delete_proposal_contract_box()void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["delete_proposal_contract_box()void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2832,11 +2832,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        pauseRegistry: (params?: CallParams<XGovRegistryArgs['obj']['pause_registry()void'] | XGovRegistryArgs['tuple']['pause_registry()void']> & SendParams & {
+        pauseRegistry: (params?: CallParams<XGovRegistryArgs["obj"]["pause_registry()void"] | XGovRegistryArgs["tuple"]["pause_registry()void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["pause_registry()void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2852,11 +2852,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        pauseProposals: (params?: CallParams<XGovRegistryArgs['obj']['pause_proposals()void'] | XGovRegistryArgs['tuple']['pause_proposals()void']> & SendParams & {
+        pauseProposals: (params?: CallParams<XGovRegistryArgs["obj"]["pause_proposals()void"] | XGovRegistryArgs["tuple"]["pause_proposals()void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["pause_proposals()void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2872,11 +2872,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        resumeRegistry: (params?: CallParams<XGovRegistryArgs['obj']['resume_registry()void'] | XGovRegistryArgs['tuple']['resume_registry()void']> & SendParams & {
+        resumeRegistry: (params?: CallParams<XGovRegistryArgs["obj"]["resume_registry()void"] | XGovRegistryArgs["tuple"]["resume_registry()void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["resume_registry()void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2892,11 +2892,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        resumeProposals: (params?: CallParams<XGovRegistryArgs['obj']['resume_proposals()void'] | XGovRegistryArgs['tuple']['resume_proposals()void']> & SendParams & {
+        resumeProposals: (params?: CallParams<XGovRegistryArgs["obj"]["resume_proposals()void"] | XGovRegistryArgs["tuple"]["resume_proposals()void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["resume_proposals()void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2912,11 +2912,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        setXgovManager: (params: CallParams<XGovRegistryArgs['obj']['set_xgov_manager(address)void'] | XGovRegistryArgs['tuple']['set_xgov_manager(address)void']> & SendParams & {
+        setXgovManager: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_manager(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_manager(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["set_xgov_manager(address)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2932,11 +2932,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        setPayor: (params: CallParams<XGovRegistryArgs['obj']['set_payor(address)void'] | XGovRegistryArgs['tuple']['set_payor(address)void']> & SendParams & {
+        setPayor: (params: CallParams<XGovRegistryArgs["obj"]["set_payor(address)void"] | XGovRegistryArgs["tuple"]["set_payor(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["set_payor(address)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2952,11 +2952,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        setXgovCouncil: (params: CallParams<XGovRegistryArgs['obj']['set_xgov_council(address)void'] | XGovRegistryArgs['tuple']['set_xgov_council(address)void']> & SendParams & {
+        setXgovCouncil: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_council(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_council(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["set_xgov_council(address)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2972,11 +2972,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        setXgovSubscriber: (params: CallParams<XGovRegistryArgs['obj']['set_xgov_subscriber(address)void'] | XGovRegistryArgs['tuple']['set_xgov_subscriber(address)void']> & SendParams & {
+        setXgovSubscriber: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_subscriber(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_subscriber(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["set_xgov_subscriber(address)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -2992,11 +2992,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        setKycProvider: (params: CallParams<XGovRegistryArgs['obj']['set_kyc_provider(address)void'] | XGovRegistryArgs['tuple']['set_kyc_provider(address)void']> & SendParams & {
+        setKycProvider: (params: CallParams<XGovRegistryArgs["obj"]["set_kyc_provider(address)void"] | XGovRegistryArgs["tuple"]["set_kyc_provider(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["set_kyc_provider(address)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3012,11 +3012,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        setCommitteeManager: (params: CallParams<XGovRegistryArgs['obj']['set_committee_manager(address)void'] | XGovRegistryArgs['tuple']['set_committee_manager(address)void']> & SendParams & {
+        setCommitteeManager: (params: CallParams<XGovRegistryArgs["obj"]["set_committee_manager(address)void"] | XGovRegistryArgs["tuple"]["set_committee_manager(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["set_committee_manager(address)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3032,11 +3032,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        setXgovDaemon: (params: CallParams<XGovRegistryArgs['obj']['set_xgov_daemon(address)void'] | XGovRegistryArgs['tuple']['set_xgov_daemon(address)void']> & SendParams & {
+        setXgovDaemon: (params: CallParams<XGovRegistryArgs["obj"]["set_xgov_daemon(address)void"] | XGovRegistryArgs["tuple"]["set_xgov_daemon(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["set_xgov_daemon(address)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3052,11 +3052,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        configXgovRegistry: (params: CallParams<XGovRegistryArgs['obj']['config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void'] | XGovRegistryArgs['tuple']['config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void']> & SendParams & {
+        configXgovRegistry: (params: CallParams<XGovRegistryArgs["obj"]["config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void"] | XGovRegistryArgs["tuple"]["config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["config_xgov_registry((uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3]))void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3072,11 +3072,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        subscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['subscribe_xgov(address,pay)void'] | XGovRegistryArgs['tuple']['subscribe_xgov(address,pay)void']> & SendParams & {
+        subscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["subscribe_xgov(address,pay)void"] | XGovRegistryArgs["tuple"]["subscribe_xgov(address,pay)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["subscribe_xgov(address,pay)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3092,11 +3092,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        unsubscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['unsubscribe_xgov(address)void'] | XGovRegistryArgs['tuple']['unsubscribe_xgov(address)void']> & SendParams & {
+        unsubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["unsubscribe_xgov(address)void"] | XGovRegistryArgs["tuple"]["unsubscribe_xgov(address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["unsubscribe_xgov(address)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3112,11 +3112,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        requestSubscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['request_subscribe_xgov(address,address,uint64,pay)void'] | XGovRegistryArgs['tuple']['request_subscribe_xgov(address,address,uint64,pay)void']> & SendParams & {
+        requestSubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["request_subscribe_xgov(address,address,uint64,pay)void"] | XGovRegistryArgs["tuple"]["request_subscribe_xgov(address,address,uint64,pay)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["request_subscribe_xgov(address,address,uint64,pay)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3132,11 +3132,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        approveSubscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['approve_subscribe_xgov(uint64)void'] | XGovRegistryArgs['tuple']['approve_subscribe_xgov(uint64)void']> & SendParams & {
+        approveSubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["approve_subscribe_xgov(uint64)void"] | XGovRegistryArgs["tuple"]["approve_subscribe_xgov(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["approve_subscribe_xgov(uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3152,11 +3152,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        rejectSubscribeXgov: (params: CallParams<XGovRegistryArgs['obj']['reject_subscribe_xgov(uint64)void'] | XGovRegistryArgs['tuple']['reject_subscribe_xgov(uint64)void']> & SendParams & {
+        rejectSubscribeXgov: (params: CallParams<XGovRegistryArgs["obj"]["reject_subscribe_xgov(uint64)void"] | XGovRegistryArgs["tuple"]["reject_subscribe_xgov(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["reject_subscribe_xgov(uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3172,11 +3172,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        setVotingAccount: (params: CallParams<XGovRegistryArgs['obj']['set_voting_account(address,address)void'] | XGovRegistryArgs['tuple']['set_voting_account(address,address)void']> & SendParams & {
+        setVotingAccount: (params: CallParams<XGovRegistryArgs["obj"]["set_voting_account(address,address)void"] | XGovRegistryArgs["tuple"]["set_voting_account(address,address)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["set_voting_account(address,address)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3192,11 +3192,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        subscribeProposer: (params: CallParams<XGovRegistryArgs['obj']['subscribe_proposer(pay)void'] | XGovRegistryArgs['tuple']['subscribe_proposer(pay)void']> & SendParams & {
+        subscribeProposer: (params: CallParams<XGovRegistryArgs["obj"]["subscribe_proposer(pay)void"] | XGovRegistryArgs["tuple"]["subscribe_proposer(pay)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["subscribe_proposer(pay)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3212,11 +3212,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        setProposerKyc: (params: CallParams<XGovRegistryArgs['obj']['set_proposer_kyc(address,bool,uint64)void'] | XGovRegistryArgs['tuple']['set_proposer_kyc(address,bool,uint64)void']> & SendParams & {
+        setProposerKyc: (params: CallParams<XGovRegistryArgs["obj"]["set_proposer_kyc(address,bool,uint64)void"] | XGovRegistryArgs["tuple"]["set_proposer_kyc(address,bool,uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["set_proposer_kyc(address,bool,uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3232,11 +3232,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        declareCommittee: (params: CallParams<XGovRegistryArgs['obj']['declare_committee(byte[32],uint64,uint64)void'] | XGovRegistryArgs['tuple']['declare_committee(byte[32],uint64,uint64)void']> & SendParams & {
+        declareCommittee: (params: CallParams<XGovRegistryArgs["obj"]["declare_committee(byte[32],uint64,uint64)void"] | XGovRegistryArgs["tuple"]["declare_committee(byte[32],uint64,uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["declare_committee(byte[32],uint64,uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3252,11 +3252,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        openProposal: (params: CallParams<XGovRegistryArgs['obj']['open_proposal(pay)uint64'] | XGovRegistryArgs['tuple']['open_proposal(pay)uint64']> & SendParams & {
+        openProposal: (params: CallParams<XGovRegistryArgs["obj"]["open_proposal(pay)uint64"] | XGovRegistryArgs["tuple"]["open_proposal(pay)uint64"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: bigint | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["open_proposal(pay)uint64"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3272,11 +3272,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        voteProposal: (params: CallParams<XGovRegistryArgs['obj']['vote_proposal(uint64,address,uint64,uint64)void'] | XGovRegistryArgs['tuple']['vote_proposal(uint64,address,uint64,uint64)void']> & SendParams & {
+        voteProposal: (params: CallParams<XGovRegistryArgs["obj"]["vote_proposal(uint64,address,uint64,uint64)void"] | XGovRegistryArgs["tuple"]["vote_proposal(uint64,address,uint64,uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["vote_proposal(uint64,address,uint64,uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3292,11 +3292,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        payGrantProposal: (params: CallParams<XGovRegistryArgs['obj']['pay_grant_proposal(uint64)void'] | XGovRegistryArgs['tuple']['pay_grant_proposal(uint64)void']> & SendParams & {
+        payGrantProposal: (params: CallParams<XGovRegistryArgs["obj"]["pay_grant_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["pay_grant_proposal(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["pay_grant_proposal(uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3312,11 +3312,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        finalizeProposal: (params: CallParams<XGovRegistryArgs['obj']['finalize_proposal(uint64)void'] | XGovRegistryArgs['tuple']['finalize_proposal(uint64)void']> & SendParams & {
+        finalizeProposal: (params: CallParams<XGovRegistryArgs["obj"]["finalize_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["finalize_proposal(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["finalize_proposal(uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3332,11 +3332,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        dropProposal: (params: CallParams<XGovRegistryArgs['obj']['drop_proposal(uint64)void'] | XGovRegistryArgs['tuple']['drop_proposal(uint64)void']> & SendParams & {
+        dropProposal: (params: CallParams<XGovRegistryArgs["obj"]["drop_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["drop_proposal(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["drop_proposal(uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3352,11 +3352,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        depositFunds: (params: CallParams<XGovRegistryArgs['obj']['deposit_funds(pay)void'] | XGovRegistryArgs['tuple']['deposit_funds(pay)void']> & SendParams & {
+        depositFunds: (params: CallParams<XGovRegistryArgs["obj"]["deposit_funds(pay)void"] | XGovRegistryArgs["tuple"]["deposit_funds(pay)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["deposit_funds(pay)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3372,11 +3372,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        withdrawFunds: (params: CallParams<XGovRegistryArgs['obj']['withdraw_funds(uint64)void'] | XGovRegistryArgs['tuple']['withdraw_funds(uint64)void']> & SendParams & {
+        withdrawFunds: (params: CallParams<XGovRegistryArgs["obj"]["withdraw_funds(uint64)void"] | XGovRegistryArgs["tuple"]["withdraw_funds(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["withdraw_funds(uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3392,11 +3392,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        withdrawBalance: (params?: CallParams<XGovRegistryArgs['obj']['withdraw_balance()void'] | XGovRegistryArgs['tuple']['withdraw_balance()void']> & SendParams & {
+        withdrawBalance: (params?: CallParams<XGovRegistryArgs["obj"]["withdraw_balance()void"] | XGovRegistryArgs["tuple"]["withdraw_balance()void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["withdraw_balance()void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3414,11 +3414,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        getState: (params?: CallParams<XGovRegistryArgs['obj']['get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)'] | XGovRegistryArgs['tuple']['get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)']> & SendParams & {
+        getState: (params?: CallParams<XGovRegistryArgs["obj"]["get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"] | XGovRegistryArgs["tuple"]["get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: TypedGlobalState | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64)"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3436,11 +3436,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result: The xGov box value
          */
-        getXgovBox: (params: CallParams<XGovRegistryArgs['obj']['get_xgov_box(address)(address,uint64,uint64,uint64)'] | XGovRegistryArgs['tuple']['get_xgov_box(address)(address,uint64,uint64,uint64)']> & SendParams & {
+        getXgovBox: (params: CallParams<XGovRegistryArgs["obj"]["get_xgov_box(address)(address,uint64,uint64,uint64)"] | XGovRegistryArgs["tuple"]["get_xgov_box(address)(address,uint64,uint64,uint64)"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: XGovBoxValue | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["get_xgov_box(address)(address,uint64,uint64,uint64)"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3458,11 +3458,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result: The Proposer box value
          */
-        getProposerBox: (params: CallParams<XGovRegistryArgs['obj']['get_proposer_box(address)(bool,bool,uint64)'] | XGovRegistryArgs['tuple']['get_proposer_box(address)(bool,bool,uint64)']> & SendParams & {
+        getProposerBox: (params: CallParams<XGovRegistryArgs["obj"]["get_proposer_box(address)(bool,bool,uint64)"] | XGovRegistryArgs["tuple"]["get_proposer_box(address)(bool,bool,uint64)"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: ProposerBoxValue | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["get_proposer_box(address)(bool,bool,uint64)"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3480,11 +3480,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result: The subscribe request box value
          */
-        getRequestBox: (params: CallParams<XGovRegistryArgs['obj']['get_request_box(uint64)(address,address,uint64)'] | XGovRegistryArgs['tuple']['get_request_box(uint64)(address,address,uint64)']> & SendParams & {
+        getRequestBox: (params: CallParams<XGovRegistryArgs["obj"]["get_request_box(uint64)(address,address,uint64)"] | XGovRegistryArgs["tuple"]["get_request_box(uint64)(address,address,uint64)"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: XGovSubscribeRequestBoxValue | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["get_request_box(uint64)(address,address,uint64)"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -3498,11 +3498,11 @@ export declare class XGovRegistryClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        isProposal: (params: CallParams<XGovRegistryArgs['obj']['is_proposal(uint64)void'] | XGovRegistryArgs['tuple']['is_proposal(uint64)void']> & SendParams & {
+        isProposal: (params: CallParams<XGovRegistryArgs["obj"]["is_proposal(uint64)void"] | XGovRegistryArgs["tuple"]["is_proposal(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: void | undefined;
-            returns?: ABIReturn[] | undefined;
+            return: (undefined | XGovRegistryReturns["is_proposal(uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
