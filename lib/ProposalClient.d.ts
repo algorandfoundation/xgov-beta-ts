@@ -3,14 +3,15 @@
  * DO NOT MODIFY IT BY HAND.
  * requires: @algorandfoundation/algokit-utils: ^7
  */
-import { type AlgorandClient } from '@algorandfoundation/algokit-utils/types/algorand-client';
+import { AlgorandClientInterface } from '@algorandfoundation/algokit-utils/types/algorand-client-interface';
 import { ABIReturn } from '@algorandfoundation/algokit-utils/types/app';
 import { Arc56Contract } from '@algorandfoundation/algokit-utils/types/app-arc56';
 import { AppClient as _AppClient, AppClientMethodCallParams, AppClientParams, AppClientBareCallParams, CallOnComplete, AppClientCompilationParams, ResolveAppClientByCreatorAndName, ResolveAppClientByNetwork, CloneAppClientParams } from '@algorandfoundation/algokit-utils/types/app-client';
 import { AppFactory as _AppFactory, AppFactoryAppClientParams, AppFactoryResolveAppClientByCreatorAndNameParams, AppFactoryDeployParams, AppFactoryParams, CreateSchema } from '@algorandfoundation/algokit-utils/types/app-factory';
 import { TransactionComposer, AppCallMethodCall, AppMethodCallTransactionArgument, RawSimulateOptions, SkipSignaturesSimulateOptions } from '@algorandfoundation/algokit-utils/types/composer';
 import { SendParams, SendAtomicTransactionComposerResults } from '@algorandfoundation/algokit-utils/types/transaction';
-import { Address, modelsv2, OnApplicationComplete, Transaction, TransactionSigner } from 'algosdk';
+import { modelsv2, OnApplicationComplete, Transaction, TransactionSigner } from 'algosdk';
+import SimulateResponse = modelsv2.SimulateResponse;
 export declare const APP_SPEC: Arc56Contract;
 /**
  * A state record containing binary data
@@ -58,14 +59,6 @@ export type ProposalTypedGlobalState = {
  * Converts the ABI tuple representation of a ProposalTypedGlobalState to the struct representation
  */
 export declare function ProposalTypedGlobalStateFromTuple(abiTuple: [string, bigint, string, bigint, bigint, bigint, bigint, boolean, bigint, number, bigint, bigint, bigint, Uint8Array, bigint, bigint, bigint, bigint, bigint, bigint]): ProposalTypedGlobalState;
-export type VoterBox = {
-    votes: bigint;
-    voted: boolean;
-};
-/**
- * Converts the ABI tuple representation of a VoterBox to the struct representation
- */
-export declare function VoterBoxFromTuple(abiTuple: [bigint, boolean]): VoterBox;
 /**
  * The argument types for the Proposal contract
  */
@@ -151,12 +144,6 @@ export type ProposalArgs = {
         'finalize()string': Record<string, never>;
         'delete()void': Record<string, never>;
         'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': Record<string, never>;
-        'get_voter_box(address)((uint64,bool),bool)': {
-            /**
-             * The address of the Voter
-             */
-            voterAddress: string;
-        };
         'op_up()void': Record<string, never>;
     };
     /**
@@ -177,7 +164,6 @@ export type ProposalArgs = {
         'finalize()string': [];
         'delete()void': [];
         'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': [];
-        'get_voter_box(address)((uint64,bool),bool)': [voterAddress: string];
         'op_up()void': [];
     };
 };
@@ -199,7 +185,6 @@ export type ProposalReturns = {
     'finalize()string': string;
     'delete()void': void;
     'get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': ProposalTypedGlobalState;
-    'get_voter_box(address)((uint64,bool),bool)': [[bigint, boolean], boolean];
     'op_up()void': void;
 };
 /**
@@ -268,13 +253,6 @@ export type ProposalTypes = {
          * The proposal state
          */
         returns: ProposalReturns['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'];
-    }> & Record<'get_voter_box(address)((uint64,bool),bool)' | 'get_voter_box', {
-        argsObj: ProposalArgs['obj']['get_voter_box(address)((uint64,bool),bool)'];
-        argsTuple: ProposalArgs['tuple']['get_voter_box(address)((uint64,bool),bool)'];
-        /**
-         * The voter's box value bool: `True` if voter's box exists, else `False`
-         */
-        returns: ProposalReturns['get_voter_box(address)((uint64,bool),bool)'];
     }> & Record<'op_up()void' | 'op_up', {
         argsObj: ProposalArgs['obj']['op_up()void'];
         argsTuple: ProposalArgs['tuple']['op_up()void'];
@@ -286,39 +264,31 @@ export type ProposalTypes = {
     state: {
         global: {
             keys: {
-                proposer: string;
-                registryAppId: bigint;
-                title: string;
-                openTs: bigint;
-                submissionTs: bigint;
-                voteOpenTs: bigint;
-                status: bigint;
-                finalized: bigint;
-                fundingCategory: bigint;
-                focus: bigint;
-                fundingType: bigint;
-                requestedAmount: bigint;
-                lockedAmount: bigint;
-                committeeId: Uint8Array;
+                approvals: bigint;
+                assignedVotes: bigint;
+                committeeId: BinaryState;
                 committeeMembers: bigint;
                 committeeVotes: bigint;
-                votedMembers: bigint;
-                approvals: bigint;
-                rejections: bigint;
-                nulls: bigint;
-                votersCount: bigint;
-                assignedVotes: bigint;
+                finalized: bigint;
+                focus: bigint;
+                fundingCategory: bigint;
+                fundingType: bigint;
+                lockedAmount: bigint;
                 metadataUploaded: bigint;
+                nulls: bigint;
+                openTs: bigint;
+                proposer: BinaryState;
+                registryAppId: bigint;
+                rejections: bigint;
+                requestedAmount: bigint;
+                status: bigint;
+                submissionTs: bigint;
+                title: BinaryState;
+                voteOpenTs: bigint;
+                votedMembers: bigint;
+                votersCount: bigint;
             };
             maps: {};
-        };
-        box: {
-            keys: {
-                metadata: BinaryState;
-            };
-            maps: {
-                voters: Map<string, VoterBox>;
-            };
         };
     };
 };
@@ -349,10 +319,6 @@ export type MethodReturn<TSignature extends ProposalSignatures> = ProposalTypes[
  * Defines the shape of the keyed global state of the application.
  */
 export type GlobalKeysState = ProposalTypes['state']['global']['keys'];
-/**
- * Defines the shape of the keyed box state of the application.
- */
-export type BoxKeysState = ProposalTypes['state']['box']['keys'];
 /**
  * Defines supported create method params for this smart contract
  */
@@ -398,21 +364,21 @@ export declare abstract class ProposalParamsFactory {
             method: string;
         }>(params: TParams): {
             signer?: (TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount) | undefined;
-            rekeyTo?: (string | Address) | undefined;
+            rekeyTo?: string | undefined;
             note?: (Uint8Array | string) | undefined;
             lease?: (Uint8Array | string) | undefined;
             staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-            validityWindow?: number | bigint | undefined;
+            validityWindow?: number | undefined;
             firstValidRound?: bigint | undefined;
             lastValidRound?: bigint | undefined;
             onComplete?: OnApplicationComplete | undefined;
-            accountReferences?: (string | Address)[] | undefined;
+            accountReferences?: string[] | undefined;
             appReferences?: bigint[] | undefined;
             assetReferences?: bigint[] | undefined;
             boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
-            sender?: (Address | string) | undefined;
+            sender?: string | undefined;
             method: string;
             args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
         } & AppClientCompilationParams & {
@@ -438,21 +404,21 @@ export declare abstract class ProposalParamsFactory {
             method: string;
         }>(params: TParams): {
             signer?: (TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount) | undefined;
-            rekeyTo?: (string | Address) | undefined;
+            rekeyTo?: string | undefined;
             note?: (Uint8Array | string) | undefined;
             lease?: (Uint8Array | string) | undefined;
             staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-            validityWindow?: number | bigint | undefined;
+            validityWindow?: number | undefined;
             firstValidRound?: bigint | undefined;
             lastValidRound?: bigint | undefined;
             onComplete?: OnApplicationComplete | undefined;
-            accountReferences?: (string | Address)[] | undefined;
+            accountReferences?: string[] | undefined;
             appReferences?: bigint[] | undefined;
             assetReferences?: bigint[] | undefined;
             boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
-            sender?: (Address | string) | undefined;
+            sender?: string | undefined;
             method: string;
             args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
         };
@@ -573,15 +539,6 @@ export declare abstract class ProposalParamsFactory {
      */
     static getState(params: CallParams<ProposalArgs['obj']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'] | ProposalArgs['tuple']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
-     * Constructs a no op call for the get_voter_box(address)((uint64,bool),bool) ABI method
-     *
-     * Returns the Voter box for the given address.
-     *
-     * @param params Parameters for the call
-     * @returns An `AppClientMethodCallParams` object for the call
-     */
-    static getVoterBox(params: CallParams<ProposalArgs['obj']['get_voter_box(address)((uint64,bool),bool)'] | ProposalArgs['tuple']['get_voter_box(address)((uint64,bool),bool)']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
-    /**
      * Constructs a no op call for the op_up()void ABI method
      *
      * @param params Parameters for the call
@@ -608,7 +565,7 @@ export declare class ProposalFactory {
     /** The ARC-56 app spec being used */
     get appSpec(): Arc56Contract;
     /** A reference to the underlying `AlgorandClient` this app factory is using. */
-    get algorand(): AlgorandClient;
+    get algorand(): AlgorandClientInterface;
     /**
      * Returns a new `AppClient` client for an app instance of the given ID.
      *
@@ -643,10 +600,10 @@ export declare class ProposalFactory {
             operationPerformed: "create";
             version: string;
             name: string;
+            deleted: boolean;
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
-            deleted: boolean;
             deletable?: boolean | undefined;
             updatable?: boolean | undefined;
             groupId: string;
@@ -657,7 +614,7 @@ export declare class ProposalFactory {
             confirmation: modelsv2.PendingTransactionResponse;
             transaction: Transaction;
             appId: bigint;
-            appAddress: Address;
+            appAddress: string;
         } | {
             return: import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined;
             deleteReturn: import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined;
@@ -665,7 +622,7 @@ export declare class ProposalFactory {
             compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
             operationPerformed: "update";
             appId: bigint;
-            appAddress: Address;
+            appAddress: string;
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
@@ -689,10 +646,10 @@ export declare class ProposalFactory {
             operationPerformed: "replace";
             version: string;
             name: string;
+            deleted: boolean;
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
-            deleted: boolean;
             deletable?: boolean | undefined;
             updatable?: boolean | undefined;
             groupId: string;
@@ -703,7 +660,7 @@ export declare class ProposalFactory {
             confirmation: modelsv2.PendingTransactionResponse;
             transaction: Transaction;
             appId: bigint;
-            appAddress: Address;
+            appAddress: string;
             deleteResult: import("@algorandfoundation/algokit-utils/types/transaction").ConfirmedTransactionResult;
         } | {
             return: import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined;
@@ -712,7 +669,7 @@ export declare class ProposalFactory {
             compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
             operationPerformed: "nothing";
             appId: bigint;
-            appAddress: Address;
+            appAddress: string;
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
@@ -752,46 +709,46 @@ export declare class ProposalFactory {
                 };
                 approvalProgram: Uint8Array;
                 clearStateProgram: Uint8Array;
-                maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                note?: string | Uint8Array | undefined;
-                signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
                 lease?: string | Uint8Array | undefined;
-                rekeyTo?: string | Address | undefined;
+                note?: string | Uint8Array | undefined;
+                maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
+                rekeyTo?: string | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                 extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                validityWindow?: number | bigint | undefined;
+                validityWindow?: number | undefined;
                 firstValidRound?: bigint | undefined;
                 lastValidRound?: bigint | undefined;
-                accountReferences?: (string | Address)[] | undefined;
+                onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                accountReferences?: string[] | undefined;
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
                 boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
-                sender?: string | Address | undefined;
+                sender?: string | undefined;
                 method: string;
                 args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
                 updatable?: boolean | undefined;
                 deletable?: boolean | undefined;
                 extraProgramPages?: number | undefined;
             } & {
-                sender: Address;
+                sender: string;
                 signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
                 args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    sender: string | Address;
-                    maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                    lease?: string | Uint8Array | undefined;
                     note?: string | Uint8Array | undefined;
+                    maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
-                    lease?: string | Uint8Array | undefined;
-                    rekeyTo?: string | Address | undefined;
+                    sender: string;
+                    rekeyTo?: string | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | bigint | undefined;
+                    validityWindow?: number | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
-                    accountReferences?: (string | Address)[] | undefined;
+                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                    accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
@@ -805,21 +762,21 @@ export declare class ProposalFactory {
                     } | undefined;
                     extraProgramPages?: number | undefined;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    sender: string | Address;
+                    sender: string;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    rekeyTo?: string | Address | undefined;
+                    rekeyTo?: string | undefined;
                     note?: string | Uint8Array | undefined;
                     lease?: string | Uint8Array | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | bigint | undefined;
+                    validityWindow?: number | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
                     appId: bigint;
                     onComplete?: OnApplicationComplete.UpdateApplicationOC | undefined;
                     args?: Uint8Array[] | undefined;
-                    accountReferences?: (string | Address)[] | undefined;
+                    accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
@@ -842,43 +799,43 @@ export declare class ProposalFactory {
              * @returns The deployDelete params
              */
             delete: (params?: CallParams<ProposalArgs["obj"]["delete()void"] | ProposalArgs["tuple"]["delete()void"]>) => {
-                maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                note?: string | Uint8Array | undefined;
-                signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                onComplete?: OnApplicationComplete | undefined;
                 lease?: string | Uint8Array | undefined;
-                rekeyTo?: string | Address | undefined;
+                note?: string | Uint8Array | undefined;
+                maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
+                rekeyTo?: string | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                 extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                validityWindow?: number | bigint | undefined;
+                validityWindow?: number | undefined;
                 firstValidRound?: bigint | undefined;
                 lastValidRound?: bigint | undefined;
-                accountReferences?: (string | Address)[] | undefined;
+                onComplete?: OnApplicationComplete | undefined;
+                accountReferences?: string[] | undefined;
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
                 boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
-                sender?: string | Address | undefined;
+                sender?: string | undefined;
                 method: string;
                 args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
             } & {
-                sender: Address;
+                sender: string;
                 signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
                 args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    sender: string | Address;
-                    maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                    lease?: string | Uint8Array | undefined;
                     note?: string | Uint8Array | undefined;
+                    maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
-                    lease?: string | Uint8Array | undefined;
-                    rekeyTo?: string | Address | undefined;
+                    sender: string;
+                    rekeyTo?: string | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | bigint | undefined;
+                    validityWindow?: number | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
-                    accountReferences?: (string | Address)[] | undefined;
+                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                    accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
@@ -892,21 +849,21 @@ export declare class ProposalFactory {
                     } | undefined;
                     extraProgramPages?: number | undefined;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    sender: string | Address;
+                    sender: string;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    rekeyTo?: string | Address | undefined;
+                    rekeyTo?: string | undefined;
                     note?: string | Uint8Array | undefined;
                     lease?: string | Uint8Array | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | bigint | undefined;
+                    validityWindow?: number | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
                     appId: bigint;
                     onComplete?: OnApplicationComplete.UpdateApplicationOC | undefined;
                     args?: Uint8Array[] | undefined;
-                    accountReferences?: (string | Address)[] | undefined;
+                    accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
@@ -973,7 +930,7 @@ export declare class ProposalFactory {
                     transactions: Transaction[];
                     confirmation: modelsv2.PendingTransactionResponse;
                     transaction: Transaction;
-                    appAddress: Address;
+                    appAddress: string;
                 };
                 appClient: ProposalClient;
             }>;
@@ -1022,13 +979,13 @@ export declare class ProposalClient {
     /** The ID of the app instance this client is linked to. */
     get appId(): bigint;
     /** The app address of the app instance this client is linked to. */
-    get appAddress(): Address;
+    get appAddress(): string;
     /** The name of the app. */
     get appName(): string;
     /** The ARC-56 app spec being used */
     get appSpec(): Arc56Contract;
     /** A reference to the underlying `AlgorandClient` this app client is using. */
-    get algorand(): AlgorandClient;
+    get algorand(): AlgorandClientInterface;
     /**
      * Get parameters to create transactions for the current app. A good mental model for this is that these parameters represent a deferred transaction creation.
      */
@@ -1186,19 +1143,6 @@ export declare class ProposalClient {
          * @returns The call params: The proposal state
          */
         getState: (params?: CallParams<ProposalArgs["obj"]["get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)"] | ProposalArgs["tuple"]["get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)"]> & {
-            onComplete?: OnApplicationComplete.NoOpOC;
-        }) => Promise<AppCallMethodCall>;
-        /**
-         * Makes a call to the Proposal smart contract using the `get_voter_box(address)((uint64,bool),bool)` ABI method.
-         *
-         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
-         *
-         * Returns the Voter box for the given address.
-         *
-         * @param params The params for the smart contract call
-         * @returns The call params: The voter's box value bool: `True` if voter's box exists, else `False`
-         */
-        getVoterBox: (params: CallParams<ProposalArgs["obj"]["get_voter_box(address)((uint64,bool),bool)"] | ProposalArgs["tuple"]["get_voter_box(address)((uint64,bool),bool)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -1416,23 +1360,6 @@ export declare class ProposalClient {
          * @returns The call transaction: The proposal state
          */
         getState: (params?: CallParams<ProposalArgs["obj"]["get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)"] | ProposalArgs["tuple"]["get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)"]> & {
-            onComplete?: OnApplicationComplete.NoOpOC;
-        }) => Promise<{
-            transactions: Transaction[];
-            methodCalls: Map<number, import("algosdk").ABIMethod>;
-            signers: Map<number, TransactionSigner>;
-        }>;
-        /**
-         * Makes a call to the Proposal smart contract using the `get_voter_box(address)((uint64,bool),bool)` ABI method.
-         *
-         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
-         *
-         * Returns the Voter box for the given address.
-         *
-         * @param params The params for the smart contract call
-         * @returns The call transaction: The voter's box value bool: `True` if voter's box exists, else `False`
-         */
-        getVoterBox: (params: CallParams<ProposalArgs["obj"]["get_voter_box(address)((uint64,bool),bool)"] | ProposalArgs["tuple"]["get_voter_box(address)((uint64,bool),bool)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -1739,28 +1666,6 @@ export declare class ProposalClient {
             transaction: Transaction;
         }>;
         /**
-         * Makes a call to the Proposal smart contract using the `get_voter_box(address)((uint64,bool),bool)` ABI method.
-         *
-         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
-         *
-         * Returns the Voter box for the given address.
-         *
-         * @param params The params for the smart contract call
-         * @returns The call result: The voter's box value bool: `True` if voter's box exists, else `False`
-         */
-        getVoterBox: (params: CallParams<ProposalArgs["obj"]["get_voter_box(address)((uint64,bool),bool)"] | ProposalArgs["tuple"]["get_voter_box(address)((uint64,bool),bool)"]> & SendParams & {
-            onComplete?: OnApplicationComplete.NoOpOC;
-        }) => Promise<{
-            return: (undefined | ProposalReturns["get_voter_box(address)((uint64,bool),bool)"]);
-            returns?: ABIReturn[] | undefined | undefined;
-            groupId: string;
-            txIds: string[];
-            confirmations: modelsv2.PendingTransactionResponse[];
-            transactions: Transaction[];
-            confirmation: modelsv2.PendingTransactionResponse;
-            transaction: Transaction;
-        }>;
-        /**
          * Makes a call to the Proposal smart contract using the `op_up()void` ABI method.
          *
          * @param params The params for the smart contract call
@@ -1798,17 +1703,6 @@ export declare class ProposalClient {
      */
     getState(params?: CallParams<ProposalArgs['obj']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'] | ProposalArgs['tuple']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)']>): Promise<ProposalTypedGlobalState>;
     /**
-     * Makes a readonly (simulated) call to the Proposal smart contract using the `get_voter_box(address)((uint64,bool),bool)` ABI method.
-     *
-     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
-     *
-     * Returns the Voter box for the given address.
-     *
-     * @param params The params for the smart contract call
-     * @returns The call result: The voter's box value bool: `True` if voter's box exists, else `False`
-     */
-    getVoterBox(params: CallParams<ProposalArgs['obj']['get_voter_box(address)((uint64,bool),bool)'] | ProposalArgs['tuple']['get_voter_box(address)((uint64,bool),bool)']>): Promise<[[bigint, boolean], boolean]>;
-    /**
      * Methods to access state for the current Proposal app
      */
     state: {
@@ -1821,61 +1715,17 @@ export declare class ProposalClient {
              */
             getAll: () => Promise<Partial<Expand<GlobalKeysState>>>;
             /**
-             * Get the current value of the proposer key in global state
+             * Get the current value of the approvals key in global state
              */
-            proposer: () => Promise<string | undefined>;
+            approvals: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the registry_app_id key in global state
+             * Get the current value of the assigned_votes key in global state
              */
-            registryAppId: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the title key in global state
-             */
-            title: () => Promise<string | undefined>;
-            /**
-             * Get the current value of the open_ts key in global state
-             */
-            openTs: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the submission_ts key in global state
-             */
-            submissionTs: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the vote_open_ts key in global state
-             */
-            voteOpenTs: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the status key in global state
-             */
-            status: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the finalized key in global state
-             */
-            finalized: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the funding_category key in global state
-             */
-            fundingCategory: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the focus key in global state
-             */
-            focus: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the funding_type key in global state
-             */
-            fundingType: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the requested_amount key in global state
-             */
-            requestedAmount: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the locked_amount key in global state
-             */
-            lockedAmount: () => Promise<bigint | undefined>;
+            assignedVotes: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the committee_id key in global state
              */
-            committeeId: () => Promise<Uint8Array | undefined>;
+            committeeId: () => Promise<BinaryState>;
             /**
              * Get the current value of the committee_members key in global state
              */
@@ -1885,59 +1735,77 @@ export declare class ProposalClient {
              */
             committeeVotes: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the voted_members key in global state
+             * Get the current value of the finalized key in global state
              */
-            votedMembers: () => Promise<bigint | undefined>;
+            finalized: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the approvals key in global state
+             * Get the current value of the focus key in global state
              */
-            approvals: () => Promise<bigint | undefined>;
+            focus: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the rejections key in global state
+             * Get the current value of the funding_category key in global state
              */
-            rejections: () => Promise<bigint | undefined>;
+            fundingCategory: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the funding_type key in global state
+             */
+            fundingType: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the locked_amount key in global state
+             */
+            lockedAmount: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the metadata_uploaded key in global state
+             */
+            metadataUploaded: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the nulls key in global state
              */
             nulls: () => Promise<bigint | undefined>;
             /**
+             * Get the current value of the open_ts key in global state
+             */
+            openTs: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the proposer key in global state
+             */
+            proposer: () => Promise<BinaryState>;
+            /**
+             * Get the current value of the registry_app_id key in global state
+             */
+            registryAppId: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the rejections key in global state
+             */
+            rejections: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the requested_amount key in global state
+             */
+            requestedAmount: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the status key in global state
+             */
+            status: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the submission_ts key in global state
+             */
+            submissionTs: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the title key in global state
+             */
+            title: () => Promise<BinaryState>;
+            /**
+             * Get the current value of the vote_open_ts key in global state
+             */
+            voteOpenTs: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the voted_members key in global state
+             */
+            votedMembers: () => Promise<bigint | undefined>;
+            /**
              * Get the current value of the voters_count key in global state
              */
             votersCount: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the assigned_votes key in global state
-             */
-            assignedVotes: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the metadata_uploaded key in global state
-             */
-            metadataUploaded: () => Promise<bigint | undefined>;
-        };
-        /**
-         * Methods to access box state for the current Proposal app
-         */
-        box: {
-            /**
-             * Get all current keyed values from box state
-             */
-            getAll: () => Promise<Partial<Expand<BoxKeysState>>>;
-            /**
-             * Get the current value of the metadata key in box state
-             */
-            metadata: () => Promise<BinaryState>;
-            /**
-             * Get values from the voters map in box state
-             */
-            voters: {
-                /**
-                 * Get all current values of the voters map in box state
-                 */
-                getMap: () => Promise<Map<string, VoterBox>>;
-                /**
-                 * Get a current value of the voters map by key from box state
-                 */
-                value: (key: string) => Promise<VoterBox | undefined>;
-            };
         };
     };
     newGroup(): ProposalComposer;
@@ -2064,16 +1932,6 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      */
     getState(params?: CallParams<ProposalArgs['obj']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'] | ProposalArgs['tuple']['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)']>): ProposalComposer<[...TReturns, ProposalReturns['get_state()(address,uint64,string,uint64,uint64,uint64,uint64,bool,uint64,uint8,uint64,uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'] | undefined]>;
     /**
-     * Calls the get_voter_box(address)((uint64,bool),bool) ABI method.
-     *
-     * Returns the Voter box for the given address.
-     *
-     * @param args The arguments for the contract call
-     * @param params Any additional parameters for the call
-     * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
-     */
-    getVoterBox(params?: CallParams<ProposalArgs['obj']['get_voter_box(address)((uint64,bool),bool)'] | ProposalArgs['tuple']['get_voter_box(address)((uint64,bool),bool)']>): ProposalComposer<[...TReturns, ProposalReturns['get_voter_box(address)((uint64,bool),bool)'] | undefined]>;
-    /**
      * Calls the op_up()void ABI method.
      *
      * @param args The arguments for the contract call
@@ -2116,13 +1974,13 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      * Simulates the transaction group and returns the result
      */
     simulate(): Promise<ProposalComposerResults<TReturns> & {
-        simulateResponse: modelsv2.SimulateResponse;
+        simulateResponse: SimulateResponse;
     }>;
     simulate(options: SkipSignaturesSimulateOptions): Promise<ProposalComposerResults<TReturns> & {
-        simulateResponse: modelsv2.SimulateResponse;
+        simulateResponse: SimulateResponse;
     }>;
     simulate(options: RawSimulateOptions): Promise<ProposalComposerResults<TReturns> & {
-        simulateResponse: modelsv2.SimulateResponse;
+        simulateResponse: SimulateResponse;
     }>;
     /**
      * Sends the transaction group to the network and returns the results
