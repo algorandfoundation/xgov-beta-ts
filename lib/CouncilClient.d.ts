@@ -3,14 +3,15 @@
  * DO NOT MODIFY IT BY HAND.
  * requires: @algorandfoundation/algokit-utils: ^7
  */
-import { type AlgorandClient } from '@algorandfoundation/algokit-utils/types/algorand-client';
+import { AlgorandClientInterface } from '@algorandfoundation/algokit-utils/types/algorand-client-interface';
 import { ABIReturn } from '@algorandfoundation/algokit-utils/types/app';
 import { Arc56Contract } from '@algorandfoundation/algokit-utils/types/app-arc56';
 import { AppClient as _AppClient, AppClientMethodCallParams, AppClientParams, AppClientBareCallParams, CallOnComplete, AppClientCompilationParams, ResolveAppClientByCreatorAndName, ResolveAppClientByNetwork, CloneAppClientParams } from '@algorandfoundation/algokit-utils/types/app-client';
 import { AppFactory as _AppFactory, AppFactoryAppClientParams, AppFactoryResolveAppClientByCreatorAndNameParams, AppFactoryDeployParams, AppFactoryParams, CreateSchema } from '@algorandfoundation/algokit-utils/types/app-factory';
 import { TransactionComposer, AppCallMethodCall, AppMethodCallTransactionArgument, RawSimulateOptions, SkipSignaturesSimulateOptions } from '@algorandfoundation/algokit-utils/types/composer';
 import { SendParams, SendAtomicTransactionComposerResults } from '@algorandfoundation/algokit-utils/types/transaction';
-import { Address, modelsv2, OnApplicationComplete, Transaction, TransactionSigner } from 'algosdk';
+import { modelsv2, OnApplicationComplete, Transaction, TransactionSigner } from 'algosdk';
+import SimulateResponse = modelsv2.SimulateResponse;
 export declare const APP_SPEC: Arc56Contract;
 /**
  * A state record containing binary data
@@ -221,26 +222,26 @@ export declare abstract class CouncilParamsFactory {
         _resolveByMethod<TParams extends CouncilCreateCallParams & {
             method: string;
         }>(params: TParams): {
-            signer?: (TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount) | undefined;
-            rekeyTo?: (string | Address) | undefined;
-            note?: (Uint8Array | string) | undefined;
-            lease?: (Uint8Array | string) | undefined;
+            signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
+            rekeyTo?: string | undefined;
+            note?: string | Uint8Array | undefined;
+            lease?: string | Uint8Array | undefined;
             staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-            validityWindow?: number | bigint | undefined;
+            validityWindow?: number | undefined;
             firstValidRound?: bigint | undefined;
             lastValidRound?: bigint | undefined;
             onComplete?: OnApplicationComplete | undefined;
-            accountReferences?: (string | Address)[] | undefined;
+            accountReferences?: string[] | undefined;
             appReferences?: bigint[] | undefined;
             assetReferences?: bigint[] | undefined;
             boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
-            sender?: (Address | string) | undefined;
+            sender?: string | undefined;
             method: string;
             args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
         } & AppClientCompilationParams & {
-            onComplete?: OnApplicationComplete.NoOpOC;
+            onComplete?: OnApplicationComplete.NoOpOC | undefined;
         };
         /**
          * Constructs create ABI call params for the Council smart contract using the create(uint64)void ABI method
@@ -248,7 +249,7 @@ export declare abstract class CouncilParamsFactory {
          * @param params Parameters for the call
          * @returns An `AppClientMethodCallParams` object for the call
          */
-        create(params: CallParams<CouncilArgs["obj"]["create(uint64)void"] | CouncilArgs["tuple"]["create(uint64)void"]> & AppClientCompilationParams & {
+        create(params: CallParams<CouncilArgs['obj']['create(uint64)void'] | CouncilArgs['tuple']['create(uint64)void']> & AppClientCompilationParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }): AppClientMethodCallParams & AppClientCompilationParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
@@ -261,22 +262,22 @@ export declare abstract class CouncilParamsFactory {
         _resolveByMethod<TParams extends CouncilUpdateCallParams & {
             method: string;
         }>(params: TParams): {
-            signer?: (TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount) | undefined;
-            rekeyTo?: (string | Address) | undefined;
-            note?: (Uint8Array | string) | undefined;
-            lease?: (Uint8Array | string) | undefined;
+            signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
+            rekeyTo?: string | undefined;
+            note?: string | Uint8Array | undefined;
+            lease?: string | Uint8Array | undefined;
             staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-            validityWindow?: number | bigint | undefined;
+            validityWindow?: number | undefined;
             firstValidRound?: bigint | undefined;
             lastValidRound?: bigint | undefined;
             onComplete?: OnApplicationComplete | undefined;
-            accountReferences?: (string | Address)[] | undefined;
+            accountReferences?: string[] | undefined;
             appReferences?: bigint[] | undefined;
             assetReferences?: bigint[] | undefined;
             boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
-            sender?: (Address | string) | undefined;
+            sender?: string | undefined;
             method: string;
             args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
         } & AppClientCompilationParams;
@@ -286,7 +287,7 @@ export declare abstract class CouncilParamsFactory {
          * @param params Parameters for the call
          * @returns An `AppClientMethodCallParams` object for the call
          */
-        updateCouncil(params: CallParams<CouncilArgs["obj"]["update_council()void"] | CouncilArgs["tuple"]["update_council()void"]> & AppClientCompilationParams): AppClientMethodCallParams & AppClientCompilationParams;
+        updateCouncil(params: CallParams<CouncilArgs['obj']['update_council()void'] | CouncilArgs['tuple']['update_council()void']> & AppClientCompilationParams): AppClientMethodCallParams & AppClientCompilationParams;
     };
     /**
      * Constructs a no op call for the add_member(address)void ABI method
@@ -342,7 +343,7 @@ export declare class CouncilFactory {
     /** The ARC-56 app spec being used */
     get appSpec(): Arc56Contract;
     /** A reference to the underlying `AlgorandClient` this app factory is using. */
-    get algorand(): AlgorandClient;
+    get algorand(): AlgorandClientInterface;
     /**
      * Returns a new `AppClient` client for an app instance of the given ID.
      *
@@ -377,21 +378,24 @@ export declare class CouncilFactory {
             operationPerformed: "create";
             version: string;
             name: string;
+            deleted: boolean;
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
-            deleted: boolean;
             deletable?: boolean | undefined;
             updatable?: boolean | undefined;
             groupId: string;
+            /**
+             * A factory to create and deploy one or more instance of the Council smart contract and to create one or more app clients to interact with those (or other) app instances
+             */
             txIds: string[];
-            returns?: import("@algorandfoundation/algokit-utils/types/app").ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined;
             confirmations: modelsv2.PendingTransactionResponse[];
             transactions: Transaction[];
             confirmation: modelsv2.PendingTransactionResponse;
             transaction: Transaction;
             appId: bigint;
-            appAddress: Address;
+            appAddress: string;
         } | {
             return: import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined;
             deleteReturn: import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined;
@@ -399,7 +403,7 @@ export declare class CouncilFactory {
             compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
             operationPerformed: "update";
             appId: bigint;
-            appAddress: Address;
+            appAddress: string;
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
@@ -410,7 +414,7 @@ export declare class CouncilFactory {
             updatable?: boolean | undefined;
             groupId: string;
             txIds: string[];
-            returns?: import("@algorandfoundation/algokit-utils/types/app").ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined;
             confirmations: modelsv2.PendingTransactionResponse[];
             transactions: Transaction[];
             confirmation: modelsv2.PendingTransactionResponse;
@@ -423,21 +427,21 @@ export declare class CouncilFactory {
             operationPerformed: "replace";
             version: string;
             name: string;
+            deleted: boolean;
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
-            deleted: boolean;
             deletable?: boolean | undefined;
             updatable?: boolean | undefined;
             groupId: string;
             txIds: string[];
-            returns?: import("@algorandfoundation/algokit-utils/types/app").ABIReturn[] | undefined;
+            returns?: ABIReturn[] | undefined;
             confirmations: modelsv2.PendingTransactionResponse[];
             transactions: Transaction[];
             confirmation: modelsv2.PendingTransactionResponse;
             transaction: Transaction;
             appId: bigint;
-            appAddress: Address;
+            appAddress: string;
             deleteResult: import("@algorandfoundation/algokit-utils/types/transaction").ConfirmedTransactionResult;
         } | {
             return: import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined;
@@ -446,7 +450,7 @@ export declare class CouncilFactory {
             compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
             operationPerformed: "nothing";
             appId: bigint;
-            appAddress: Address;
+            appAddress: string;
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
@@ -454,7 +458,14 @@ export declare class CouncilFactory {
             name: string;
             version: string;
             deletable?: boolean | undefined;
-            updatable?: boolean | undefined;
+            updatable?: boolean | undefined; /**
+             * Creates a new instance of the Council smart contract using the create(uint64)void ABI method.
+             *
+             * Create a new council contract.
+             *
+             * @param params The params for the smart contract call
+             * @returns The create params
+             */
         };
         appClient: CouncilClient;
     }>;
@@ -474,7 +485,7 @@ export declare class CouncilFactory {
              * @param params The params for the smart contract call
              * @returns The create params
              */
-            create: (params: CallParams<CouncilArgs["obj"]["create(uint64)void"] | CouncilArgs["tuple"]["create(uint64)void"]> & AppClientCompilationParams & CreateSchema & {
+            create: (params: CallParams<CouncilArgs['obj']['create(uint64)void'] | CouncilArgs['tuple']['create(uint64)void']> & AppClientCompilationParams & CreateSchema & {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 deployTimeParams: import("@algorandfoundation/algokit-utils/types/app").TealTemplateParams | undefined;
@@ -486,49 +497,49 @@ export declare class CouncilFactory {
                 };
                 approvalProgram: Uint8Array;
                 clearStateProgram: Uint8Array;
-                maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                note?: string | Uint8Array | undefined;
-                signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
                 lease?: string | Uint8Array | undefined;
-                rekeyTo?: string | Address | undefined;
+                note?: string | Uint8Array | undefined;
+                maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
+                rekeyTo?: string | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                 extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                validityWindow?: number | bigint | undefined;
+                validityWindow?: number | undefined;
                 firstValidRound?: bigint | undefined;
                 lastValidRound?: bigint | undefined;
-                accountReferences?: (string | Address)[] | undefined;
+                onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                accountReferences?: string[] | undefined;
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
-                boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
-                sender?: string | Address | undefined;
+                boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+                sender?: string | undefined;
                 method: string;
-                args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
+                args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
                 updatable?: boolean | undefined;
                 deletable?: boolean | undefined;
                 extraProgramPages?: number | undefined;
             } & {
-                sender: Address;
+                sender: string;
                 signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
-                args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    sender: string | Address;
-                    maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                args: (import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Transaction | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
+                    lease?: string | Uint8Array | undefined;
                     note?: string | Uint8Array | undefined;
+                    maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
-                    lease?: string | Uint8Array | undefined;
-                    rekeyTo?: string | Address | undefined;
+                    sender: string;
+                    rekeyTo?: string | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | bigint | undefined;
+                    validityWindow?: number | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
-                    accountReferences?: (string | Address)[] | undefined;
+                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                    accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
-                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                     schema?: {
@@ -539,27 +550,27 @@ export declare class CouncilFactory {
                     } | undefined;
                     extraProgramPages?: number | undefined;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    sender: string | Address;
+                    sender: string;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    rekeyTo?: string | Address | undefined;
+                    rekeyTo?: string | undefined;
                     note?: string | Uint8Array | undefined;
                     lease?: string | Uint8Array | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | bigint | undefined;
+                    validityWindow?: number | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
                     appId: bigint;
                     onComplete?: OnApplicationComplete.UpdateApplicationOC | undefined;
                     args?: Uint8Array[] | undefined;
-                    accountReferences?: (string | Address)[] | undefined;
+                    accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
-                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
-                }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | undefined)[] | undefined;
+                }> | undefined)[] | undefined;
                 onComplete: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC;
             }>;
         };
@@ -575,47 +586,47 @@ export declare class CouncilFactory {
              * @param params The params for the smart contract call
              * @returns The deployUpdate params
              */
-            updateCouncil: (params?: CallParams<CouncilArgs["obj"]["update_council()void"] | CouncilArgs["tuple"]["update_council()void"]> & AppClientCompilationParams) => {
-                maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                note?: string | Uint8Array | undefined;
-                signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                onComplete?: OnApplicationComplete | undefined;
+            updateCouncil: (params?: CallParams<CouncilArgs['obj']['update_council()void'] | CouncilArgs['tuple']['update_council()void']> & AppClientCompilationParams) => {
                 lease?: string | Uint8Array | undefined;
-                rekeyTo?: string | Address | undefined;
+                note?: string | Uint8Array | undefined;
+                maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
+                rekeyTo?: string | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                 extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                validityWindow?: number | bigint | undefined;
+                validityWindow?: number | undefined;
                 firstValidRound?: bigint | undefined;
                 lastValidRound?: bigint | undefined;
-                accountReferences?: (string | Address)[] | undefined;
+                onComplete?: OnApplicationComplete | undefined;
+                accountReferences?: string[] | undefined;
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
-                boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
-                sender?: string | Address | undefined;
+                boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+                sender?: string | undefined;
                 method: string;
-                args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
+                args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
             } & {
-                sender: Address;
+                sender: string;
                 signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
-                args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    sender: string | Address;
-                    maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                args: (import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Transaction | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
+                    lease?: string | Uint8Array | undefined;
                     note?: string | Uint8Array | undefined;
+                    maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
-                    lease?: string | Uint8Array | undefined;
-                    rekeyTo?: string | Address | undefined;
+                    sender: string;
+                    rekeyTo?: string | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | bigint | undefined;
+                    validityWindow?: number | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
-                    accountReferences?: (string | Address)[] | undefined;
+                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                    accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
-                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                     schema?: {
@@ -626,27 +637,27 @@ export declare class CouncilFactory {
                     } | undefined;
                     extraProgramPages?: number | undefined;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    sender: string | Address;
+                    sender: string;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    rekeyTo?: string | Address | undefined;
+                    rekeyTo?: string | undefined;
                     note?: string | Uint8Array | undefined;
                     lease?: string | Uint8Array | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | bigint | undefined;
+                    validityWindow?: number | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
                     appId: bigint;
                     onComplete?: OnApplicationComplete.UpdateApplicationOC | undefined;
                     args?: Uint8Array[] | undefined;
-                    accountReferences?: (string | Address)[] | undefined;
+                    accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
-                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
-                }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | undefined)[] | undefined;
+                }> | undefined)[] | undefined;
                 onComplete: OnApplicationComplete.UpdateApplicationOC;
             };
         };
@@ -667,7 +678,7 @@ export declare class CouncilFactory {
              * @param params The params for the smart contract call
              * @returns The create transaction
              */
-            create: (params: CallParams<CouncilArgs["obj"]["create(uint64)void"] | CouncilArgs["tuple"]["create(uint64)void"]> & AppClientCompilationParams & CreateSchema & {
+            create: (params: CallParams<CouncilArgs['obj']['create(uint64)void'] | CouncilArgs['tuple']['create(uint64)void']> & AppClientCompilationParams & CreateSchema & {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 transactions: Transaction[];
@@ -692,22 +703,22 @@ export declare class CouncilFactory {
              * @param params The params for the smart contract call
              * @returns The create result
              */
-            create: (params: CallParams<CouncilArgs["obj"]["create(uint64)void"] | CouncilArgs["tuple"]["create(uint64)void"]> & AppClientCompilationParams & CreateSchema & SendParams & {
+            create: (params: CallParams<CouncilArgs['obj']['create(uint64)void'] | CouncilArgs['tuple']['create(uint64)void']> & AppClientCompilationParams & CreateSchema & SendParams & {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 result: {
-                    return: (undefined | CouncilReturns["create(uint64)void"]);
+                    return: void | undefined;
                     compiledApproval?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                     compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                     appId: bigint;
                     groupId: string;
                     txIds: string[];
-                    returns?: import("@algorandfoundation/algokit-utils/types/app").ABIReturn[] | undefined;
+                    returns?: ABIReturn[] | undefined;
                     confirmations: modelsv2.PendingTransactionResponse[];
                     transactions: Transaction[];
                     confirmation: modelsv2.PendingTransactionResponse;
                     transaction: Transaction;
-                    appAddress: Address;
+                    appAddress: string;
                 };
                 appClient: CouncilClient;
             }>;
@@ -756,13 +767,13 @@ export declare class CouncilClient {
     /** The ID of the app instance this client is linked to. */
     get appId(): bigint;
     /** The app address of the app instance this client is linked to. */
-    get appAddress(): Address;
+    get appAddress(): string;
     /** The name of the app. */
     get appName(): string;
     /** The ARC-56 app spec being used */
     get appSpec(): Arc56Contract;
     /** A reference to the underlying `AlgorandClient` this app client is using. */
-    get algorand(): AlgorandClient;
+    get algorand(): AlgorandClientInterface;
     /**
      * Get parameters to create transactions for the current app. A good mental model for this is that these parameters represent a deferred transaction creation.
      */
@@ -779,56 +790,56 @@ export declare class CouncilClient {
              * @param params The params for the smart contract call
              * @returns The update params
              */
-            updateCouncil: (params?: CallParams<CouncilArgs["obj"]["update_council()void"] | CouncilArgs["tuple"]["update_council()void"]> & AppClientCompilationParams) => Promise<{
+            updateCouncil: (params?: CallParams<CouncilArgs['obj']['update_council()void'] | CouncilArgs['tuple']['update_council()void']> & AppClientCompilationParams) => Promise<{
                 approvalProgram: Uint8Array;
                 clearStateProgram: Uint8Array;
                 compiledApproval?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                 compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
-                maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                note?: string | Uint8Array | undefined;
-                signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                onComplete?: OnApplicationComplete | undefined;
                 lease?: string | Uint8Array | undefined;
-                rekeyTo?: string | Address | undefined;
+                note?: string | Uint8Array | undefined;
+                maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
+                rekeyTo?: string | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                 extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                validityWindow?: number | bigint | undefined;
+                validityWindow?: number | undefined;
                 firstValidRound?: bigint | undefined;
                 lastValidRound?: bigint | undefined;
-                accountReferences?: (string | Address)[] | undefined;
+                onComplete?: OnApplicationComplete | undefined;
+                accountReferences?: string[] | undefined;
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
-                boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
-                sender?: string | Address | undefined;
+                boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+                sender?: string | undefined;
                 method: string;
-                args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
+                args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
                 deployTimeParams?: import("@algorandfoundation/algokit-utils/types/app").TealTemplateParams | undefined;
                 updatable?: boolean | undefined;
                 deletable?: boolean | undefined;
             } & {
                 appId: bigint;
-                sender: Address;
+                sender: string;
                 signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
                 onComplete: OnApplicationComplete.UpdateApplicationOC;
-                args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    sender: string | Address;
-                    maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                args: (import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Transaction | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
+                    lease?: string | Uint8Array | undefined;
                     note?: string | Uint8Array | undefined;
+                    maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
-                    lease?: string | Uint8Array | undefined;
-                    rekeyTo?: string | Address | undefined;
+                    sender: string;
+                    rekeyTo?: string | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | bigint | undefined;
+                    validityWindow?: number | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
-                    accountReferences?: (string | Address)[] | undefined;
+                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                    accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
-                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                     schema?: {
@@ -839,27 +850,27 @@ export declare class CouncilClient {
                     } | undefined;
                     extraProgramPages?: number | undefined;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    sender: string | Address;
+                    sender: string;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    rekeyTo?: string | Address | undefined;
+                    rekeyTo?: string | undefined;
                     note?: string | Uint8Array | undefined;
                     lease?: string | Uint8Array | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | bigint | undefined;
+                    validityWindow?: number | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
                     appId: bigint;
                     onComplete?: OnApplicationComplete.UpdateApplicationOC | undefined;
                     args?: Uint8Array[] | undefined;
-                    accountReferences?: (string | Address)[] | undefined;
+                    accountReferences?: string[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
-                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                    boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
-                }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | undefined)[] | undefined;
+                }> | undefined)[] | undefined;
             }>;
         };
         /**
@@ -877,7 +888,7 @@ export declare class CouncilClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        addMember: (params: CallParams<CouncilArgs["obj"]["add_member(address)void"] | CouncilArgs["tuple"]["add_member(address)void"]> & {
+        addMember: (params: CallParams<CouncilArgs['obj']['add_member(address)void'] | CouncilArgs['tuple']['add_member(address)void']> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -888,7 +899,7 @@ export declare class CouncilClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        removeMember: (params: CallParams<CouncilArgs["obj"]["remove_member(address)void"] | CouncilArgs["tuple"]["remove_member(address)void"]> & {
+        removeMember: (params: CallParams<CouncilArgs['obj']['remove_member(address)void'] | CouncilArgs['tuple']['remove_member(address)void']> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -899,7 +910,7 @@ export declare class CouncilClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        vote: (params: CallParams<CouncilArgs["obj"]["vote(uint64,bool)void"] | CouncilArgs["tuple"]["vote(uint64,bool)void"]> & {
+        vote: (params: CallParams<CouncilArgs['obj']['vote(uint64,bool)void'] | CouncilArgs['tuple']['vote(uint64,bool)void']> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -908,7 +919,7 @@ export declare class CouncilClient {
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        opUp: (params?: CallParams<CouncilArgs["obj"]["op_up()void"] | CouncilArgs["tuple"]["op_up()void"]> & {
+        opUp: (params?: CallParams<CouncilArgs['obj']['op_up()void'] | CouncilArgs['tuple']['op_up()void']> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
     };
@@ -928,7 +939,7 @@ export declare class CouncilClient {
              * @param params The params for the smart contract call
              * @returns The update transaction
              */
-            updateCouncil: (params?: CallParams<CouncilArgs["obj"]["update_council()void"] | CouncilArgs["tuple"]["update_council()void"]> & AppClientCompilationParams) => Promise<{
+            updateCouncil: (params?: CallParams<CouncilArgs['obj']['update_council()void'] | CouncilArgs['tuple']['update_council()void']> & AppClientCompilationParams) => Promise<{
                 transactions: Transaction[];
                 methodCalls: Map<number, import("algosdk").ABIMethod>;
                 signers: Map<number, TransactionSigner>;
@@ -949,7 +960,7 @@ export declare class CouncilClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        addMember: (params: CallParams<CouncilArgs["obj"]["add_member(address)void"] | CouncilArgs["tuple"]["add_member(address)void"]> & {
+        addMember: (params: CallParams<CouncilArgs['obj']['add_member(address)void'] | CouncilArgs['tuple']['add_member(address)void']> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -964,7 +975,7 @@ export declare class CouncilClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        removeMember: (params: CallParams<CouncilArgs["obj"]["remove_member(address)void"] | CouncilArgs["tuple"]["remove_member(address)void"]> & {
+        removeMember: (params: CallParams<CouncilArgs['obj']['remove_member(address)void'] | CouncilArgs['tuple']['remove_member(address)void']> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -979,7 +990,7 @@ export declare class CouncilClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        vote: (params: CallParams<CouncilArgs["obj"]["vote(uint64,bool)void"] | CouncilArgs["tuple"]["vote(uint64,bool)void"]> & {
+        vote: (params: CallParams<CouncilArgs['obj']['vote(uint64,bool)void'] | CouncilArgs['tuple']['vote(uint64,bool)void']> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -992,7 +1003,7 @@ export declare class CouncilClient {
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        opUp: (params?: CallParams<CouncilArgs["obj"]["op_up()void"] | CouncilArgs["tuple"]["op_up()void"]> & {
+        opUp: (params?: CallParams<CouncilArgs['obj']['op_up()void'] | CouncilArgs['tuple']['op_up()void']> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -1016,8 +1027,8 @@ export declare class CouncilClient {
              * @param params The params for the smart contract call
              * @returns The update result
              */
-            updateCouncil: (params?: CallParams<CouncilArgs["obj"]["update_council()void"] | CouncilArgs["tuple"]["update_council()void"]> & AppClientCompilationParams & SendParams) => Promise<{
-                return: (undefined | CouncilReturns["update_council()void"]);
+            updateCouncil: (params?: CallParams<CouncilArgs['obj']['update_council()void'] | CouncilArgs['tuple']['update_council()void']> & AppClientCompilationParams & SendParams) => Promise<{
+                return: void | undefined;
                 compiledApproval?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                 compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                 groupId: string;
@@ -1053,11 +1064,11 @@ export declare class CouncilClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        addMember: (params: CallParams<CouncilArgs["obj"]["add_member(address)void"] | CouncilArgs["tuple"]["add_member(address)void"]> & SendParams & {
+        addMember: (params: CallParams<CouncilArgs['obj']['add_member(address)void'] | CouncilArgs['tuple']['add_member(address)void']> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: (undefined | CouncilReturns["add_member(address)void"]);
-            returns?: ABIReturn[] | undefined | undefined;
+            return: void | undefined;
+            returns?: ABIReturn[] | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -1073,11 +1084,11 @@ export declare class CouncilClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        removeMember: (params: CallParams<CouncilArgs["obj"]["remove_member(address)void"] | CouncilArgs["tuple"]["remove_member(address)void"]> & SendParams & {
+        removeMember: (params: CallParams<CouncilArgs['obj']['remove_member(address)void'] | CouncilArgs['tuple']['remove_member(address)void']> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: (undefined | CouncilReturns["remove_member(address)void"]);
-            returns?: ABIReturn[] | undefined | undefined;
+            return: void | undefined;
+            returns?: ABIReturn[] | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -1093,11 +1104,11 @@ export declare class CouncilClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        vote: (params: CallParams<CouncilArgs["obj"]["vote(uint64,bool)void"] | CouncilArgs["tuple"]["vote(uint64,bool)void"]> & SendParams & {
+        vote: (params: CallParams<CouncilArgs['obj']['vote(uint64,bool)void'] | CouncilArgs['tuple']['vote(uint64,bool)void']> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: (undefined | CouncilReturns["vote(uint64,bool)void"]);
-            returns?: ABIReturn[] | undefined | undefined;
+            return: void | undefined;
+            returns?: ABIReturn[] | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -1111,11 +1122,11 @@ export declare class CouncilClient {
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        opUp: (params?: CallParams<CouncilArgs["obj"]["op_up()void"] | CouncilArgs["tuple"]["op_up()void"]> & SendParams & {
+        opUp: (params?: CallParams<CouncilArgs['obj']['op_up()void'] | CouncilArgs['tuple']['op_up()void']> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: (undefined | CouncilReturns["op_up()void"]);
-            returns?: ABIReturn[] | undefined | undefined;
+            return: void | undefined;
+            returns?: ABIReturn[] | undefined;
             groupId: string;
             txIds: string[];
             confirmations: modelsv2.PendingTransactionResponse[];
@@ -1264,13 +1275,13 @@ export type CouncilComposer<TReturns extends [...any[]] = []> = {
      * Simulates the transaction group and returns the result
      */
     simulate(): Promise<CouncilComposerResults<TReturns> & {
-        simulateResponse: modelsv2.SimulateResponse;
+        simulateResponse: SimulateResponse;
     }>;
     simulate(options: SkipSignaturesSimulateOptions): Promise<CouncilComposerResults<TReturns> & {
-        simulateResponse: modelsv2.SimulateResponse;
+        simulateResponse: SimulateResponse;
     }>;
     simulate(options: RawSimulateOptions): Promise<CouncilComposerResults<TReturns> & {
-        simulateResponse: modelsv2.SimulateResponse;
+        simulateResponse: SimulateResponse;
     }>;
     /**
      * Sends the transaction group to the network and returns the results
