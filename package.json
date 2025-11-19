@@ -5,24 +5,24 @@
   "description": "xGov Beta Smart Contract Clients",
   "exports": {
     ".": {
-      "types": "./lib/ProposalClient.d.ts",
-      "default": "./lib/ProposalClient.js"
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
     },
     "./proposal": {
-      "types": "./lib/ProposalClient.d.ts",
-      "default": "./lib/ProposalClient.js"
+      "types": "./lib/generated/ProposalClient.d.ts",
+      "default": "./lib/generated/ProposalClient.js"
     },
     "./registry": {
-      "types": "./lib/XGovRegistryClient.d.ts",
-      "default": "./lib/XGovRegistryClient.js"
+      "types": "./lib/generated/XGovRegistryClient.d.ts",
+      "default": "./lib/generated/XGovRegistryClient.js"
     }
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "build": "npm run generate && tsc",
     "generate": "npm run generate:proposal && npm run generate:registry",
-    "generate:proposal": "algokit generate client -l typescript -o src/ProposalClient.ts contract/smart_contracts/artifacts/proposal/Proposal.arc32.json",
-    "generate:registry": "algokit generate client -l typescript -o src/XGovRegistryClient.ts contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc32.json"
+    "generate:proposal": "algokit generate client -l typescript -o src/generated/ProposalClient.ts contract/smart_contracts/artifacts/proposal/Proposal.arc32.json",
+    "generate:registry": "algokit generate client -l typescript -o src/generated/XGovRegistryClient.ts contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc32.json"
   },
   "author": "Algorand Foundation",
   "license": "AGPL-3.0-or-later",

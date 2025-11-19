@@ -10,8 +10,7 @@ import { AppClient as _AppClient, AppClientMethodCallParams, AppClientParams, Ap
 import { AppFactory as _AppFactory, AppFactoryAppClientParams, AppFactoryResolveAppClientByCreatorAndNameParams, AppFactoryDeployParams, AppFactoryParams, CreateSchema } from '@algorandfoundation/algokit-utils/types/app-factory';
 import { TransactionComposer, AppCallMethodCall, AppMethodCallTransactionArgument, RawSimulateOptions, SkipSignaturesSimulateOptions } from '@algorandfoundation/algokit-utils/types/composer';
 import { SendParams, SendAtomicTransactionComposerResults } from '@algorandfoundation/algokit-utils/types/transaction';
-import { modelsv2, OnApplicationComplete, Transaction, TransactionSigner } from 'algosdk';
-import SimulateResponse = modelsv2.SimulateResponse;
+import { Address, modelsv2, OnApplicationComplete, Transaction, TransactionSigner } from 'algosdk';
 export declare const APP_SPEC: Arc56Contract;
 /**
  * A state record containing binary data
@@ -377,21 +376,21 @@ export declare abstract class ProposalParamsFactory {
             method: string;
         }>(params: TParams): {
             signer?: (TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount) | undefined;
-            rekeyTo?: string | undefined;
+            rekeyTo?: (string | Address) | undefined;
             note?: (Uint8Array | string) | undefined;
             lease?: (Uint8Array | string) | undefined;
             staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-            validityWindow?: number | undefined;
+            validityWindow?: number | bigint | undefined;
             firstValidRound?: bigint | undefined;
             lastValidRound?: bigint | undefined;
             onComplete?: OnApplicationComplete | undefined;
-            accountReferences?: string[] | undefined;
+            accountReferences?: (string | Address)[] | undefined;
             appReferences?: bigint[] | undefined;
             assetReferences?: bigint[] | undefined;
             boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
-            sender?: string | undefined;
+            sender?: (Address | string) | undefined;
             method: string;
             args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
         } & AppClientCompilationParams & {
@@ -417,21 +416,21 @@ export declare abstract class ProposalParamsFactory {
             method: string;
         }>(params: TParams): {
             signer?: (TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount) | undefined;
-            rekeyTo?: string | undefined;
+            rekeyTo?: (string | Address) | undefined;
             note?: (Uint8Array | string) | undefined;
             lease?: (Uint8Array | string) | undefined;
             staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
             maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-            validityWindow?: number | undefined;
+            validityWindow?: number | bigint | undefined;
             firstValidRound?: bigint | undefined;
             lastValidRound?: bigint | undefined;
             onComplete?: OnApplicationComplete | undefined;
-            accountReferences?: string[] | undefined;
+            accountReferences?: (string | Address)[] | undefined;
             appReferences?: bigint[] | undefined;
             assetReferences?: bigint[] | undefined;
             boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
-            sender?: string | undefined;
+            sender?: (Address | string) | undefined;
             method: string;
             args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
         };
@@ -622,10 +621,10 @@ export declare class ProposalFactory {
             operationPerformed: "create";
             version: string;
             name: string;
-            deleted: boolean;
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
+            deleted: boolean;
             deletable?: boolean | undefined;
             updatable?: boolean | undefined;
             groupId: string;
@@ -636,7 +635,7 @@ export declare class ProposalFactory {
             confirmation: modelsv2.PendingTransactionResponse;
             transaction: Transaction;
             appId: bigint;
-            appAddress: string;
+            appAddress: Address;
         } | {
             return: import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined;
             deleteReturn: import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined;
@@ -644,7 +643,7 @@ export declare class ProposalFactory {
             compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
             operationPerformed: "update";
             appId: bigint;
-            appAddress: string;
+            appAddress: Address;
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
@@ -668,10 +667,10 @@ export declare class ProposalFactory {
             operationPerformed: "replace";
             version: string;
             name: string;
-            deleted: boolean;
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
+            deleted: boolean;
             deletable?: boolean | undefined;
             updatable?: boolean | undefined;
             groupId: string;
@@ -682,7 +681,7 @@ export declare class ProposalFactory {
             confirmation: modelsv2.PendingTransactionResponse;
             transaction: Transaction;
             appId: bigint;
-            appAddress: string;
+            appAddress: Address;
             deleteResult: import("@algorandfoundation/algokit-utils/types/transaction").ConfirmedTransactionResult;
         } | {
             return: import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined;
@@ -691,7 +690,7 @@ export declare class ProposalFactory {
             compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
             operationPerformed: "nothing";
             appId: bigint;
-            appAddress: string;
+            appAddress: Address;
             createdRound: bigint;
             updatedRound: bigint;
             createdMetadata: import("@algorandfoundation/algokit-utils/types/app").AppDeployMetadata;
@@ -731,46 +730,46 @@ export declare class ProposalFactory {
                 };
                 approvalProgram: Uint8Array;
                 clearStateProgram: Uint8Array;
-                lease?: string | Uint8Array | undefined;
-                note?: string | Uint8Array | undefined;
                 maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                note?: string | Uint8Array | undefined;
                 signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                rekeyTo?: string | undefined;
+                onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                lease?: string | Uint8Array | undefined;
+                rekeyTo?: string | Address | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                 extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                validityWindow?: number | undefined;
+                validityWindow?: number | bigint | undefined;
                 firstValidRound?: bigint | undefined;
                 lastValidRound?: bigint | undefined;
-                onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
-                accountReferences?: string[] | undefined;
+                accountReferences?: (string | Address)[] | undefined;
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
                 boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
-                sender?: string | undefined;
+                sender?: string | Address | undefined;
                 method: string;
                 args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
                 updatable?: boolean | undefined;
                 deletable?: boolean | undefined;
                 extraProgramPages?: number | undefined;
             } & {
-                sender: string;
+                sender: Address;
                 signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
                 args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    lease?: string | Uint8Array | undefined;
-                    note?: string | Uint8Array | undefined;
+                    sender: string | Address;
                     maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                    note?: string | Uint8Array | undefined;
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    sender: string;
-                    rekeyTo?: string | undefined;
+                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                    lease?: string | Uint8Array | undefined;
+                    rekeyTo?: string | Address | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | undefined;
+                    validityWindow?: number | bigint | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
-                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
-                    accountReferences?: string[] | undefined;
+                    accountReferences?: (string | Address)[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
@@ -784,21 +783,21 @@ export declare class ProposalFactory {
                     } | undefined;
                     extraProgramPages?: number | undefined;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    sender: string;
+                    sender: string | Address;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    rekeyTo?: string | undefined;
+                    rekeyTo?: string | Address | undefined;
                     note?: string | Uint8Array | undefined;
                     lease?: string | Uint8Array | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | undefined;
+                    validityWindow?: number | bigint | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
                     appId: bigint;
                     onComplete?: OnApplicationComplete.UpdateApplicationOC | undefined;
                     args?: Uint8Array[] | undefined;
-                    accountReferences?: string[] | undefined;
+                    accountReferences?: (string | Address)[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
@@ -821,43 +820,43 @@ export declare class ProposalFactory {
              * @returns The deployDelete params
              */
             delete: (params?: CallParams<ProposalArgs["obj"]["delete()string"] | ProposalArgs["tuple"]["delete()string"]>) => {
-                lease?: string | Uint8Array | undefined;
-                note?: string | Uint8Array | undefined;
                 maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                note?: string | Uint8Array | undefined;
                 signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                rekeyTo?: string | undefined;
+                onComplete?: OnApplicationComplete | undefined;
+                lease?: string | Uint8Array | undefined;
+                rekeyTo?: string | Address | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                 extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                validityWindow?: number | undefined;
+                validityWindow?: number | bigint | undefined;
                 firstValidRound?: bigint | undefined;
                 lastValidRound?: bigint | undefined;
-                onComplete?: OnApplicationComplete | undefined;
-                accountReferences?: string[] | undefined;
+                accountReferences?: (string | Address)[] | undefined;
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
                 boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
-                sender?: string | undefined;
+                sender?: string | Address | undefined;
                 method: string;
                 args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
             } & {
-                sender: string;
+                sender: Address;
                 signer: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 method: import("@algorandfoundation/algokit-utils/types/app-arc56").Arc56Method;
                 args: (Transaction | import("algosdk").ABIValue | import("algosdk").TransactionWithSigner | Promise<Transaction> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    lease?: string | Uint8Array | undefined;
-                    note?: string | Uint8Array | undefined;
+                    sender: string | Address;
                     maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
+                    note?: string | Uint8Array | undefined;
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    sender: string;
-                    rekeyTo?: string | undefined;
+                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                    lease?: string | Uint8Array | undefined;
+                    rekeyTo?: string | Address | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | undefined;
+                    validityWindow?: number | bigint | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
-                    onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
-                    accountReferences?: string[] | undefined;
+                    accountReferences?: (string | Address)[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
@@ -871,21 +870,21 @@ export declare class ProposalFactory {
                     } | undefined;
                     extraProgramPages?: number | undefined;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<{
-                    sender: string;
+                    sender: string | Address;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
-                    rekeyTo?: string | undefined;
+                    rekeyTo?: string | Address | undefined;
                     note?: string | Uint8Array | undefined;
                     lease?: string | Uint8Array | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     extraFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
                     maxFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
-                    validityWindow?: number | undefined;
+                    validityWindow?: number | bigint | undefined;
                     firstValidRound?: bigint | undefined;
                     lastValidRound?: bigint | undefined;
                     appId: bigint;
                     onComplete?: OnApplicationComplete.UpdateApplicationOC | undefined;
                     args?: Uint8Array[] | undefined;
-                    accountReferences?: string[] | undefined;
+                    accountReferences?: (string | Address)[] | undefined;
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
@@ -952,7 +951,7 @@ export declare class ProposalFactory {
                     transactions: Transaction[];
                     confirmation: modelsv2.PendingTransactionResponse;
                     transaction: Transaction;
-                    appAddress: string;
+                    appAddress: Address;
                 };
                 appClient: ProposalClient;
             }>;
@@ -1001,7 +1000,7 @@ export declare class ProposalClient {
     /** The ID of the app instance this client is linked to. */
     get appId(): bigint;
     /** The app address of the app instance this client is linked to. */
-    get appAddress(): string;
+    get appAddress(): Address;
     /** The name of the app. */
     get appName(): string;
     /** The ARC-56 app spec being used */
@@ -2044,13 +2043,13 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      * Simulates the transaction group and returns the result
      */
     simulate(): Promise<ProposalComposerResults<TReturns> & {
-        simulateResponse: SimulateResponse;
+        simulateResponse: modelsv2.SimulateResponse;
     }>;
     simulate(options: SkipSignaturesSimulateOptions): Promise<ProposalComposerResults<TReturns> & {
-        simulateResponse: SimulateResponse;
+        simulateResponse: modelsv2.SimulateResponse;
     }>;
     simulate(options: RawSimulateOptions): Promise<ProposalComposerResults<TReturns> & {
-        simulateResponse: SimulateResponse;
+        simulateResponse: modelsv2.SimulateResponse;
     }>;
     /**
      * Sends the transaction group to the network and returns the results
