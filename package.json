@@ -8,6 +8,10 @@
       "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
     },
+    "./council": {
+      "types": "./lib/generated/CouncilClient.d.ts",
+      "default": "./lib/generated/CouncilClient.js"
+    },
     "./proposal": {
       "types": "./lib/generated/ProposalClient.d.ts",
       "default": "./lib/generated/ProposalClient.js"
@@ -19,19 +23,21 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "npm run generate && tsc",
-    "generate": "npm run generate:proposal && npm run generate:registry",
-    "generate:proposal": "algokit generate client -l typescript -o src/generated/ProposalClient.ts contract/smart_contracts/artifacts/proposal/Proposal.arc32.json",
-    "generate:registry": "algokit generate client -l typescript -o src/generated/XGovRegistryClient.ts contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc32.json"
+    "build": "rm -rf lib/ && npm run generate && tsc",
+    "generate": "npm run generate:council && npm run generate:proposal && npm run generate:registry",
+    "generate:council": "npx @algorandfoundation/algokit-client-generator generate -o src/generated/CouncilClient.ts -a contract/smart_contracts/artifacts/council/Council.arc56.json",
+    "generate:proposal": "npx @algorandfoundation/algokit-client-generator generate -o src/generated/ProposalClient.ts -a contract/smart_contracts/artifacts/proposal/Proposal.arc56.json",
+    "generate:registry": "npx @algorandfoundation/algokit-client-generator generate -o src/generated/XGovRegistryClient.ts -a contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc56.json"
   },
   "author": "Algorand Foundation",
   "license": "AGPL-3.0-or-later",
   "peerDependencies": {
-    "@algorandfoundation/algokit-utils": "^7.0.0",
-    "algosdk": "^2.9.0"
+    "@algorandfoundation/algokit-utils": "^9.0.0",
+    "algosdk": "^3.4.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "@algorandfoundation/algokit-client-generator": "^6.0.0"
   }
 }
