@@ -3,16 +3,16 @@
 
 // @algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram() -> uint64:
 main:
-    intcblock 0
-    // smart_contracts/xgov_reader/contract.algo.ts:12
+    intcblock 0 8 1
+    // smart_contracts/xgov_reader/contract.algo.ts:25
     // export class XgovReader extends Contract {
-    pushbytes 0x51699eaf // method "getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"
+    pushbytes 0x49927632 // method "getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"
     txna ApplicationArgs 0
     match main_getShortProposalState_route@2
     err
 
 main_getShortProposalState_route@2:
-    // smart_contracts/xgov_reader/contract.algo.ts:13
+    // smart_contracts/xgov_reader/contract.algo.ts:26
     // @abimethod({ readonly: true, onCreate: "allow" })
     txn OnCompletion
     !
@@ -23,85 +23,158 @@ main_getShortProposalState_route@2:
 // smart_contracts/xgov_reader/contract.algo.ts::XgovReader.getShortProposalState[routing]() -> void:
 getShortProposalState:
     intc_0 // 0
+    dupn 2
     pushbytes ""
-    dup
-    // smart_contracts/xgov_reader/contract.algo.ts:13
+    dupn 7
+    // smart_contracts/xgov_reader/contract.algo.ts:26
     // @abimethod({ readonly: true, onCreate: "allow" })
     txna ApplicationArgs 1
+    dupn 2
+    intc_0 // 0
+    extract_uint16 // on error: invalid array length header
     dup
+    cover 2
+    intc_1 // 8
+    *
+    pushint 2 // 2
+    +
+    swap
     len
-    pushint 8 // 8
     ==
-    assert // invalid number of bytes for arc4.uint64
-    btoi
-    // smart_contracts/xgov_reader/contract.algo.ts:15
-    // const [openTimestamp, openTimestampExists] = op.AppGlobal.getExUint64(appId, Bytes`open_timestamp`);
+    assert // invalid number of bytes for arc4.dynamic_array<application>
+    intc_0 // 0
+
+getShortProposalState_for_header@2:
+    // smart_contracts/xgov_reader/contract.algo.ts:28
+    // for (const appId of appIds) {
     dup
-    pushbytes "open_timestamp"
-    app_global_get_ex
-    // smart_contracts/xgov_reader/contract.algo.ts:16
-    // const [proposerBytes, proposerExists] = op.AppGlobal.getExBytes(appId, Bytes`proposer`);
     dig 2
+    <
+    bz getShortProposalState_after_for@11
+    dig 2
+    extract 2 0
+    dig 1
+    intc_1 // 8
+    *
+    extract_uint64
+    // smart_contracts/xgov_reader/contract.algo.ts:29-32
+    // const [openTimestamp, openTimestampExists] = op.AppGlobal.getExUint64(
+    //   appId,
+    //   Bytes`open_timestamp`
+    // );
+    dup
+    // smart_contracts/xgov_reader/contract.algo.ts:31
+    // Bytes`open_timestamp`
+    pushbytes "open_timestamp"
+    // smart_contracts/xgov_reader/contract.algo.ts:29-32
+    // const [openTimestamp, openTimestampExists] = op.AppGlobal.getExUint64(
+    //   appId,
+    //   Bytes`open_timestamp`
+    // );
+    app_global_get_ex
+    // smart_contracts/xgov_reader/contract.algo.ts:33-36
+    // const [proposerBytes, proposerExists] = op.AppGlobal.getExBytes(
+    //   appId,
+    //   Bytes`proposer`
+    // );
+    dig 2
+    // smart_contracts/xgov_reader/contract.algo.ts:35
+    // Bytes`proposer`
     pushbytes "proposer"
+    // smart_contracts/xgov_reader/contract.algo.ts:33-36
+    // const [proposerBytes, proposerExists] = op.AppGlobal.getExBytes(
+    //   appId,
+    //   Bytes`proposer`
+    // );
     app_global_get_ex
     cover 3
-    cover 4
-    // smart_contracts/xgov_reader/contract.algo.ts:17
-    // const [requestedAmount, requestedAmountExists] = op.AppGlobal.getExUint64(appId, Bytes`requested_amount`);
+    bury 18
+    // smart_contracts/xgov_reader/contract.algo.ts:37-40
+    // const [requestedAmount, requestedAmountExists] = op.AppGlobal.getExUint64(
+    //   appId,
+    //   Bytes`requested_amount`
+    // );
     dig 3
+    // smart_contracts/xgov_reader/contract.algo.ts:39
+    // Bytes`requested_amount`
     pushbytes "requested_amount"
+    // smart_contracts/xgov_reader/contract.algo.ts:37-40
+    // const [requestedAmount, requestedAmountExists] = op.AppGlobal.getExUint64(
+    //   appId,
+    //   Bytes`requested_amount`
+    // );
     app_global_get_ex
-    cover 5
-    cover 4
-    // smart_contracts/xgov_reader/contract.algo.ts:18
-    // const [status, statusExists] = op.AppGlobal.getExUint64(appId, Bytes`status`);
+    bury 15
+    bury 15
+    // smart_contracts/xgov_reader/contract.algo.ts:41-44
+    // const [status, statusExists] = op.AppGlobal.getExUint64(
+    //   appId,
+    //   Bytes`status`
+    // );
     dig 3
+    // smart_contracts/xgov_reader/contract.algo.ts:43
+    // Bytes`status`
     pushbytes "status"
+    // smart_contracts/xgov_reader/contract.algo.ts:41-44
+    // const [status, statusExists] = op.AppGlobal.getExUint64(
+    //   appId,
+    //   Bytes`status`
+    // );
     app_global_get_ex
-    cover 5
-    cover 4
-    // smart_contracts/xgov_reader/contract.algo.ts:19
-    // const [titleBytes, titleExists] = op.AppGlobal.getExBytes(appId, Bytes`title`);
+    bury 10
+    bury 10
+    // smart_contracts/xgov_reader/contract.algo.ts:45-48
+    // const [titleBytes, titleExists] = op.AppGlobal.getExBytes(
+    //   appId,
+    //   Bytes`title`
+    // );
     uncover 3
+    // smart_contracts/xgov_reader/contract.algo.ts:47
+    // Bytes`title`
     pushbytes "title"
+    // smart_contracts/xgov_reader/contract.algo.ts:45-48
+    // const [titleBytes, titleExists] = op.AppGlobal.getExBytes(
+    //   appId,
+    //   Bytes`title`
+    // );
     app_global_get_ex
-    cover 4
-    cover 3
-    // smart_contracts/xgov_reader/contract.algo.ts:21
+    bury 8
+    bury 15
+    // smart_contracts/xgov_reader/contract.algo.ts:50
     // open_timestamp: openTimestampExists ? openTimestamp : 0,
     intc_0 // 0
     cover 2
     select
-    swap
-    // smart_contracts/xgov_reader/contract.algo.ts:22
+    bury 10
+    // smart_contracts/xgov_reader/contract.algo.ts:51
     // proposer: proposerExists ? Account(proposerBytes) : Global.zeroAddress,
-    bz getShortProposalState_ternary_false@3
-    dig 7
-    bury 11
+    bz getShortProposalState_ternary_false@5
+    dig 13
+    bury 13
 
-getShortProposalState_ternary_merge@4:
-    // smart_contracts/xgov_reader/contract.algo.ts:23
+getShortProposalState_ternary_merge@6:
+    // smart_contracts/xgov_reader/contract.algo.ts:52
     // requested_amount: requestedAmountExists ? requestedAmount : 0,
     intc_0 // 0
-    dig 6
-    dig 8
+    dig 11
+    dig 11
     select
-    bury 10
-    // smart_contracts/xgov_reader/contract.algo.ts:24
+    bury 8
+    // smart_contracts/xgov_reader/contract.algo.ts:53
     // status: statusExists ? status : 0,
     intc_0 // 0
-    dig 4
+    dig 6
     dig 6
     select
-    bury 9
-    // smart_contracts/xgov_reader/contract.algo.ts:25
+    bury 7
+    // smart_contracts/xgov_reader/contract.algo.ts:54
     // title: titleExists ? String(titleBytes) : "",
-    dig 2
-    bz getShortProposalState_ternary_false@6
-    dig 1
+    dig 3
+    bz getShortProposalState_ternary_false@8
+    dig 11
 
-getShortProposalState_ternary_merge@7:
-    // smart_contracts/xgov_reader/contract.algo.ts:20-26
+getShortProposalState_ternary_merge@9:
+    // smart_contracts/xgov_reader/contract.algo.ts:49-55
     // const shortState: ShortProposalState = {
     //   open_timestamp: openTimestampExists ? openTimestamp : 0,
     //   proposer: proposerExists ? Account(proposerBytes) : Global.zeroAddress,
@@ -109,14 +182,14 @@ getShortProposalState_ternary_merge@7:
     //   status: statusExists ? status : 0,
     //   title: titleExists ? String(titleBytes) : "",
     // };
-    dig 1
+    dig 9
     itob
-    dig 12
+    dig 14
     concat
-    dig 11
+    dig 9
     itob
     concat
-    dig 10
+    dig 8
     itob
     concat
     swap
@@ -131,25 +204,32 @@ getShortProposalState_ternary_merge@7:
     concat
     swap
     concat
-    // smart_contracts/xgov_reader/contract.algo.ts:27
+    // smart_contracts/xgov_reader/contract.algo.ts:56
     // log(encodeArc4(shortState));
     log
-    // smart_contracts/xgov_reader/contract.algo.ts:13
+    dup
+    intc_2 // 1
+    +
+    bury 1
+    b getShortProposalState_for_header@2
+
+getShortProposalState_ternary_false@8:
+    // smart_contracts/xgov_reader/contract.algo.ts:54
+    // title: titleExists ? String(titleBytes) : "",
+    pushbytes ""
+    b getShortProposalState_ternary_merge@9
+
+getShortProposalState_ternary_false@5:
+    // smart_contracts/xgov_reader/contract.algo.ts:51
+    // proposer: proposerExists ? Account(proposerBytes) : Global.zeroAddress,
+    global ZeroAddress
+    bury 13
+    b getShortProposalState_ternary_merge@6
+
+getShortProposalState_after_for@11:
+    // smart_contracts/xgov_reader/contract.algo.ts:26
     // @abimethod({ readonly: true, onCreate: "allow" })
     pushbytes base32(CUPXY5IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5AAAA)
     log
-    pushint 1 // 1
+    intc_2 // 1
     return
-
-getShortProposalState_ternary_false@6:
-    // smart_contracts/xgov_reader/contract.algo.ts:25
-    // title: titleExists ? String(titleBytes) : "",
-    pushbytes ""
-    b getShortProposalState_ternary_merge@7
-
-getShortProposalState_ternary_false@3:
-    // smart_contracts/xgov_reader/contract.algo.ts:22
-    // proposer: proposerExists ? Account(proposerBytes) : Global.zeroAddress,
-    global ZeroAddress
-    bury 11
-    b getShortProposalState_ternary_merge@4

@@ -51,22 +51,22 @@ export type XgovReaderArgs = {
      * The object representation of the arguments for each method
      */
     obj: {
-        'getShortProposalState(uint64)(uint64,address,uint64,uint64,string)': {
-            appId: bigint | number;
+        'getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)': {
+            appIds: bigint[] | number[];
         };
     };
     /**
      * The tuple representation of the arguments for each method
      */
     tuple: {
-        'getShortProposalState(uint64)(uint64,address,uint64,uint64,string)': [appId: bigint | number];
+        'getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)': [appIds: bigint[] | number[]];
     };
 };
 /**
  * The return type for each method
  */
 export type XgovReaderReturns = {
-    'getShortProposalState(uint64)(uint64,address,uint64,uint64,string)': ShortProposalState;
+    'getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)': ShortProposalState;
 };
 /**
  * Defines the types of available calls and state of the XgovReader smart contract.
@@ -75,10 +75,10 @@ export type XgovReaderTypes = {
     /**
      * Maps method signatures / names to their argument and return types.
      */
-    methods: Record<'getShortProposalState(uint64)(uint64,address,uint64,uint64,string)' | 'getShortProposalState', {
-        argsObj: XgovReaderArgs['obj']['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)'];
-        argsTuple: XgovReaderArgs['tuple']['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)'];
-        returns: XgovReaderReturns['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)'];
+    methods: Record<'getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)' | 'getShortProposalState', {
+        argsObj: XgovReaderArgs['obj']['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)'];
+        argsTuple: XgovReaderArgs['tuple']['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)'];
+        returns: XgovReaderReturns['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)'];
     }>;
 };
 /**
@@ -107,12 +107,12 @@ export type MethodReturn<TSignature extends XgovReaderSignatures> = XgovReaderTy
 /**
  * Defines supported create method params for this smart contract
  */
-export type XgovReaderCreateCallParams = Expand<CallParams<XgovReaderArgs['obj']['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)'] | XgovReaderArgs['tuple']['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)']> & {
+export type XgovReaderCreateCallParams = Expand<CallParams<XgovReaderArgs['obj']['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)'] | XgovReaderArgs['tuple']['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)']> & {
     method: 'getShortProposalState';
 } & {
     onComplete?: OnApplicationComplete.NoOpOC;
-} & CreateSchema> | Expand<CallParams<XgovReaderArgs['obj']['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)'] | XgovReaderArgs['tuple']['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)']> & {
-    method: 'getShortProposalState(uint64)(uint64,address,uint64,uint64,string)';
+} & CreateSchema> | Expand<CallParams<XgovReaderArgs['obj']['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)'] | XgovReaderArgs['tuple']['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)']> & {
+    method: 'getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)';
 } & {
     onComplete?: OnApplicationComplete.NoOpOC;
 } & CreateSchema>;
@@ -158,24 +158,24 @@ export declare abstract class XgovReaderParamsFactory {
             onComplete?: OnApplicationComplete.NoOpOC;
         };
         /**
-         * Constructs create ABI call params for the XgovReader smart contract using the getShortProposalState(uint64)(uint64,address,uint64,uint64,string) ABI method
+         * Constructs create ABI call params for the XgovReader smart contract using the getShortProposalState(uint64[])(uint64,address,uint64,uint64,string) ABI method
          *
          * @param params Parameters for the call
          * @returns An `AppClientMethodCallParams` object for the call
          */
-        getShortProposalState(params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"]> & AppClientCompilationParams & {
+        getShortProposalState(params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"]> & AppClientCompilationParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }): AppClientMethodCallParams & AppClientCompilationParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         };
     };
     /**
-     * Constructs a no op call for the getShortProposalState(uint64)(uint64,address,uint64,uint64,string) ABI method
+     * Constructs a no op call for the getShortProposalState(uint64[])(uint64,address,uint64,uint64,string) ABI method
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
      */
-    static getShortProposalState(params: CallParams<XgovReaderArgs['obj']['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)'] | XgovReaderArgs['tuple']['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    static getShortProposalState(params: CallParams<XgovReaderArgs['obj']['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)'] | XgovReaderArgs['tuple']['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
 }
 /**
  * A factory to create and deploy one or more instance of the XgovReader smart contract and to create one or more app clients to interact with those (or other) app instances
@@ -321,12 +321,12 @@ declare class XgovReaderFactory {
          */
         create: {
             /**
-             * Creates a new instance of the XgovReader smart contract using the getShortProposalState(uint64)(uint64,address,uint64,uint64,string) ABI method.
+             * Creates a new instance of the XgovReader smart contract using the getShortProposalState(uint64[])(uint64,address,uint64,uint64,string) ABI method.
              *
              * @param params The params for the smart contract call
              * @returns The create params
              */
-            getShortProposalState: (params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"]> & AppClientCompilationParams & CreateSchema & {
+            getShortProposalState: (params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"]> & AppClientCompilationParams & CreateSchema & {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 deployTimeParams: import("@algorandfoundation/algokit-utils/types/app").TealTemplateParams | undefined;
@@ -425,12 +425,12 @@ declare class XgovReaderFactory {
          */
         create: {
             /**
-             * Creates a new instance of the XgovReader smart contract using the getShortProposalState(uint64)(uint64,address,uint64,uint64,string) ABI method.
+             * Creates a new instance of the XgovReader smart contract using the getShortProposalState(uint64[])(uint64,address,uint64,uint64,string) ABI method.
              *
              * @param params The params for the smart contract call
              * @returns The create transaction
              */
-            getShortProposalState: (params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"]> & AppClientCompilationParams & CreateSchema & {
+            getShortProposalState: (params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"]> & AppClientCompilationParams & CreateSchema & {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 transactions: Transaction[];
@@ -448,16 +448,16 @@ declare class XgovReaderFactory {
          */
         create: {
             /**
-             * Creates a new instance of the XgovReader smart contract using an ABI method call using the getShortProposalState(uint64)(uint64,address,uint64,uint64,string) ABI method.
+             * Creates a new instance of the XgovReader smart contract using an ABI method call using the getShortProposalState(uint64[])(uint64,address,uint64,uint64,string) ABI method.
              *
              * @param params The params for the smart contract call
              * @returns The create result
              */
-            getShortProposalState: (params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"]> & AppClientCompilationParams & CreateSchema & SendParams & {
+            getShortProposalState: (params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"]> & AppClientCompilationParams & CreateSchema & SendParams & {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 result: {
-                    return: (undefined | XgovReaderReturns["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"]);
+                    return: (undefined | XgovReaderReturns["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"]);
                     compiledApproval?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                     compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                     appId: bigint;
@@ -536,14 +536,14 @@ declare class XgovReaderClient {
          */
         clearState: (params?: Expand<AppClientBareCallParams>) => import("@algorandfoundation/algokit-utils/types/composer").AppCallParams;
         /**
-         * Makes a call to the XgovReader smart contract using the `getShortProposalState(uint64)(uint64,address,uint64,uint64,string)` ABI method.
+         * Makes a call to the XgovReader smart contract using the `getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)` ABI method.
          *
          * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
          *
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        getShortProposalState: (params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"]> & {
+        getShortProposalState: (params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
     };
@@ -559,14 +559,14 @@ declare class XgovReaderClient {
          */
         clearState: (params?: Expand<AppClientBareCallParams>) => Promise<Transaction>;
         /**
-         * Makes a call to the XgovReader smart contract using the `getShortProposalState(uint64)(uint64,address,uint64,uint64,string)` ABI method.
+         * Makes a call to the XgovReader smart contract using the `getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)` ABI method.
          *
          * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        getShortProposalState: (params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"]> & {
+        getShortProposalState: (params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -595,17 +595,17 @@ declare class XgovReaderClient {
             return?: ABIReturn | undefined;
         }>;
         /**
-         * Makes a call to the XgovReader smart contract using the `getShortProposalState(uint64)(uint64,address,uint64,uint64,string)` ABI method.
+         * Makes a call to the XgovReader smart contract using the `getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)` ABI method.
          *
          * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
          *
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        getShortProposalState: (params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"]> & SendParams & {
+        getShortProposalState: (params: CallParams<XgovReaderArgs["obj"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"] | XgovReaderArgs["tuple"]["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: (undefined | XgovReaderReturns["getShortProposalState(uint64)(uint64,address,uint64,uint64,string)"]);
+            return: (undefined | XgovReaderReturns["getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -623,14 +623,14 @@ declare class XgovReaderClient {
      */
     clone(params: CloneAppClientParams): XgovReaderClient;
     /**
-     * Makes a readonly (simulated) call to the XgovReader smart contract using the `getShortProposalState(uint64)(uint64,address,uint64,uint64,string)` ABI method.
+     * Makes a readonly (simulated) call to the XgovReader smart contract using the `getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)` ABI method.
      *
      * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
      *
      * @param params The params for the smart contract call
      * @returns The call result
      */
-    getShortProposalState(params: CallParams<XgovReaderArgs['obj']['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)'] | XgovReaderArgs['tuple']['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)']>): Promise<ShortProposalState>;
+    getShortProposalState(params: CallParams<XgovReaderArgs['obj']['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)'] | XgovReaderArgs['tuple']['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)']>): Promise<ShortProposalState>;
     /**
      * Methods to access state for the current XgovReader app
      */
@@ -639,13 +639,13 @@ declare class XgovReaderClient {
 }
 export type XgovReaderComposer<TReturns extends [...any[]] = []> = {
     /**
-     * Calls the getShortProposalState(uint64)(uint64,address,uint64,uint64,string) ABI method.
+     * Calls the getShortProposalState(uint64[])(uint64,address,uint64,uint64,string) ABI method.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
-    getShortProposalState(params?: CallParams<XgovReaderArgs['obj']['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)'] | XgovReaderArgs['tuple']['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)']>): XgovReaderComposer<[...TReturns, XgovReaderReturns['getShortProposalState(uint64)(uint64,address,uint64,uint64,string)'] | undefined]>;
+    getShortProposalState(params?: CallParams<XgovReaderArgs['obj']['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)'] | XgovReaderArgs['tuple']['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)']>): XgovReaderComposer<[...TReturns, XgovReaderReturns['getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)'] | undefined]>;
     /**
      * Makes a clear_state call to an existing instance of the XgovReader smart contract.
      *

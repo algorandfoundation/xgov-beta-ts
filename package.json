@@ -23,6 +23,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
+    "build:only": "rm -rf lib/ && tsc",
     "build": "rm -rf lib/ && npm run generate && tsc",
     "generate": "concurrently 'npm run generate:council' 'npm run generate:proposal' 'npm run generate:registry' 'npm run generate:ghostkitreader'",
     "generate:council": "npx @algorandfoundation/algokit-client-generator generate -o src/generated/CouncilClient.ts -a contract/smart_contracts/artifacts/council/Council.arc56.json",

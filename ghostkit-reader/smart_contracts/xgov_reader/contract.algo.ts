@@ -1,5 +1,18 @@
-import { op, Application, Contract, uint64, bytes, Bytes, Account, Global, log } from "@algorandfoundation/algorand-typescript";
-import { abimethod, encodeArc4 } from "@algorandfoundation/algorand-typescript/arc4";
+import {
+  op,
+  Application,
+  Contract,
+  uint64,
+  bytes,
+  Bytes,
+  Account,
+  Global,
+  log,
+} from "@algorandfoundation/algorand-typescript";
+import {
+  abimethod,
+  encodeArc4,
+} from "@algorandfoundation/algorand-typescript/arc4";
 
 type ShortProposalState = {
   open_timestamp: uint64;
@@ -11,27 +24,44 @@ type ShortProposalState = {
 
 export class XgovReader extends Contract {
   @abimethod({ readonly: true, onCreate: "allow" })
-  getShortProposalState(appId: Application): ShortProposalState {
-    const [openTimestamp, openTimestampExists] = op.AppGlobal.getExUint64(appId, Bytes`open_timestamp`);
-    const [proposerBytes, proposerExists] = op.AppGlobal.getExBytes(appId, Bytes`proposer`);
-    const [requestedAmount, requestedAmountExists] = op.AppGlobal.getExUint64(appId, Bytes`requested_amount`);
-    const [status, statusExists] = op.AppGlobal.getExUint64(appId, Bytes`status`);
-    const [titleBytes, titleExists] = op.AppGlobal.getExBytes(appId, Bytes`title`);
-    const shortState: ShortProposalState = {
-      open_timestamp: openTimestampExists ? openTimestamp : 0,
-      proposer: proposerExists ? Account(proposerBytes) : Global.zeroAddress,
-      requested_amount: requestedAmountExists ? requestedAmount : 0,
-      status: statusExists ? status : 0,
-      title: titleExists ? String(titleBytes) : "",
-    };
-    log(encodeArc4(shortState));
+  getShortProposalState(appIds: Application[]): ShortProposalState {
+    for (const appId of appIds) {
+      const [openTimestamp, openTimestampExists] = op.AppGlobal.getExUint64(
+        appId,
+        Bytes`open_timestamp`
+      );
+      const [proposerBytes, proposerExists] = op.AppGlobal.getExBytes(
+        appId,
+        Bytes`proposer`
+      );
+      const [requestedAmount, requestedAmountExists] = op.AppGlobal.getExUint64(
+        appId,
+        Bytes`requested_amount`
+      );
+      const [status, statusExists] = op.AppGlobal.getExUint64(
+        appId,
+        Bytes`status`
+      );
+      const [titleBytes, titleExists] = op.AppGlobal.getExBytes(
+        appId,
+        Bytes`title`
+      );
+      const shortState: ShortProposalState = {
+        open_timestamp: openTimestampExists ? openTimestamp : 0,
+        proposer: proposerExists ? Account(proposerBytes) : Global.zeroAddress,
+        requested_amount: requestedAmountExists ? requestedAmount : 0,
+        status: statusExists ? status : 0,
+        title: titleExists ? String(titleBytes) : "",
+      };
+      log(encodeArc4(shortState));
+    }
     return {
       open_timestamp: 0,
       proposer: Global.zeroAddress,
       requested_amount: 0,
       status: 0,
       title: "",
-    }
+    };
   }
 }
 

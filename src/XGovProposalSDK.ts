@@ -6,6 +6,10 @@ import {
   GlobalKeysState as ProposalGlobalKeysState,
 } from "./generated/ProposalClient";
 import { ProposalStatusMap, ProposalStatus, ExtendedStatus } from "./enums";
+import {
+  ShortProposalState,
+  XgovReaderSDK,
+} from "./generated/XgovReaderGhostSDK";
 
 export interface ProposalState extends ProposalGlobalKeysState {
   appId: bigint;
