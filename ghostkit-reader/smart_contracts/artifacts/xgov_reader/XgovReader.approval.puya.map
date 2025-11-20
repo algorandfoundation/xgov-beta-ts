@@ -1,0 +1,2936 @@
+{
+  "version": 3,
+  "sources": [
+    "../../xgov_reader/contract.algo.ts"
+  ],
+  "mappings": ";;;;;;AAwBA;;;;;;AAAA;;;AAAA;;;;AAAA;AACG;;AAAA;AAAA;AAAA;;;;;;;;;;AAAA;;;AAAA;;AAAA;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;;AAEC;AAAA;;AAAA;AAAA;;;AAAA;;AAAA;;;AAAA;;AAAA;AAAA;AAAA;AAC+C;AAE3C;;;;;;;;;;;;;;;;AAF2C;AAIL;;AAEtC;;;;;;;;;;AAFsC;AAAA;;AAAA;;AAIS;;AAE/C;;;;;;;;;;;;;;;;;;AAF+C;AAAA;;AAAA;;AAIlB;;AAE7B;;;;;;;;AAF6B;AAAA;;AAAA;;AAIG;;AAEhC;;;;;;;AAFgC;AAAA;;AAAA;;AAKsB;AAAtC;;AAAA;AAAA;;AACN;;;;;;;AACkD;AAA1C;;AAAA;;AAAA;AAAA;;AACc;AAAxB;;AAAA;;AAAA;AAAA;;AACD;;AAAA;;;;;AAL8B;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;;;;AAAA;AAAA;AAAA;AAOvC;;;;;;;;;AAF4C;;;;;AAHU;;AAAA;;;;;AAzBzD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA",
+  "op_pc_offset": 0,
+  "pc_events": {
+    "1": {
+      "subroutine": "@algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram",
+      "params": {},
+      "block": "main",
+      "stack_in": [],
+      "op": "intcblock 0 8 1"
+    },
+    "6": {
+      "op": "pushbytes 0x49927632 // method \"getShortProposalState(uint64[])(uint64,address,uint64,uint64,string)\"",
+      "defined_out": [
+        "Method(getShortProposalState(uint64[])(uint64,address,uint64,uint64,string))"
+      ],
+      "stack_out": [
+        "Method(getShortProposalState(uint64[])(uint64,address,uint64,uint64,string))"
+      ]
+    },
+    "12": {
+      "op": "txna ApplicationArgs 0",
+      "defined_out": [
+        "Method(getShortProposalState(uint64[])(uint64,address,uint64,uint64,string))",
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "Method(getShortProposalState(uint64[])(uint64,address,uint64,uint64,string))",
+        "tmp%0#1"
+      ]
+    },
+    "15": {
+      "op": "match main_getShortProposalState_route@2",
+      "stack_out": []
+    },
+    "19": {
+      "op": "err"
+    },
+    "20": {
+      "block": "main_getShortProposalState_route@2",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "22": {
+      "op": "!",
+      "defined_out": [
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0"
+      ]
+    },
+    "23": {
+      "error": "OnCompletion must be NoOp",
+      "op": "assert // OnCompletion must be NoOp",
+      "stack_out": []
+    },
+    "24": {
+      "op": "b getShortProposalState"
+    },
+    "27": {
+      "subroutine": "smart_contracts/xgov_reader/contract.algo.ts::XgovReader.getShortProposalState[routing]",
+      "params": {},
+      "block": "getShortProposalState",
+      "stack_in": [],
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "proposerBytes#0"
+      ]
+    },
+    "28": {
+      "op": "dupn 2",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0"
+      ]
+    },
+    "30": {
+      "op": "pushbytes \"\"",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0"
+      ]
+    },
+    "32": {
+      "op": "dupn 7",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0"
+      ]
+    },
+    "34": {
+      "op": "txna ApplicationArgs 1"
+    },
+    "37": {
+      "op": "dupn 2",
+      "defined_out": [
+        "appIds#0",
+        "appIds#0 (copy)"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "appIds#0",
+        "appIds#0 (copy)"
+      ]
+    },
+    "39": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "appIds#0",
+        "appIds#0 (copy)",
+        "0"
+      ]
+    },
+    "40": {
+      "error": "invalid array length header",
+      "op": "extract_uint16 // on error: invalid array length header",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "appIds#0",
+        "aggregate%array_length%0#0"
+      ]
+    },
+    "41": {
+      "op": "dup",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "aggregate%array_length%0#0"
+      ]
+    },
+    "42": {
+      "op": "cover 2",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "aggregate%array_length%0#0"
+      ]
+    },
+    "44": {
+      "op": "intc_1 // 8",
+      "defined_out": [
+        "8",
+        "aggregate%array_length%0#0",
+        "appIds#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "8"
+      ]
+    },
+    "45": {
+      "op": "*",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "mul%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "mul%0#0"
+      ]
+    },
+    "46": {
+      "op": "pushint 2 // 2",
+      "defined_out": [
+        "2",
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "mul%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "mul%0#0",
+        "2"
+      ]
+    },
+    "48": {
+      "op": "+",
+      "defined_out": [
+        "add%0#0",
+        "aggregate%array_length%0#0",
+        "appIds#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "add%0#0"
+      ]
+    },
+    "49": {
+      "op": "swap",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "add%0#0",
+        "appIds#0"
+      ]
+    },
+    "50": {
+      "op": "len",
+      "defined_out": [
+        "add%0#0",
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "len%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "add%0#0",
+        "len%0#0"
+      ]
+    },
+    "51": {
+      "op": "==",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "eq%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "eq%0#0"
+      ]
+    },
+    "52": {
+      "error": "invalid number of bytes for arc4.dynamic_array<application>",
+      "op": "assert // invalid number of bytes for arc4.dynamic_array<application>",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0"
+      ]
+    },
+    "53": {
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "54": {
+      "block": "getShortProposalState_for_header@2",
+      "stack_in": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ],
+      "op": "dup",
+      "defined_out": [
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "55": {
+      "op": "dig 2",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "item_index_internal%0#0",
+        "aggregate%array_length%0#0"
+      ]
+    },
+    "57": {
+      "op": "<",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "continue_looping%0#0",
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "continue_looping%0#0"
+      ]
+    },
+    "58": {
+      "op": "bz getShortProposalState_after_for@11",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "61": {
+      "op": "dig 2",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "appIds#0"
+      ]
+    },
+    "63": {
+      "op": "extract 2 0",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "aggregate%array_trimmed%0#0",
+        "appIds#0",
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%array_trimmed%0#0"
+      ]
+    },
+    "66": {
+      "op": "dig 1",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%array_trimmed%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "68": {
+      "op": "intc_1 // 8",
+      "defined_out": [
+        "8",
+        "aggregate%array_length%0#0",
+        "aggregate%array_trimmed%0#0",
+        "appIds#0",
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%array_trimmed%0#0",
+        "item_index_internal%0#0",
+        "8"
+      ]
+    },
+    "69": {
+      "op": "*",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "aggregate%array_trimmed%0#0",
+        "aggregate%bytes_offset%0#0",
+        "appIds#0",
+        "item_index_internal%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%array_trimmed%0#0",
+        "aggregate%bytes_offset%0#0"
+      ]
+    },
+    "70": {
+      "op": "extract_uint64",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "temp#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0"
+      ]
+    },
+    "71": {
+      "op": "dup",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "temp#0 (copy)"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "temp#0 (copy)"
+      ]
+    },
+    "72": {
+      "op": "pushbytes \"open_timestamp\"",
+      "defined_out": [
+        "\"open_timestamp\"",
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "temp#0 (copy)"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "temp#0 (copy)",
+        "\"open_timestamp\""
+      ]
+    },
+    "88": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "temp#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ]
+    },
+    "89": {
+      "op": "dig 2",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "temp#0 (copy)"
+      ]
+    },
+    "91": {
+      "op": "pushbytes \"proposer\"",
+      "defined_out": [
+        "\"proposer\"",
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "temp#0",
+        "temp#0 (copy)"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "temp#0 (copy)",
+        "\"proposer\""
+      ]
+    },
+    "101": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "temp#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0"
+      ]
+    },
+    "102": {
+      "op": "cover 3",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0"
+      ]
+    },
+    "104": {
+      "op": "bury 18",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "temp#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ]
+    },
+    "106": {
+      "op": "dig 3",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "temp#0 (copy)"
+      ]
+    },
+    "108": {
+      "op": "pushbytes \"requested_amount\"",
+      "defined_out": [
+        "\"requested_amount\"",
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "temp#0",
+        "temp#0 (copy)"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "temp#0 (copy)",
+        "\"requested_amount\""
+      ]
+    },
+    "126": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "temp#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0"
+      ]
+    },
+    "127": {
+      "op": "bury 15",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "temp#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "requestedAmount#0"
+      ]
+    },
+    "129": {
+      "op": "bury 15",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ]
+    },
+    "131": {
+      "op": "dig 3",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "temp#0 (copy)"
+      ]
+    },
+    "133": {
+      "op": "pushbytes \"status\"",
+      "defined_out": [
+        "\"status\"",
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "temp#0",
+        "temp#0 (copy)"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "temp#0 (copy)",
+        "\"status\""
+      ]
+    },
+    "141": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "status#0",
+        "statusExists#0",
+        "temp#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "status#0",
+        "statusExists#0"
+      ]
+    },
+    "142": {
+      "op": "bury 10",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "status#0",
+        "statusExists#0",
+        "temp#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "status#0"
+      ]
+    },
+    "144": {
+      "op": "bury 10",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "temp#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ]
+    },
+    "146": {
+      "op": "uncover 3",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "temp#0"
+      ]
+    },
+    "148": {
+      "op": "pushbytes \"title\"",
+      "defined_out": [
+        "\"title\"",
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "status#0",
+        "statusExists#0",
+        "temp#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "temp#0",
+        "\"title\""
+      ]
+    },
+    "155": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "status#0",
+        "statusExists#0",
+        "titleBytes#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "titleBytes#0",
+        "titleExists#0"
+      ]
+    },
+    "156": {
+      "op": "bury 8",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "status#0",
+        "statusExists#0",
+        "titleBytes#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "titleBytes#0"
+      ]
+    },
+    "158": {
+      "op": "bury 15",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ]
+    },
+    "160": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "0"
+      ]
+    },
+    "161": {
+      "op": "cover 2",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "proposerExists#0",
+        "0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ]
+    },
+    "163": {
+      "op": "select",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "status#0",
+        "statusExists#0",
+        "titleBytes#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "proposerExists#0",
+        "select%0#0"
+      ]
+    },
+    "164": {
+      "op": "bury 10",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "status#0",
+        "statusExists#0",
+        "titleBytes#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "proposerExists#0"
+      ]
+    },
+    "166": {
+      "op": "bz getShortProposalState_ternary_false@5",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "169": {
+      "op": "dig 13",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "proposerBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "status#0",
+        "statusExists#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%0#1"
+      ]
+    },
+    "171": {
+      "op": "bury 13",
+      "defined_out": [
+        "aggregate%array_length%0#0",
+        "appIds#0",
+        "item_index_internal%0#0",
+        "proposerBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "status#0",
+        "statusExists#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "173": {
+      "block": "getShortProposalState_ternary_merge@6",
+      "stack_in": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ],
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "0"
+      ]
+    },
+    "174": {
+      "op": "dig 11",
+      "defined_out": [
+        "0",
+        "requestedAmount#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "0",
+        "requestedAmount#0"
+      ]
+    },
+    "176": {
+      "op": "dig 11",
+      "defined_out": [
+        "0",
+        "requestedAmount#0",
+        "requestedAmountExists#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "0",
+        "requestedAmount#0",
+        "requestedAmountExists#0"
+      ]
+    },
+    "178": {
+      "op": "select",
+      "defined_out": [
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "select%1#0"
+      ]
+    },
+    "179": {
+      "op": "bury 8",
+      "defined_out": [
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "181": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "0"
+      ]
+    },
+    "182": {
+      "op": "dig 6",
+      "defined_out": [
+        "0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0",
+        "status#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "0",
+        "status#0"
+      ]
+    },
+    "184": {
+      "op": "dig 6",
+      "defined_out": [
+        "0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0",
+        "status#0",
+        "statusExists#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "0",
+        "status#0",
+        "statusExists#0"
+      ]
+    },
+    "186": {
+      "op": "select",
+      "defined_out": [
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "select%2#0"
+      ]
+    },
+    "187": {
+      "op": "bury 7",
+      "defined_out": [
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "189": {
+      "op": "dig 3",
+      "defined_out": [
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "titleExists#0"
+      ]
+    },
+    "191": {
+      "op": "bz getShortProposalState_ternary_false@8",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "194": {
+      "op": "dig 11",
+      "defined_out": [
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "ternary_result%1#1",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1"
+      ]
+    },
+    "196": {
+      "block": "getShortProposalState_ternary_merge@9",
+      "stack_in": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1"
+      ],
+      "op": "dig 9",
+      "defined_out": [
+        "select%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1",
+        "select%0#0"
+      ]
+    },
+    "198": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%val_as_bytes%0#0",
+        "select%0#0"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1",
+        "aggregate%val_as_bytes%0#0"
+      ]
+    },
+    "199": {
+      "op": "dig 14",
+      "defined_out": [
+        "aggregate%val_as_bytes%0#0",
+        "select%0#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1",
+        "aggregate%val_as_bytes%0#0",
+        "ternary_result%0#1"
+      ]
+    },
+    "201": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "select%0#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%1#0"
+      ]
+    },
+    "202": {
+      "op": "dig 9",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "select%0#0",
+        "select%1#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%1#0",
+        "select%1#0"
+      ]
+    },
+    "204": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "aggregate%val_as_bytes%1#0",
+        "select%0#0",
+        "select%1#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%1#0",
+        "aggregate%val_as_bytes%1#0"
+      ]
+    },
+    "205": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%2#0",
+        "select%0#0",
+        "select%1#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%2#0"
+      ]
+    },
+    "206": {
+      "op": "dig 8",
+      "defined_out": [
+        "aggregate%head%2#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%2#0",
+        "select%2#0"
+      ]
+    },
+    "208": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%head%2#0",
+        "aggregate%val_as_bytes%2#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%2#0",
+        "aggregate%val_as_bytes%2#0"
+      ]
+    },
+    "209": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%3#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%3#0"
+      ]
+    },
+    "210": {
+      "op": "swap",
+      "defined_out": [
+        "aggregate%head%3#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1",
+        "ternary_result%1#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#1"
+      ]
+    },
+    "211": {
+      "op": "dup",
+      "defined_out": [
+        "aggregate%head%3#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1",
+        "ternary_result%1#1",
+        "ternary_result%1#1 (copy)"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#1",
+        "ternary_result%1#1 (copy)"
+      ]
+    },
+    "212": {
+      "op": "len",
+      "defined_out": [
+        "aggregate%head%3#0",
+        "aggregate%length%0#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1",
+        "ternary_result%1#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#1",
+        "aggregate%length%0#0"
+      ]
+    },
+    "213": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%as_bytes%0#0",
+        "aggregate%head%3#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1",
+        "ternary_result%1#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#1",
+        "aggregate%as_bytes%0#0"
+      ]
+    },
+    "214": {
+      "op": "extract 6 2",
+      "defined_out": [
+        "aggregate%head%3#0",
+        "aggregate%length_uint16%0#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1",
+        "ternary_result%1#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#1",
+        "aggregate%length_uint16%0#0"
+      ]
+    },
+    "217": {
+      "op": "swap",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%head%3#0",
+        "aggregate%length_uint16%0#0",
+        "ternary_result%1#1"
+      ]
+    },
+    "218": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%head%3#0",
+        "aggregate%encoded_value%0#0"
+      ]
+    },
+    "219": {
+      "op": "swap",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0"
+      ]
+    },
+    "220": {
+      "op": "pushbytes 0x003a",
+      "defined_out": [
+        "0x003a",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "0x003a"
+      ]
+    },
+    "224": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%4#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%4#0"
+      ]
+    },
+    "225": {
+      "op": "swap",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "aggregate%head%4#0",
+        "aggregate%encoded_value%0#0"
+      ]
+    },
+    "226": {
+      "op": "concat",
+      "defined_out": [
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "shortState#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "shortState#0"
+      ]
+    },
+    "227": {
+      "op": "log",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "228": {
+      "op": "dup",
+      "defined_out": [
+        "item_index_internal%0#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "229": {
+      "op": "intc_2 // 1",
+      "defined_out": [
+        "1",
+        "item_index_internal%0#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "item_index_internal%0#0",
+        "1"
+      ]
+    },
+    "230": {
+      "op": "+",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "231": {
+      "op": "bury 1",
+      "defined_out": [
+        "item_index_internal%0#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "233": {
+      "op": "b getShortProposalState_for_header@2"
+    },
+    "236": {
+      "block": "getShortProposalState_ternary_false@8",
+      "stack_in": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ],
+      "op": "pushbytes \"\"",
+      "defined_out": [
+        "ternary_result%1#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%1#1"
+      ]
+    },
+    "238": {
+      "op": "b getShortProposalState_ternary_merge@9"
+    },
+    "241": {
+      "block": "getShortProposalState_ternary_false@5",
+      "stack_in": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ],
+      "op": "global ZeroAddress",
+      "defined_out": [
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "ternary_result%0#1"
+      ]
+    },
+    "243": {
+      "op": "bury 13",
+      "defined_out": [
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "245": {
+      "op": "b getShortProposalState_ternary_merge@6"
+    },
+    "248": {
+      "block": "getShortProposalState_after_for@11",
+      "stack_in": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ],
+      "op": "pushbytes base32(CUPXY5IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5AAAA)",
+      "defined_out": [
+        "CUPXY5IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5AAAA"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "CUPXY5IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5AAAA"
+      ]
+    },
+    "314": {
+      "op": "log",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ]
+    },
+    "315": {
+      "op": "intc_2 // 1",
+      "defined_out": [
+        "1"
+      ],
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0",
+        "1"
+      ]
+    },
+    "316": {
+      "op": "return",
+      "stack_out": [
+        "proposerBytes#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0",
+        "appIds#0",
+        "aggregate%array_length%0#0",
+        "item_index_internal%0#0"
+      ]
+    }
+  }
+}
