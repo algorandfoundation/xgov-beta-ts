@@ -4,6 +4,7 @@ import {
   XGovRegistryClient,
 } from "./generated/XGovRegistryClient";
 import { BaseSDK } from "./BaseSDK";
+import { XGovProposalSDK } from "./XGovProposalSDK";
 
 export class XGovRegistrySDK extends BaseSDK {
   public client: XGovRegistryClient;
@@ -28,5 +29,9 @@ export class XGovRegistrySDK extends BaseSDK {
       this.appAddress
     );
     return createdApps?.map(({ id }) => id) || [];
+  }
+
+  proposal(appId: bigint): XGovProposalSDK {
+    return new XGovProposalSDK({ appId, algorand: this.algorand });
   }
 }

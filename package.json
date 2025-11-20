@@ -24,20 +24,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "build": "rm -rf lib/ && npm run generate && tsc",
-    "generate": "npm run generate:council && npm run generate:proposal && npm run generate:registry",
+    "generate": "concurrently 'npm run generate:council' 'npm run generate:proposal' 'npm run generate:registry' 'npm run generate:ghostkitreader'",
     "generate:council": "npx @algorandfoundation/algokit-client-generator generate -o src/generated/CouncilClient.ts -a contract/smart_contracts/artifacts/council/Council.arc56.json",
     "generate:proposal": "npx @algorandfoundation/algokit-client-generator generate -o src/generated/ProposalClient.ts -a contract/smart_contracts/artifacts/proposal/Proposal.arc56.json",
-    "generate:registry": "npx @algorandfoundation/algokit-client-generator generate -o src/generated/XGovRegistryClient.ts -a contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc56.json"
+    "generate:registry": "npx @algorandfoundation/algokit-client-generator generate -o src/generated/XGovRegistryClient.ts -a contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc56.json",
+    "generate:ghostkitreader": "cd ghostkit-reader && npm run build && npx ghostkit build smart_contracts/artifacts/xgov_reader/XgovReader.arc56.json && cp smart_contracts/artifacts/xgov_reader/XgovReaderSDK.ts ../src/generated/XgovReaderGhostSDK.ts"
   },
   "author": "Algorand Foundation",
   "license": "AGPL-3.0-or-later",
   "peerDependencies": {
     "@algorandfoundation/algokit-utils": "^9.0.0",
-    "algosdk": "^3.4.0"
+    "algosdk": "^3.0.0"
   },
   "devDependencies": {
+    "@algorandfoundation/algokit-client-generator": "^6.0.0",
     "@types/node": "^22.10.1",
-    "typescript": "^5.5.4",
-    "@algorandfoundation/algokit-client-generator": "^6.0.0"
+    "concurrently": "^9.2.1",
+    "typescript": "^5.7.4"
   }
 }

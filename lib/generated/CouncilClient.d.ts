@@ -442,11 +442,7 @@ export declare class CouncilFactory {
         } | {
             return: import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined;
             deleteReturn: import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined;
-            compiledApproval?: import(
-            /**
-             * Gets available create methods
-             */
-            "@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
+            compiledApproval?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
             compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
             operationPerformed: "nothing";
             appId: bigint;

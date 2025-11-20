@@ -1,0 +1,1882 @@
+{
+  "version": 3,
+  "sources": [
+    "../../xgov_reader/contract.algo.ts"
+  ],
+  "mappings": ";;;;AAWA;;;;;;AAAA;;;AAAA;;;;AAAA;AACG;;AAAA;AAAA;AAAA;;;;;;;AAAA;;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAE8C;AAAgC;;;;;;;;;;;;;;;;AAAhC;AACL;;AAA+B;;;;;;;;;;AAA/B;AAAA;;AAAA;;AACS;;AAAgC;;;;;;;;;;;;;;;;;;AAAhC;AAAA;;AAAA;;AAClB;;AAAgC;;;;;;;;AAAhC;AAAA;;AAAA;;AACG;;AAA+B;;;;;;;AAA/B;AAAA;;AAAA;;AAEsB;AAAtC;;AAAA;AAAA;AACN;;;;;;;AACkD;AAA1C;;AAAA;;AAAA;AAAA;;AACc;AAAxB;;AAAA;;AAAA;AAAA;;AACD;;AAAA;;;;;AAL8B;;AAAA;AAAA;;AAAA;AAAA;;AAAA;AAAA;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;;;AAAA;AAAA;AAAA;AAAA;;;;AAAA;AAAA;AAAA;AAOvC;AAdD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;;AAAA;AAY6C;;;;;AAHU;;AAAA;;",
+  "op_pc_offset": 0,
+  "pc_events": {
+    "1": {
+      "subroutine": "@algorandfoundation/algorand-typescript/arc4/index.d.ts::Contract.approvalProgram",
+      "params": {},
+      "block": "main",
+      "stack_in": [],
+      "op": "intcblock 0"
+    },
+    "4": {
+      "op": "pushbytes 0x51699eaf // method \"getShortProposalState(uint64)(uint64,address,uint64,uint64,string)\"",
+      "defined_out": [
+        "Method(getShortProposalState(uint64)(uint64,address,uint64,uint64,string))"
+      ],
+      "stack_out": [
+        "Method(getShortProposalState(uint64)(uint64,address,uint64,uint64,string))"
+      ]
+    },
+    "10": {
+      "op": "txna ApplicationArgs 0",
+      "defined_out": [
+        "Method(getShortProposalState(uint64)(uint64,address,uint64,uint64,string))",
+        "tmp%0#1"
+      ],
+      "stack_out": [
+        "Method(getShortProposalState(uint64)(uint64,address,uint64,uint64,string))",
+        "tmp%0#1"
+      ]
+    },
+    "13": {
+      "op": "match main_getShortProposalState_route@2",
+      "stack_out": []
+    },
+    "17": {
+      "op": "err"
+    },
+    "18": {
+      "block": "main_getShortProposalState_route@2",
+      "stack_in": [],
+      "op": "txn OnCompletion",
+      "defined_out": [
+        "tmp%1#0"
+      ],
+      "stack_out": [
+        "tmp%1#0"
+      ]
+    },
+    "20": {
+      "op": "!",
+      "defined_out": [
+        "tmp%2#0"
+      ],
+      "stack_out": [
+        "tmp%2#0"
+      ]
+    },
+    "21": {
+      "error": "OnCompletion must be NoOp",
+      "op": "assert // OnCompletion must be NoOp",
+      "stack_out": []
+    },
+    "22": {
+      "op": "b getShortProposalState"
+    },
+    "25": {
+      "subroutine": "smart_contracts/xgov_reader/contract.algo.ts::XgovReader.getShortProposalState[routing]",
+      "params": {},
+      "block": "getShortProposalState",
+      "stack_in": [],
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "ternary_result%0#1"
+      ]
+    },
+    "26": {
+      "op": "pushbytes \"\"",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0"
+      ]
+    },
+    "28": {
+      "op": "dup",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0"
+      ]
+    },
+    "29": {
+      "op": "txna ApplicationArgs 1",
+      "defined_out": [
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "tmp%0#0"
+      ]
+    },
+    "32": {
+      "op": "dup",
+      "defined_out": [
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "tmp%0#0",
+        "tmp%0#0 (copy)"
+      ]
+    },
+    "33": {
+      "op": "len",
+      "defined_out": [
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "tmp%0#0",
+        "len%0#0"
+      ]
+    },
+    "34": {
+      "op": "pushint 8 // 8",
+      "defined_out": [
+        "8",
+        "len%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "tmp%0#0",
+        "len%0#0",
+        "8"
+      ]
+    },
+    "36": {
+      "op": "==",
+      "defined_out": [
+        "eq%0#0",
+        "tmp%0#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "tmp%0#0",
+        "eq%0#0"
+      ]
+    },
+    "37": {
+      "error": "invalid number of bytes for arc4.uint64",
+      "op": "assert // invalid number of bytes for arc4.uint64",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "tmp%0#0"
+      ]
+    },
+    "38": {
+      "op": "btoi",
+      "defined_out": [
+        "appId#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "appId#0"
+      ]
+    },
+    "39": {
+      "op": "dup",
+      "defined_out": [
+        "appId#0",
+        "appId#0 (copy)"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "appId#0",
+        "appId#0 (copy)"
+      ]
+    },
+    "40": {
+      "op": "pushbytes \"open_timestamp\"",
+      "defined_out": [
+        "\"open_timestamp\"",
+        "appId#0",
+        "appId#0 (copy)"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "appId#0",
+        "appId#0 (copy)",
+        "\"open_timestamp\""
+      ]
+    },
+    "56": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "appId#0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "appId#0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ]
+    },
+    "57": {
+      "op": "dig 2",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "appId#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "appId#0 (copy)"
+      ]
+    },
+    "59": {
+      "op": "pushbytes \"proposer\"",
+      "defined_out": [
+        "\"proposer\"",
+        "appId#0",
+        "appId#0 (copy)",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "appId#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "appId#0 (copy)",
+        "\"proposer\""
+      ]
+    },
+    "69": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "appId#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "appId#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0"
+      ]
+    },
+    "70": {
+      "op": "cover 3",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "appId#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0"
+      ]
+    },
+    "72": {
+      "op": "cover 4",
+      "defined_out": [
+        "appId#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "appId#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ]
+    },
+    "74": {
+      "op": "dig 3",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "appId#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "appId#0 (copy)"
+      ]
+    },
+    "76": {
+      "op": "pushbytes \"requested_amount\"",
+      "defined_out": [
+        "\"requested_amount\"",
+        "appId#0",
+        "appId#0 (copy)",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "appId#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "appId#0 (copy)",
+        "\"requested_amount\""
+      ]
+    },
+    "94": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "appId#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "appId#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0"
+      ]
+    },
+    "95": {
+      "op": "cover 5",
+      "defined_out": [
+        "appId#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "appId#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "requestedAmount#0"
+      ]
+    },
+    "97": {
+      "op": "cover 4",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "appId#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ]
+    },
+    "99": {
+      "op": "dig 3",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "appId#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "appId#0 (copy)"
+      ]
+    },
+    "101": {
+      "op": "pushbytes \"status\"",
+      "defined_out": [
+        "\"status\"",
+        "appId#0",
+        "appId#0 (copy)",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "appId#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "appId#0 (copy)",
+        "\"status\""
+      ]
+    },
+    "109": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "appId#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "status#0",
+        "statusExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "appId#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "status#0",
+        "statusExists#0"
+      ]
+    },
+    "110": {
+      "op": "cover 5",
+      "defined_out": [
+        "appId#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "status#0",
+        "statusExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "appId#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "status#0"
+      ]
+    },
+    "112": {
+      "op": "cover 4",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "appId#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ]
+    },
+    "114": {
+      "op": "uncover 3",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "appId#0"
+      ]
+    },
+    "116": {
+      "op": "pushbytes \"title\"",
+      "defined_out": [
+        "\"title\"",
+        "appId#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "status#0",
+        "statusExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "appId#0",
+        "\"title\""
+      ]
+    },
+    "123": {
+      "op": "app_global_get_ex",
+      "defined_out": [
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "status#0",
+        "statusExists#0",
+        "titleBytes#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "titleBytes#0",
+        "titleExists#0"
+      ]
+    },
+    "124": {
+      "op": "cover 4",
+      "defined_out": [
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "status#0",
+        "statusExists#0",
+        "titleBytes#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "titleBytes#0"
+      ]
+    },
+    "126": {
+      "op": "cover 3",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ]
+    },
+    "128": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "proposerExists#0",
+        "openTimestamp#0",
+        "openTimestampExists#0",
+        "0"
+      ]
+    },
+    "129": {
+      "op": "cover 2",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "proposerExists#0",
+        "0",
+        "openTimestamp#0",
+        "openTimestampExists#0"
+      ]
+    },
+    "131": {
+      "op": "select",
+      "defined_out": [
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "status#0",
+        "statusExists#0",
+        "titleBytes#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "proposerExists#0",
+        "select%0#0"
+      ]
+    },
+    "132": {
+      "op": "swap",
+      "defined_out": [
+        "proposerBytes#0",
+        "proposerExists#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "status#0",
+        "statusExists#0",
+        "titleBytes#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "proposerExists#0"
+      ]
+    },
+    "133": {
+      "op": "bz getShortProposalState_ternary_false@3",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0"
+      ]
+    },
+    "136": {
+      "op": "dig 7",
+      "defined_out": [
+        "proposerBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "status#0",
+        "statusExists#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%0#1"
+      ]
+    },
+    "138": {
+      "op": "bury 11",
+      "defined_out": [
+        "proposerBytes#0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%0#0",
+        "status#0",
+        "statusExists#0",
+        "ternary_result%0#1",
+        "titleBytes#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0"
+      ]
+    },
+    "140": {
+      "block": "getShortProposalState_ternary_merge@4",
+      "stack_in": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0"
+      ],
+      "op": "intc_0 // 0",
+      "defined_out": [
+        "0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "0"
+      ]
+    },
+    "141": {
+      "op": "dig 6",
+      "defined_out": [
+        "0",
+        "requestedAmount#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "0",
+        "requestedAmount#0"
+      ]
+    },
+    "143": {
+      "op": "dig 8",
+      "defined_out": [
+        "0",
+        "requestedAmount#0",
+        "requestedAmountExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "0",
+        "requestedAmount#0",
+        "requestedAmountExists#0"
+      ]
+    },
+    "145": {
+      "op": "select",
+      "defined_out": [
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "select%1#0"
+      ]
+    },
+    "146": {
+      "op": "bury 10",
+      "defined_out": [
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0"
+      ]
+    },
+    "148": {
+      "op": "intc_0 // 0",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "0"
+      ]
+    },
+    "149": {
+      "op": "dig 4",
+      "defined_out": [
+        "0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0",
+        "status#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "0",
+        "status#0"
+      ]
+    },
+    "151": {
+      "op": "dig 6",
+      "defined_out": [
+        "0",
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0",
+        "status#0",
+        "statusExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "0",
+        "status#0",
+        "statusExists#0"
+      ]
+    },
+    "153": {
+      "op": "select",
+      "defined_out": [
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "select%2#0"
+      ]
+    },
+    "154": {
+      "op": "bury 9",
+      "defined_out": [
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0"
+      ]
+    },
+    "156": {
+      "op": "dig 2",
+      "defined_out": [
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "titleExists#0"
+      ]
+    },
+    "158": {
+      "op": "bz getShortProposalState_ternary_false@6",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0"
+      ]
+    },
+    "161": {
+      "op": "dig 1",
+      "defined_out": [
+        "requestedAmount#0",
+        "requestedAmountExists#0",
+        "select%1#0",
+        "select%2#0",
+        "status#0",
+        "statusExists#0",
+        "ternary_result%1#1",
+        "titleExists#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1"
+      ]
+    },
+    "163": {
+      "block": "getShortProposalState_ternary_merge@7",
+      "stack_in": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1"
+      ],
+      "op": "dig 1",
+      "defined_out": [
+        "select%0#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1",
+        "select%0#0"
+      ]
+    },
+    "165": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%val_as_bytes%0#0",
+        "select%0#0"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1",
+        "aggregate%val_as_bytes%0#0"
+      ]
+    },
+    "166": {
+      "op": "dig 12",
+      "defined_out": [
+        "aggregate%val_as_bytes%0#0",
+        "select%0#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1",
+        "aggregate%val_as_bytes%0#0",
+        "ternary_result%0#1"
+      ]
+    },
+    "168": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "select%0#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%1#0"
+      ]
+    },
+    "169": {
+      "op": "dig 11",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "select%0#0",
+        "select%1#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%1#0",
+        "select%1#0"
+      ]
+    },
+    "171": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%head%1#0",
+        "aggregate%val_as_bytes%1#0",
+        "select%0#0",
+        "select%1#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%1#0",
+        "aggregate%val_as_bytes%1#0"
+      ]
+    },
+    "172": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%2#0",
+        "select%0#0",
+        "select%1#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%2#0"
+      ]
+    },
+    "173": {
+      "op": "dig 10",
+      "defined_out": [
+        "aggregate%head%2#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%2#0",
+        "select%2#0"
+      ]
+    },
+    "175": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%head%2#0",
+        "aggregate%val_as_bytes%2#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%2#0",
+        "aggregate%val_as_bytes%2#0"
+      ]
+    },
+    "176": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%head%3#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1",
+        "aggregate%head%3#0"
+      ]
+    },
+    "177": {
+      "op": "swap",
+      "defined_out": [
+        "aggregate%head%3#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1",
+        "ternary_result%1#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#1"
+      ]
+    },
+    "178": {
+      "op": "dup",
+      "defined_out": [
+        "aggregate%head%3#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1",
+        "ternary_result%1#1",
+        "ternary_result%1#1 (copy)"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#1",
+        "ternary_result%1#1 (copy)"
+      ]
+    },
+    "179": {
+      "op": "len",
+      "defined_out": [
+        "aggregate%head%3#0",
+        "aggregate%length%0#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1",
+        "ternary_result%1#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#1",
+        "aggregate%length%0#0"
+      ]
+    },
+    "180": {
+      "op": "itob",
+      "defined_out": [
+        "aggregate%as_bytes%0#0",
+        "aggregate%head%3#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1",
+        "ternary_result%1#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#1",
+        "aggregate%as_bytes%0#0"
+      ]
+    },
+    "181": {
+      "op": "extract 6 2",
+      "defined_out": [
+        "aggregate%head%3#0",
+        "aggregate%length_uint16%0#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1",
+        "ternary_result%1#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "aggregate%head%3#0",
+        "ternary_result%1#1",
+        "aggregate%length_uint16%0#0"
+      ]
+    },
+    "184": {
+      "op": "swap",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "aggregate%head%3#0",
+        "aggregate%length_uint16%0#0",
+        "ternary_result%1#1"
+      ]
+    },
+    "185": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "aggregate%head%3#0",
+        "aggregate%encoded_value%0#0"
+      ]
+    },
+    "186": {
+      "op": "swap",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0"
+      ]
+    },
+    "187": {
+      "op": "pushbytes 0x003a",
+      "defined_out": [
+        "0x003a",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%3#0",
+        "0x003a"
+      ]
+    },
+    "191": {
+      "op": "concat",
+      "defined_out": [
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%4#0",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "aggregate%encoded_value%0#0",
+        "aggregate%head%4#0"
+      ]
+    },
+    "192": {
+      "op": "swap",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "aggregate%head%4#0",
+        "aggregate%encoded_value%0#0"
+      ]
+    },
+    "193": {
+      "op": "concat",
+      "defined_out": [
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "shortState#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "shortState#0"
+      ]
+    },
+    "194": {
+      "op": "log",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0"
+      ]
+    },
+    "195": {
+      "op": "pushbytes base32(CUPXY5IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5AAAA)",
+      "defined_out": [
+        "CUPXY5IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5AAAA",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "CUPXY5IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5AAAA"
+      ]
+    },
+    "261": {
+      "op": "log",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0"
+      ]
+    },
+    "262": {
+      "op": "pushint 1 // 1",
+      "defined_out": [
+        "1",
+        "select%0#0",
+        "select%1#0",
+        "select%2#0",
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "1"
+      ]
+    },
+    "264": {
+      "op": "return",
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0"
+      ]
+    },
+    "265": {
+      "block": "getShortProposalState_ternary_false@6",
+      "stack_in": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0"
+      ],
+      "op": "pushbytes \"\"",
+      "defined_out": [
+        "ternary_result%1#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%1#1"
+      ]
+    },
+    "267": {
+      "op": "b getShortProposalState_ternary_merge@7"
+    },
+    "270": {
+      "block": "getShortProposalState_ternary_false@3",
+      "stack_in": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0"
+      ],
+      "op": "global ZeroAddress",
+      "defined_out": [
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0",
+        "ternary_result%0#1"
+      ]
+    },
+    "272": {
+      "op": "bury 11",
+      "defined_out": [
+        "ternary_result%0#1"
+      ],
+      "stack_out": [
+        "ternary_result%0#1",
+        "select%1#0",
+        "select%2#0",
+        "proposerBytes#0",
+        "requestedAmountExists#0",
+        "requestedAmount#0",
+        "statusExists#0",
+        "status#0",
+        "titleExists#0",
+        "titleBytes#0",
+        "select%0#0"
+      ]
+    },
+    "274": {
+      "op": "b getShortProposalState_ternary_merge@4"
+    }
+  }
+}

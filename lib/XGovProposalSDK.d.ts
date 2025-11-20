@@ -1,6 +1,11 @@
 import { AlgorandClient } from "@algorandfoundation/algokit-utils";
 import { BaseSDK } from "./BaseSDK";
-import { ProposalClient } from "./generated/ProposalClient";
+import { ProposalClient, GlobalKeysState as ProposalGlobalKeysState } from "./generated/ProposalClient";
+import { ExtendedStatus } from "./enums";
+export interface ProposalState extends ProposalGlobalKeysState {
+    appId: bigint;
+    statusText: ExtendedStatus;
+}
 export declare class XGovProposalSDK extends BaseSDK {
     client: ProposalClient;
     algorand: AlgorandClient;
@@ -9,4 +14,5 @@ export declare class XGovProposalSDK extends BaseSDK {
         appId: bigint;
         algorand: AlgorandClient;
     });
+    getState(): Promise<ProposalState | null>;
 }

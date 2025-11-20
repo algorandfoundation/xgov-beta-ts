@@ -1,6 +1,7 @@
 import { AlgorandClient } from "@algorandfoundation/algokit-utils";
 import { XGovRegistryClient } from "./generated/XGovRegistryClient";
 import { BaseSDK } from "./BaseSDK";
+import { XGovProposalSDK } from "./XGovProposalSDK";
 export declare class XGovRegistrySDK extends BaseSDK {
     client: XGovRegistryClient;
     algorand: AlgorandClient;
@@ -10,4 +11,5 @@ export declare class XGovRegistrySDK extends BaseSDK {
         algorand: AlgorandClient;
     });
     getProposalAppIds(): Promise<bigint[]>;
+    proposal(appId: bigint): XGovProposalSDK;
 }

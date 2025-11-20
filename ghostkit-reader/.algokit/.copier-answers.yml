@@ -1,0 +1,9 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 0.3.7
+_src_path: gh:algorandfoundation/algokit-typescript-template
+author_email: tasos.bitsios@algorand.foundation
+author_name: Tasos Bitsios
+contract_name: xgov_reader
+preset_name: starter
+project_name: ghostkit
+
