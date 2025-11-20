@@ -10,6 +10,7 @@ import {
   ShortProposalState,
   XgovReaderSDK,
 } from "./generated/XgovReaderGhostSDK";
+import { chunked } from "./utils";
 
 export interface ShortProposalStateExtended extends ShortProposalState {
   appId: bigint;
@@ -19,6 +20,7 @@ export interface ShortProposalStateExtended extends ShortProposalState {
 export class XGovRegistrySDK extends BaseSDK {
   public client: XGovRegistryClient;
   public algorand: AlgorandClient;
+  public ghostReaderSDK: XgovReaderSDK;
 
   static APP_SPEC = REGISTRY_APP_SPEC;
 
@@ -32,6 +34,7 @@ export class XGovRegistrySDK extends BaseSDK {
     super();
     this.algorand = algorand;
     this.client = new XGovRegistryClient({ appId, algorand });
+    this.ghostReaderSDK = new XgovReaderSDK({ algorand });
   }
 
   async getProposalAppIds(): Promise<bigint[]> {
@@ -41,15 +44,15 @@ export class XGovRegistrySDK extends BaseSDK {
     return createdApps?.map(({ id }) => id) || [];
   }
 
-  // currently not a great example since global state are all in creator algod response
-  // better when mixed with box data, e.g. "can vote" information for specific account
+  @chunked(128) // chunks array arguments into sizes of 128. ghost call needs 1 ref atmo, 128 max in simulate
   async getProposalsShortState(
     appIds: bigint[]
   ): Promise<ShortProposalStateExtended[]> {
-    const sdk = new XgovReaderSDK({ algorand: this.algorand });
-    // TODO!! Chunking
-    // leaving as it is just an example atmo
-    const shortStates = await sdk.getShortProposalState({ appIds });
+    // currently not a great example since global state are all in creator algod response
+    // better when mixed with box data, e.g. "can vote" information for specific account
+    const shortStates = await this.ghostReaderSDK.getShortProposalState({
+      appIds,
+    });
     return shortStates.map((shortState, index) => ({
       ...shortState,
       appId: appIds[index],
