@@ -687,8 +687,6 @@ export type XGovRegistryTypes = {
     state: {
         global: {
             keys: {
-                pausedRegistry: bigint;
-                pausedProposals: bigint;
                 xgovManager: string;
                 xgovSubscriber: string;
                 xgovPayor: string;
@@ -696,8 +694,10 @@ export type XGovRegistryTypes = {
                 kycProvider: string;
                 committeeManager: string;
                 xgovDaemon: string;
+                pausedRegistry: bigint;
+                pausedProposals: bigint;
+                outstandingFunds: bigint;
                 xgovFee: bigint;
-                xgovs: bigint;
                 proposerFee: bigint;
                 openProposalFee: bigint;
                 daemonOpsFundingBps: bigint;
@@ -720,13 +720,13 @@ export type XGovRegistryTypes = {
                 weightedQuorumSmall: bigint;
                 weightedQuorumMedium: bigint;
                 weightedQuorumLarge: bigint;
-                outstandingFunds: bigint;
                 committeeId: Uint8Array;
                 committeeMembers: bigint;
                 committeeVotes: bigint;
+                maxCommitteeSize: bigint;
+                xgovs: bigint;
                 pendingProposals: bigint;
                 requestId: bigint;
-                maxCommitteeSize: bigint;
             };
             maps: {};
         };
@@ -3862,14 +3862,6 @@ export declare class XGovRegistryClient {
              */
             getAll: () => Promise<Partial<Expand<GlobalKeysState>>>;
             /**
-             * Get the current value of the paused_registry key in global state
-             */
-            pausedRegistry: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the paused_proposals key in global state
-             */
-            pausedProposals: () => Promise<bigint | undefined>;
-            /**
              * Get the current value of the xgov_manager key in global state
              */
             xgovManager: () => Promise<string | undefined>;
@@ -3898,13 +3890,21 @@ export declare class XGovRegistryClient {
              */
             xgovDaemon: () => Promise<string | undefined>;
             /**
+             * Get the current value of the paused_registry key in global state
+             */
+            pausedRegistry: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the paused_proposals key in global state
+             */
+            pausedProposals: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the outstanding_funds key in global state
+             */
+            outstandingFunds: () => Promise<bigint | undefined>;
+            /**
              * Get the current value of the xgov_fee key in global state
              */
             xgovFee: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the xgovs key in global state
-             */
-            xgovs: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the proposer_fee key in global state
              */
@@ -3994,10 +3994,6 @@ export declare class XGovRegistryClient {
              */
             weightedQuorumLarge: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the outstanding_funds key in global state
-             */
-            outstandingFunds: () => Promise<bigint | undefined>;
-            /**
              * Get the current value of the committee_id key in global state
              */
             committeeId: () => Promise<Uint8Array | undefined>;
@@ -4010,6 +4006,14 @@ export declare class XGovRegistryClient {
              */
             committeeVotes: () => Promise<bigint | undefined>;
             /**
+             * Get the current value of the max_committee_size key in global state
+             */
+            maxCommitteeSize: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the xgovs key in global state
+             */
+            xgovs: () => Promise<bigint | undefined>;
+            /**
              * Get the current value of the pending_proposals key in global state
              */
             pendingProposals: () => Promise<bigint | undefined>;
@@ -4017,10 +4021,6 @@ export declare class XGovRegistryClient {
              * Get the current value of the request_id key in global state
              */
             requestId: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the max_committee_size key in global state
-             */
-            maxCommitteeSize: () => Promise<bigint | undefined>;
         };
         /**
          * Methods to access box state for the current XGovRegistry app
