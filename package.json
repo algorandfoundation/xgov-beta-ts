@@ -1,8 +1,9 @@
 {
   "name": "@algorandfoundation/xgov",
-  "version": "3.1.0-beta.2",
+  "version": "0.0.0",
   "type": "module",
   "description": "xGov Beta Smart Contract Clients",
+  "repository": "git@github.com:algorandfoundation/xgov-beta-ts.git",
   "files": [
     "dist"
   ],
@@ -41,6 +42,41 @@
   "devDependencies": {
     "@algorandfoundation/algokit-client-generator": "6.0.1",
     "@types/node": "^22.10.1",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "semantic-release": "^24.1.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^12.0.1"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "package.json"
+          ],
+          "message": "chore(release): xGov Clients \n\n${nextRelease.notes}"
+        }
+      ],
+      [
+        "@semantic-release/github",
+        {
+          "successComment": false
+        }
+      ]
+    ],
+    "branches": [
+      "release/*",
+      {
+        "name": "main",
+        "prerelease": "canary"
+      }
+    ]
   }
 }
