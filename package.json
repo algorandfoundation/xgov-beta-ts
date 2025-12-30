@@ -8,12 +8,12 @@
   ],
   "exports": {
     ".": {
-      "types": "./lib/ProposalClient.d.ts",
-      "default": "./lib/ProposalClient.js"
+      "types": "./dist/ProposalClient.d.ts",
+      "default": "./dist/ProposalClient.js"
     },
     "./council": {
-      "types": "./lib/CouncilClient.d.ts",
-      "default": "./lib/CouncilClient.js"
+      "types": "./dist/CouncilClient.d.ts",
+      "default": "./dist/CouncilClient.js"
     },
     "./proposal": {
       "types": "./dist/ProposalClient.d.ts",

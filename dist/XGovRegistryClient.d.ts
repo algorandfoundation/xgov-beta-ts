@@ -72,14 +72,6 @@ export type TypedGlobalState = {
  * Converts the ABI tuple representation of a TypedGlobalState to the struct representation
  */
 export declare function TypedGlobalStateFromTuple(abiTuple: [boolean, boolean, string, string, string, string, string, string, string, bigint, bigint, bigint, bigint, bigint, bigint, [bigint, bigint, bigint], [bigint, bigint, bigint, bigint], [bigint, bigint, bigint, bigint], [bigint, bigint, bigint], [bigint, bigint, bigint], bigint, bigint, Uint8Array, bigint, bigint]): TypedGlobalState;
-export type VoterBox = {
-    votes: bigint;
-    voted: boolean;
-};
-/**
- * Converts the ABI tuple representation of a VoterBox to the struct representation
- */
-export declare function VoterBoxFromTuple(abiTuple: [bigint, boolean]): VoterBox;
 export type XGovBoxValue = {
     votingAddress: string;
     votedProposals: bigint;
@@ -695,8 +687,6 @@ export type XGovRegistryTypes = {
     state: {
         global: {
             keys: {
-                pausedRegistry: bigint;
-                pausedProposals: bigint;
                 xgovManager: string;
                 xgovSubscriber: string;
                 xgovPayor: string;
@@ -704,8 +694,10 @@ export type XGovRegistryTypes = {
                 kycProvider: string;
                 committeeManager: string;
                 xgovDaemon: string;
+                pausedRegistry: bigint;
+                pausedProposals: bigint;
+                outstandingFunds: bigint;
                 xgovFee: bigint;
-                xgovs: bigint;
                 proposerFee: bigint;
                 openProposalFee: bigint;
                 daemonOpsFundingBps: bigint;
@@ -728,13 +720,13 @@ export type XGovRegistryTypes = {
                 weightedQuorumSmall: bigint;
                 weightedQuorumMedium: bigint;
                 weightedQuorumLarge: bigint;
-                outstandingFunds: bigint;
                 committeeId: Uint8Array;
                 committeeMembers: bigint;
                 committeeVotes: bigint;
+                maxCommitteeSize: bigint;
+                xgovs: bigint;
                 pendingProposals: bigint;
                 requestId: bigint;
-                maxCommitteeSize: bigint;
             };
             maps: {};
         };
@@ -842,6 +834,8 @@ export declare abstract class XGovRegistryParamsFactory {
             appReferences?: bigint[] | undefined;
             assetReferences?: bigint[] | undefined;
             boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+            accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+            rejectVersion?: number | undefined;
             sender?: (Address | string) | undefined;
             method: string;
             args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
@@ -882,6 +876,8 @@ export declare abstract class XGovRegistryParamsFactory {
             appReferences?: bigint[] | undefined;
             assetReferences?: bigint[] | undefined;
             boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+            accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+            rejectVersion?: number | undefined;
             sender?: (Address | string) | undefined;
             method: string;
             args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
@@ -1429,6 +1425,7 @@ export declare class XGovRegistryFactory {
                 note?: string | Uint8Array | undefined;
                 signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                rejectVersion?: number | undefined;
                 lease?: string | Uint8Array | undefined;
                 rekeyTo?: string | Address | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -1440,6 +1437,7 @@ export declare class XGovRegistryFactory {
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
                 boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
                 sender?: string | Address | undefined;
                 method: string;
                 args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
@@ -1457,6 +1455,7 @@ export declare class XGovRegistryFactory {
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                     onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                    rejectVersion?: number | undefined;
                     lease?: string | Uint8Array | undefined;
                     rekeyTo?: string | Address | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -1468,6 +1467,7 @@ export declare class XGovRegistryFactory {
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                    accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                     schema?: {
@@ -1496,6 +1496,8 @@ export declare class XGovRegistryFactory {
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                    accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+                    rejectVersion?: number | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | undefined)[] | undefined;
@@ -1519,6 +1521,7 @@ export declare class XGovRegistryFactory {
                 note?: string | Uint8Array | undefined;
                 signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 onComplete?: OnApplicationComplete | undefined;
+                rejectVersion?: number | undefined;
                 lease?: string | Uint8Array | undefined;
                 rekeyTo?: string | Address | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -1530,6 +1533,7 @@ export declare class XGovRegistryFactory {
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
                 boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
                 sender?: string | Address | undefined;
                 method: string;
                 args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
@@ -1544,6 +1548,7 @@ export declare class XGovRegistryFactory {
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                     onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                    rejectVersion?: number | undefined;
                     lease?: string | Uint8Array | undefined;
                     rekeyTo?: string | Address | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -1555,6 +1560,7 @@ export declare class XGovRegistryFactory {
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                    accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                     schema?: {
@@ -1583,6 +1589,8 @@ export declare class XGovRegistryFactory {
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                    accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+                    rejectVersion?: number | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | undefined)[] | undefined;
@@ -1727,6 +1735,7 @@ export declare class XGovRegistryClient {
                 note?: string | Uint8Array | undefined;
                 signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 onComplete?: OnApplicationComplete | undefined;
+                rejectVersion?: number | undefined;
                 lease?: string | Uint8Array | undefined;
                 rekeyTo?: string | Address | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -1738,6 +1747,7 @@ export declare class XGovRegistryClient {
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
                 boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
                 sender?: string | Address | undefined;
                 method: string;
                 args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
@@ -1757,6 +1767,7 @@ export declare class XGovRegistryClient {
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                     onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+                    rejectVersion?: number | undefined;
                     lease?: string | Uint8Array | undefined;
                     rekeyTo?: string | Address | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -1768,6 +1779,7 @@ export declare class XGovRegistryClient {
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                    accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                     schema?: {
@@ -1796,6 +1808,8 @@ export declare class XGovRegistryClient {
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+                    accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+                    rejectVersion?: number | undefined;
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | undefined)[] | undefined;
@@ -3870,14 +3884,6 @@ export declare class XGovRegistryClient {
              */
             getAll: () => Promise<Partial<Expand<GlobalKeysState>>>;
             /**
-             * Get the current value of the paused_registry key in global state
-             */
-            pausedRegistry: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the paused_proposals key in global state
-             */
-            pausedProposals: () => Promise<bigint | undefined>;
-            /**
              * Get the current value of the xgov_manager key in global state
              */
             xgovManager: () => Promise<string | undefined>;
@@ -3906,13 +3912,21 @@ export declare class XGovRegistryClient {
              */
             xgovDaemon: () => Promise<string | undefined>;
             /**
+             * Get the current value of the paused_registry key in global state
+             */
+            pausedRegistry: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the paused_proposals key in global state
+             */
+            pausedProposals: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the outstanding_funds key in global state
+             */
+            outstandingFunds: () => Promise<bigint | undefined>;
+            /**
              * Get the current value of the xgov_fee key in global state
              */
             xgovFee: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the xgovs key in global state
-             */
-            xgovs: () => Promise<bigint | undefined>;
             /**
              * Get the current value of the proposer_fee key in global state
              */
@@ -4002,10 +4016,6 @@ export declare class XGovRegistryClient {
              */
             weightedQuorumLarge: () => Promise<bigint | undefined>;
             /**
-             * Get the current value of the outstanding_funds key in global state
-             */
-            outstandingFunds: () => Promise<bigint | undefined>;
-            /**
              * Get the current value of the committee_id key in global state
              */
             committeeId: () => Promise<Uint8Array | undefined>;
@@ -4018,6 +4028,14 @@ export declare class XGovRegistryClient {
              */
             committeeVotes: () => Promise<bigint | undefined>;
             /**
+             * Get the current value of the max_committee_size key in global state
+             */
+            maxCommitteeSize: () => Promise<bigint | undefined>;
+            /**
+             * Get the current value of the xgovs key in global state
+             */
+            xgovs: () => Promise<bigint | undefined>;
+            /**
              * Get the current value of the pending_proposals key in global state
              */
             pendingProposals: () => Promise<bigint | undefined>;
@@ -4025,10 +4043,6 @@ export declare class XGovRegistryClient {
              * Get the current value of the request_id key in global state
              */
             requestId: () => Promise<bigint | undefined>;
-            /**
-             * Get the current value of the max_committee_size key in global state
-             */
-            maxCommitteeSize: () => Promise<bigint | undefined>;
         };
         /**
          * Methods to access box state for the current XGovRegistry app
