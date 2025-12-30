@@ -7,6 +7,14 @@
     "dist"
   ],
   "exports": {
+    ".": {
+      "types": "./lib/ProposalClient.d.ts",
+      "default": "./lib/ProposalClient.js"
+    },
+    "./council": {
+      "types": "./lib/CouncilClient.d.ts",
+      "default": "./lib/CouncilClient.js"
+    },
     "./proposal": {
       "types": "./dist/ProposalClient.d.ts",
       "default": "./dist/ProposalClient.js"
@@ -19,10 +27,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
     "build": "npm run generate && tsc",
-    "generate": "npm run generate:proposal && npm run generate:registry",
+    "generate": "npm run generate:council && npm run generate:proposal && npm run generate:registry",
+    "generate:council": "npx @algorandfoundation/algokit-client-generator generate -o src/CouncilClient.ts -a contract/smart_contracts/artifacts/council/Council.arc56.json",
     "generate:proposal": "npx @algorandfoundation/algokit-client-generator generate -o src/ProposalClient.ts -a contract/smart_contracts/artifacts/proposal/Proposal.arc56.json",
-    "generate:registry": "npx @algorandfoundation/algokit-client-generator generate -o src/XGovRegistryClient.ts -a contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc56.json",
-    "prepublishOnly": "npm run build"
+    "generate:registry": "npx @algorandfoundation/algokit-client-generator generate -o src/XGovRegistryClient.ts -a contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc56.json"
   },
   "author": "Algorand Foundation",
   "license": "AGPL-3.0-or-later",
