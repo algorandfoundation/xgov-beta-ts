@@ -5,14 +5,14 @@ The workflow is automated and dispatched from the [xgov-beta-sc](https://github.
 The workflow can also be triggered manually.
 
 
-The package has two modules it exports, `Proposal` and `XGovRegistry`.
-Both are typed clients generated from the smart contract's ARC-32 ABI definition.
+The package has three modules it exports, `Proposal`, `XGovRegistry` and `Council`.
+These are typed clients generated from the smart contract's ARC-56 ABI definition.
 This repository simply handles the generation and packaging of the artifacts.
 
 ## Installation
 
 ```bash
-npm install algorandfoundation/xgov-beta-ts --save
+npm install @algorandfoundation/xgov --save
 ```
 
 ## Usage
@@ -20,13 +20,13 @@ npm install algorandfoundation/xgov-beta-ts --save
 ### Proposal
 
 ```typescript
-import { ProposalClient } from '@algorandfoundation/xgov/proposal';
+import { ProposalClient } from '@algorandfoundation/xgov';
 ```
 
 ### Registry
 
 ```typescript
-import { XGovRegistryClient } from '@algorandfoundation/xgov/registry';
+import { XGovRegistryClient } from '@algorandfoundation/xgov';
 ```
 
 ## Contributing
