@@ -1,5 +1,5 @@
 {
-  "name": "@algorandfoundation/xgov-clients",
+  "name": "@algorandfoundation/xgov",
   "version": "3.1.0",
   "type": "module",
   "description": "xGov Beta Smart Contract Clients",
