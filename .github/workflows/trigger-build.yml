@@ -1,31 +1,164 @@
-name: Update Package
+name: Update Clients from Contract Release
+
 on:
+  repository_dispatch:
+    types: [contract-release, contract-canary]
   workflow_dispatch:
+    inputs:
+      contract_version:
+        description: 'Contract version tag (e.g., v1.2.0 or v1.2.0.canary.1). Leave empty to use latest.'
+        required: false
+        type: string
+      target_branch:
+        description: 'Target branch to push changes to'
+        required: false
+        type: string
+        default: 'release/1.x'
+      release_type:
+        description: 'Release type (stable or canary)'
+        required: false
+        type: choice
+        options:
+          - stable
+          - canary
+        default: 'stable'
+
 concurrency:
   cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event.action || github.event.inputs.release_type }}
+
 permissions:
   contents: write
+  pull-requests: write
+
 jobs:
-  build:
+  update-and-release:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.BOT_ID }}
+          private-key: ${{ secrets.BOT_SK }}
+
+      - name: Determine release type and target branch
+        id: config
+        run: |
+          # Determine if this is a canary or stable release
+          if [ "${{ github.event.action }}" = "contract-canary" ]; then
+            RELEASE_TYPE="canary"
+            BRANCH="main"
+          elif [ "${{ github.event.inputs.release_type }}" = "canary" ]; then
+            RELEASE_TYPE="canary"
+            BRANCH="main"
+          elif [ -n "${{ github.event.inputs.target_branch }}" ]; then
+            RELEASE_TYPE="stable"
+            BRANCH="${{ github.event.inputs.target_branch }}"
+          elif [ -n "${{ github.event.client_payload.target_branch }}" ]; then
+            RELEASE_TYPE="stable"
+            BRANCH="${{ github.event.client_payload.target_branch }}"
+          else
+            RELEASE_TYPE="stable"
+            BRANCH="release/1.x"
+          fi
+          echo "release_type=$RELEASE_TYPE" >> $GITHUB_OUTPUT
+          echo "branch=$BRANCH" >> $GITHUB_OUTPUT
+          echo "Release type: $RELEASE_TYPE, Target branch: $BRANCH"
+
       - uses: actions/checkout@v4
         with:
+          token: ${{ steps.app-token.outputs.token }}
+          ref: ${{ steps.config.outputs.branch }}
           fetch-depth: 0
-      - run: |
+          submodules: recursive
+
+      - name: Configure git
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+
+      - name: Determine contract version
+        id: version
+        run: |
+          RELEASE_TYPE="${{ steps.config.outputs.release_type }}"
+          # Use input version, dispatch payload, or fetch latest
+          if [ -n "${{ github.event.inputs.contract_version }}" ]; then
+            VERSION="${{ github.event.inputs.contract_version }}"
+          elif [ -n "${{ github.event.client_payload.version }}" ]; then
+            VERSION="${{ github.event.client_payload.version }}"
+          elif [ "$RELEASE_TYPE" = "canary" ]; then
+            # For canary, we use main branch directly (no version tag needed)
+            VERSION=""
+          else
+            # Fetch latest stable release tag from contract submodule
+            cd contract
+            git fetch --tags origin
+            VERSION=$(git tag -l "v*" | grep -v "canary" | sort -V | tail -1 || echo "")
+            cd ..
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Contract version: $VERSION"
+
+      - name: Update submodule to release version
+        run: |
+          cd contract
+          git fetch --tags origin
+          RELEASE_TYPE="${{ steps.config.outputs.release_type }}"
+          VERSION="${{ steps.version.outputs.version }}"
+          
+          if [ "$RELEASE_TYPE" = "canary" ]; then
+            # For canary releases, always use the main branch
+            echo "Checking out contract main branch for canary release"
+            git checkout origin/main
+          elif [ -n "$VERSION" ]; then
+            echo "Checking out contract version: $VERSION"
+            git checkout "$VERSION"
+          else
+            echo "Updating to latest main branch"
+            git checkout origin/main
+          fi
+          cd ..
+
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-          registry-url: 'https://npm.pkg.github.com'
+          registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
-      - name: Install algokit
-        run: pipx install algokit
-      - run: submodule update --init --recursive
-      - run: npm ci
-      - run: npm run build
-      - name: Commit
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate and build clients
+        run: npm run build
+
+      - name: Check for changes
+        id: changes
         run: |
-          git diff --quiet && git diff --staged --quiet || git commit -am "chore: release ${{ github.sha }}"
-          git push
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected"
+          fi
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          RELEASE_TYPE="${{ steps.config.outputs.release_type }}"
+          # For canary, use the tag from the dispatch payload for the commit message
+          CANARY_TAG="${{ github.event.client_payload.version }}"
+          git add -A
+          if [ "$RELEASE_TYPE" = "canary" ]; then
+            if [ -n "$CANARY_TAG" ]; then
+              git commit -m "feat: update clients for contract $CANARY_TAG (canary)"
+            else
+              git commit -m "feat: update clients from contract main (canary)"
+            fi
+          elif [ -n "$VERSION" ]; then
+            git commit -m "feat: update clients for contract $VERSION"
+          else
+            git commit -m "feat: update clients from latest contract"
+          fi
+          git push origin ${{ steps.config.outputs.branch }}

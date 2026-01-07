@@ -3,22 +3,26 @@
   "version": "0.0.0",
   "type": "module",
   "description": "xGov Beta Smart Contract Clients",
+  "repository": "git@github.com:algorandfoundation/xgov-beta-ts.git",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
-      "types": "./lib/ProposalClient.d.ts",
-      "default": "./lib/ProposalClient.js"
+      "types": "./dist/ProposalClient.d.ts",
+      "default": "./dist/ProposalClient.js"
     },
     "./council": {
-      "types": "./lib/CouncilClient.d.ts",
-      "default": "./lib/CouncilClient.js"
+      "types": "./dist/CouncilClient.d.ts",
+      "default": "./dist/CouncilClient.js"
     },
     "./proposal": {
-      "types": "./lib/ProposalClient.d.ts",
-      "default": "./lib/ProposalClient.js"
+      "types": "./dist/ProposalClient.d.ts",
+      "default": "./dist/ProposalClient.js"
     },
     "./registry": {
-      "types": "./lib/XGovRegistryClient.d.ts",
-      "default": "./lib/XGovRegistryClient.js"
+      "types": "./dist/XGovRegistryClient.d.ts",
+      "default": "./dist/XGovRegistryClient.js"
     }
   },
   "scripts": {
@@ -32,12 +36,47 @@
   "author": "Algorand Foundation",
   "license": "AGPL-3.0-or-later",
   "peerDependencies": {
-    "@algorandfoundation/algokit-utils": "^7.0.0",
-    "algosdk": "^2.9.0"
+    "@algorandfoundation/algokit-utils": "9.2.0",
+    "algosdk": "3.5.2"
   },
   "devDependencies": {
+    "@algorandfoundation/algokit-client-generator": "6.0.1",
     "@types/node": "^22.10.1",
     "typescript": "^5.5.4",
-    "@algorandfoundation/algokit-client-generator": "^4.0.9"
+    "semantic-release": "^24.1.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^12.0.1"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "package.json"
+          ],
+          "message": "chore(release): xGov Clients \n\n${nextRelease.notes}"
+        }
+      ],
+      [
+        "@semantic-release/github",
+        {
+          "successComment": false
+        }
+      ]
+    ],
+    "branches": [
+      "release/*",
+      {
+        "name": "main",
+        "prerelease": "canary"
+      }
+    ]
   }
 }
