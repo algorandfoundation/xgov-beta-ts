@@ -9,25 +9,25 @@
   ],
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./council": {
-      "types": "./lib/generated/CouncilClient.d.ts",
-      "default": "./lib/generated/CouncilClient.js"
+      "types": "./dist/generated/CouncilClient.d.ts",
+      "default": "./dist/generated/CouncilClient.js"
     },
     "./proposal": {
-      "types": "./lib/generated/ProposalClient.d.ts",
-      "default": "./lib/generated/ProposalClient.js"
+      "types": "./dist/generated/ProposalClient.d.ts",
+      "default": "./dist/generated/ProposalClient.js"
     },
     "./registry": {
-      "types": "./lib/generated/XGovRegistryClient.d.ts",
-      "default": "./lib/generated/XGovRegistryClient.js"
+      "types": "./dist/generated/XGovRegistryClient.d.ts",
+      "default": "./dist/generated/XGovRegistryClient.js"
     }
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build:only": "rm -rf lib/ && tsc",
+    "build:only": "rm -rf dist/ && tsc",
     "build": "rm -rf lib/ && npm run generate && tsc",
     "generate": "concurrently 'npm run generate:council' 'npm run generate:proposal' 'npm run generate:registry' 'npm run generate:ghostkitreader'",
     "generate:council": "npx @algorandfoundation/algokit-client-generator generate -o src/generated/CouncilClient.ts -a contract/smart_contracts/artifacts/council/Council.arc56.json",

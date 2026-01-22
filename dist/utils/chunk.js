@@ -19,7 +19,7 @@ export function chunked(chunkSize, chunkArgIndex = 0) {
             const ids = args[chunkArgIndex];
             // If appIds array is smaller than or equal to chunk size, call original method directly
             if (ids.length <= chunkSize) {
-                console.log("No chunking needed, calling original method directly.");
+                // console.log("No chunking needed, calling original method directly.");
                 return originalMethod.apply(this, [ids, ...args]);
             }
             // Chunk the appIds array
@@ -27,7 +27,7 @@ export function chunked(chunkSize, chunkArgIndex = 0) {
             // Process each chunk sequentially and collect results
             const results = [];
             for (const chunkedIds of chunks) {
-                console.log(`Processing chunk of size ${chunkedIds.length}: ${chunkedIds}`);
+                // console.log(`Processing chunk of size ${chunkedIds.length}: ${chunkedIds}`);
                 const chunkResult = await originalMethod.apply(this, [chunkedIds, ...args]);
                 results.push(chunkResult);
             }
