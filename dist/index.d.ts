@@ -1,0 +1,12 @@
+export { XGovProposalSDK, ProposalState } from "./XGovProposalSDK";
+export { XGovRegistrySDK, ShortProposalStateExtended } from "./XGovRegistrySDK";
+export { XGovCouncilSDK } from "./XGovCouncilSDK";
+export { BaseSDK } from "./BaseSDK";
+export * from "./enums";
+export * from "./types";
+export * from "./utils";
+export * from "./config";
+export { ProposalClient, ProposalFactory } from "./generated/ProposalClient";
+export { XGovRegistryClient, XGovRegistryFactory } from "./generated/XGovRegistryClient";
+export { CouncilClient, CouncilFactory } from "./generated/CouncilClient";
+export { XgovReaderSDK } from "./generated/XgovReaderGhostSDK";

@@ -9,29 +9,31 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/ProposalClient.d.ts",
-      "default": "./dist/ProposalClient.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     },
     "./council": {
-      "types": "./dist/CouncilClient.d.ts",
-      "default": "./dist/CouncilClient.js"
+      "types": "./dist/generated/CouncilClient.d.ts",
+      "default": "./dist/generated/CouncilClient.js"
     },
     "./proposal": {
-      "types": "./dist/ProposalClient.d.ts",
-      "default": "./dist/ProposalClient.js"
+      "types": "./dist/generated/ProposalClient.d.ts",
+      "default": "./dist/generated/ProposalClient.js"
     },
     "./registry": {
-      "types": "./dist/XGovRegistryClient.d.ts",
-      "default": "./dist/XGovRegistryClient.js"
+      "types": "./dist/generated/XGovRegistryClient.d.ts",
+      "default": "./dist/generated/XGovRegistryClient.js"
     }
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "build": "npm run generate && tsc",
-    "generate": "npm run generate:council && npm run generate:proposal && npm run generate:registry",
-    "generate:council": "npx @algorandfoundation/algokit-client-generator generate -o src/CouncilClient.ts -a contract/smart_contracts/artifacts/council/Council.arc56.json",
-    "generate:proposal": "npx @algorandfoundation/algokit-client-generator generate -o src/ProposalClient.ts -a contract/smart_contracts/artifacts/proposal/Proposal.arc56.json",
-    "generate:registry": "npx @algorandfoundation/algokit-client-generator generate -o src/XGovRegistryClient.ts -a contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc56.json"
+    "build:only": "rm -rf dist/ && tsc",
+    "build": "rm -rf lib/ && npm run generate && tsc",
+    "generate": "concurrently 'npm run generate:council' 'npm run generate:proposal' 'npm run generate:registry' 'npm run generate:ghostkitreader'",
+    "generate:council": "npx @algorandfoundation/algokit-client-generator generate -o src/generated/CouncilClient.ts -a contract/smart_contracts/artifacts/council/Council.arc56.json",
+    "generate:proposal": "npx @algorandfoundation/algokit-client-generator generate -o src/generated/ProposalClient.ts -a contract/smart_contracts/artifacts/proposal/Proposal.arc56.json",
+    "generate:registry": "npx @algorandfoundation/algokit-client-generator generate -o src/generated/XGovRegistryClient.ts -a contract/smart_contracts/artifacts/xgov_registry/XGovRegistry.arc56.json",
+    "generate:ghostkitreader": "cd ghostkit-reader && npm run build && npx ghostkit build smart_contracts/artifacts/xgov_reader/XgovReader.arc56.json && cp smart_contracts/artifacts/xgov_reader/XgovReaderSDK.ts ../src/generated/XgovReaderGhostSDK.ts"
   },
   "author": "Algorand Foundation",
   "license": "AGPL-3.0-or-later",
@@ -42,7 +44,7 @@
   "devDependencies": {
     "@algorandfoundation/algokit-client-generator": "6.0.1",
     "@types/node": "^22.10.1",
-    "typescript": "^5.5.4",
+    "typescript": "^5.7.4",
     "semantic-release": "^24.1.1",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",

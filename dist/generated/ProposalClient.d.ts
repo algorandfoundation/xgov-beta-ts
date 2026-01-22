@@ -143,12 +143,6 @@ export type ProposalArgs = {
             rejections: bigint | number;
         };
         'scrutiny()void': Record<string, never>;
-        'unassign_absentees(address[])string': {
-            /**
-             * List of absentees to be unassigned
-             */
-            absentees: string[];
-        };
         'review(bool)void': {
             /**
              * Whether to block the proposal or not
@@ -186,7 +180,6 @@ export type ProposalArgs = {
         'assign_voters((address,uint64)[])void': [voters: [string, bigint | number][]];
         'vote(address,uint64,uint64)string': [voter: string, approvals: bigint | number, rejections: bigint | number];
         'scrutiny()void': [];
-        'unassign_absentees(address[])string': [absentees: string[]];
         'review(bool)void': [block: boolean];
         'fund()string': [];
         'unassign_voters(address[])void': [voters: string[]];
@@ -210,7 +203,6 @@ export type ProposalReturns = {
     'assign_voters((address,uint64)[])void': void;
     'vote(address,uint64,uint64)string': string;
     'scrutiny()void': void;
-    'unassign_absentees(address[])string': string;
     'review(bool)void': void;
     'fund()string': string;
     'unassign_voters(address[])void': void;
@@ -260,10 +252,6 @@ export type ProposalTypes = {
         argsObj: ProposalArgs['obj']['scrutiny()void'];
         argsTuple: ProposalArgs['tuple']['scrutiny()void'];
         returns: ProposalReturns['scrutiny()void'];
-    }> & Record<'unassign_absentees(address[])string' | 'unassign_absentees', {
-        argsObj: ProposalArgs['obj']['unassign_absentees(address[])string'];
-        argsTuple: ProposalArgs['tuple']['unassign_absentees(address[])string'];
-        returns: ProposalReturns['unassign_absentees(address[])string'];
     }> & Record<'review(bool)void' | 'review', {
         argsObj: ProposalArgs['obj']['review(bool)void'];
         argsTuple: ProposalArgs['tuple']['review(bool)void'];
@@ -568,15 +556,6 @@ export declare abstract class ProposalParamsFactory {
      */
     static scrutiny(params: CallParams<ProposalArgs['obj']['scrutiny()void'] | ProposalArgs['tuple']['scrutiny()void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
-     * Constructs a no op call for the unassign_absentees(address[])string ABI method
-     *
-     * Unassign absentees from the scrutinized proposal.
-     *
-     * @param params Parameters for the call
-     * @returns An `AppClientMethodCallParams` object for the call
-     */
-    static unassignAbsentees(params: CallParams<ProposalArgs['obj']['unassign_absentees(address[])string'] | ProposalArgs['tuple']['unassign_absentees(address[])string']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
-    /**
      * Constructs a no op call for the review(bool)void ABI method
      *
      * Review the proposal.
@@ -597,9 +576,7 @@ export declare abstract class ProposalParamsFactory {
     /**
      * Constructs a no op call for the unassign_voters(address[])void ABI method
      *
-    * Unassign voters from the submitted proposal. This method is an admin method
-    to rollback and fix wrong committee assignments.
-  
+     * Unassign voters from the proposal.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -1204,17 +1181,6 @@ export declare class ProposalClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
-         * Makes a call to the Proposal smart contract using the `unassign_absentees(address[])string` ABI method.
-         *
-         * Unassign absentees from the scrutinized proposal.
-         *
-         * @param params The params for the smart contract call
-         * @returns The call params
-         */
-        unassignAbsentees: (params: CallParams<ProposalArgs["obj"]["unassign_absentees(address[])string"] | ProposalArgs["tuple"]["unassign_absentees(address[])string"]> & {
-            onComplete?: OnApplicationComplete.NoOpOC;
-        }) => Promise<AppCallMethodCall>;
-        /**
          * Makes a call to the Proposal smart contract using the `review(bool)void` ABI method.
          *
          * Review the proposal.
@@ -1239,9 +1205,7 @@ export declare class ProposalClient {
         /**
          * Makes a call to the Proposal smart contract using the `unassign_voters(address[])void` ABI method.
          *
-        * Unassign voters from the submitted proposal. This method is an admin method
-        to rollback and fix wrong committee assignments.
-    
+         * Unassign voters from the proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -1444,21 +1408,6 @@ export declare class ProposalClient {
             signers: Map<number, TransactionSigner>;
         }>;
         /**
-         * Makes a call to the Proposal smart contract using the `unassign_absentees(address[])string` ABI method.
-         *
-         * Unassign absentees from the scrutinized proposal.
-         *
-         * @param params The params for the smart contract call
-         * @returns The call transaction
-         */
-        unassignAbsentees: (params: CallParams<ProposalArgs["obj"]["unassign_absentees(address[])string"] | ProposalArgs["tuple"]["unassign_absentees(address[])string"]> & {
-            onComplete?: OnApplicationComplete.NoOpOC;
-        }) => Promise<{
-            transactions: Transaction[];
-            methodCalls: Map<number, import("algosdk").ABIMethod>;
-            signers: Map<number, TransactionSigner>;
-        }>;
-        /**
          * Makes a call to the Proposal smart contract using the `review(bool)void` ABI method.
          *
          * Review the proposal.
@@ -1491,9 +1440,7 @@ export declare class ProposalClient {
         /**
          * Makes a call to the Proposal smart contract using the `unassign_voters(address[])void` ABI method.
          *
-        * Unassign voters from the submitted proposal. This method is an admin method
-        to rollback and fix wrong committee assignments.
-    
+         * Unassign voters from the proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -1769,26 +1716,6 @@ export declare class ProposalClient {
             transaction: Transaction;
         }>;
         /**
-         * Makes a call to the Proposal smart contract using the `unassign_absentees(address[])string` ABI method.
-         *
-         * Unassign absentees from the scrutinized proposal.
-         *
-         * @param params The params for the smart contract call
-         * @returns The call result
-         */
-        unassignAbsentees: (params: CallParams<ProposalArgs["obj"]["unassign_absentees(address[])string"] | ProposalArgs["tuple"]["unassign_absentees(address[])string"]> & SendParams & {
-            onComplete?: OnApplicationComplete.NoOpOC;
-        }) => Promise<{
-            return: (undefined | ProposalReturns["unassign_absentees(address[])string"]);
-            returns?: ABIReturn[] | undefined | undefined;
-            groupId: string;
-            txIds: string[];
-            confirmations: modelsv2.PendingTransactionResponse[];
-            transactions: Transaction[];
-            confirmation: modelsv2.PendingTransactionResponse;
-            transaction: Transaction;
-        }>;
-        /**
          * Makes a call to the Proposal smart contract using the `review(bool)void` ABI method.
          *
          * Review the proposal.
@@ -1831,9 +1758,7 @@ export declare class ProposalClient {
         /**
          * Makes a call to the Proposal smart contract using the `unassign_voters(address[])void` ABI method.
          *
-        * Unassign voters from the submitted proposal. This method is an admin method
-        to rollback and fix wrong committee assignments.
-    
+         * Unassign voters from the proposal.
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -2225,16 +2150,6 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
      */
     scrutiny(params?: CallParams<ProposalArgs['obj']['scrutiny()void'] | ProposalArgs['tuple']['scrutiny()void']>): ProposalComposer<[...TReturns, ProposalReturns['scrutiny()void'] | undefined]>;
     /**
-     * Calls the unassign_absentees(address[])string ABI method.
-     *
-     * Unassign absentees from the scrutinized proposal.
-     *
-     * @param args The arguments for the contract call
-     * @param params Any additional parameters for the call
-     * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
-     */
-    unassignAbsentees(params?: CallParams<ProposalArgs['obj']['unassign_absentees(address[])string'] | ProposalArgs['tuple']['unassign_absentees(address[])string']>): ProposalComposer<[...TReturns, ProposalReturns['unassign_absentees(address[])string'] | undefined]>;
-    /**
      * Calls the review(bool)void ABI method.
      *
      * Review the proposal.
@@ -2257,9 +2172,7 @@ export type ProposalComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the unassign_voters(address[])void ABI method.
      *
-    * Unassign voters from the submitted proposal. This method is an admin method
-    to rollback and fix wrong committee assignments.
-  
+     * Unassign voters from the proposal.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
