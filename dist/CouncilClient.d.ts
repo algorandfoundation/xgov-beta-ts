@@ -151,10 +151,6 @@ export type CouncilTypes = {
  */
 export type CouncilSignatures = keyof CouncilTypes['methods'];
 /**
- * Defines the possible abi call signatures for methods that return a non-void value.
- */
-export type CouncilNonVoidMethodSignatures = keyof CouncilTypes['methods'] extends infer T ? T extends keyof CouncilTypes['methods'] ? MethodReturn<T> extends void ? never : T : never : never;
-/**
  * Defines an object containing all relevant parameters for a single call to the contract.
  */
 export type CallParams<TArgs> = Expand<Omit<AppClientMethodCallParams, 'method' | 'args' | 'onComplete'> & {
@@ -236,6 +232,11 @@ export declare abstract class CouncilParamsFactory {
             appReferences?: bigint[] | undefined;
             assetReferences?: bigint[] | undefined;
             boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+            accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+            rejectVersion?: number | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
             sender?: (Address | string) | undefined;
             method: string;
             args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
@@ -276,6 +277,11 @@ export declare abstract class CouncilParamsFactory {
             appReferences?: bigint[] | undefined;
             assetReferences?: bigint[] | undefined;
             boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference | import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier)[] | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+            accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+            rejectVersion?: number | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
             sender?: (Address | string) | undefined;
             method: string;
             args?: (import("algosdk").ABIValue | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | AppMethodCallTransactionArgument | undefined)[] | undefined;
@@ -490,6 +496,10 @@ export declare class CouncilFactory {
                 note?: string | Uint8Array | undefined;
                 signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                rejectVersion?: number | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                 lease?: string | Uint8Array | undefined;
                 rekeyTo?: string | Address | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -501,6 +511,10 @@ export declare class CouncilFactory {
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
                 boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                 sender?: string | Address | undefined;
                 method: string;
                 args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
@@ -518,6 +532,10 @@ export declare class CouncilFactory {
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                     onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                    rejectVersion?: number | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                     lease?: string | Uint8Array | undefined;
                     rekeyTo?: string | Address | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -529,6 +547,10 @@ export declare class CouncilFactory {
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                    accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                     schema?: {
@@ -557,6 +579,11 @@ export declare class CouncilFactory {
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                    accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+                    rejectVersion?: number | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | undefined)[] | undefined;
@@ -580,6 +607,10 @@ export declare class CouncilFactory {
                 note?: string | Uint8Array | undefined;
                 signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 onComplete?: OnApplicationComplete | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                rejectVersion?: number | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                 lease?: string | Uint8Array | undefined;
                 rekeyTo?: string | Address | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -591,6 +622,10 @@ export declare class CouncilFactory {
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
                 boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                 sender?: string | Address | undefined;
                 method: string;
                 args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
@@ -605,6 +640,10 @@ export declare class CouncilFactory {
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                     onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                    rejectVersion?: number | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                     lease?: string | Uint8Array | undefined;
                     rekeyTo?: string | Address | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -616,6 +655,10 @@ export declare class CouncilFactory {
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                    accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                     schema?: {
@@ -644,6 +687,11 @@ export declare class CouncilFactory {
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                    accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+                    rejectVersion?: number | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | undefined)[] | undefined;
@@ -735,11 +783,6 @@ export declare class CouncilClient {
      */
     constructor(params: Omit<AppClientParams, 'appSpec'>);
     /**
-     * Checks for decode errors on the given return value and maps the return value to the return type for the given method
-     * @returns The typed return value or undefined if there was no value
-     */
-    decodeReturnValue<TSignature extends CouncilNonVoidMethodSignatures>(method: TSignature, returnValue: ABIReturn | undefined): undefined;
-    /**
      * Returns a new `CouncilClient` client, resolving the app by creator address and name
      * using AlgoKit app deployment semantics (i.e. looking for the app creation transaction note).
      * @param params The parameters to create the app client
@@ -788,6 +831,10 @@ export declare class CouncilClient {
                 note?: string | Uint8Array | undefined;
                 signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                 onComplete?: OnApplicationComplete | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                rejectVersion?: number | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                 lease?: string | Uint8Array | undefined;
                 rekeyTo?: string | Address | undefined;
                 staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -799,6 +846,10 @@ export declare class CouncilClient {
                 appReferences?: bigint[] | undefined;
                 assetReferences?: bigint[] | undefined;
                 boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                 sender?: string | Address | undefined;
                 method: string;
                 args?: (import("algosdk").ABIValue | AppMethodCallTransactionArgument | import("@algorandfoundation/algokit-utils/types/app-arc56").ABIStruct | undefined)[] | undefined;
@@ -818,6 +869,10 @@ export declare class CouncilClient {
                     args?: Uint8Array[] | undefined;
                     signer?: TransactionSigner | import("@algorandfoundation/algokit-utils/types/account").TransactionSignerAccount | undefined;
                     onComplete?: OnApplicationComplete.NoOpOC | OnApplicationComplete.OptInOC | OnApplicationComplete.CloseOutOC | OnApplicationComplete.UpdateApplicationOC | OnApplicationComplete.DeleteApplicationOC | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                    rejectVersion?: number | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                     lease?: string | Uint8Array | undefined;
                     rekeyTo?: string | Address | undefined;
                     staticFee?: import("@algorandfoundation/algokit-utils/types/amount").AlgoAmount | undefined;
@@ -829,6 +884,10 @@ export declare class CouncilClient {
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                    accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                     schema?: {
@@ -857,6 +916,11 @@ export declare class CouncilClient {
                     appReferences?: bigint[] | undefined;
                     assetReferences?: bigint[] | undefined;
                     boxReferences?: (import("@algorandfoundation/algokit-utils/types/app-manager").BoxIdentifier | import("@algorandfoundation/algokit-utils/types/app-manager").BoxReference)[] | undefined;
+<<<<<<<< HEAD:dist/generated/CouncilClient.d.ts
+========
+                    accessReferences?: import("@algorandfoundation/algokit-utils/types/app-manager").ResourceReference[] | undefined;
+                    rejectVersion?: number | undefined;
+>>>>>>>> main:dist/CouncilClient.d.ts
                     approvalProgram: string | Uint8Array;
                     clearStateProgram: string | Uint8Array;
                 }> | import("@algorandfoundation/algokit-utils/types/composer").AppMethodCall<import("@algorandfoundation/algokit-utils/types/composer").AppMethodCallParams> | undefined)[] | undefined;
