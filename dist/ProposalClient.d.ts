@@ -84,7 +84,7 @@ export type ProposalArgs = {
      * The object representation of the arguments for each method
      */
     obj: {
-        'create(address)string': {
+        'create(address)void': {
             /**
              * Address of the proposer
              */
@@ -180,7 +180,7 @@ export type ProposalArgs = {
      * The tuple representation of the arguments for each method
      */
     tuple: {
-        'create(address)string': [proposer: string];
+        'create(address)void': [proposer: string];
         'open(pay,string,uint64,uint64,uint8)void': [payment: AppMethodCallTransactionArgument, title: string, fundingType: bigint | number, requestedAmount: bigint | number, focus: bigint | number];
         'upload_metadata(byte[],bool)void': [payload: Uint8Array, isFirstInGroup: boolean];
         'drop()string': [];
@@ -204,7 +204,7 @@ export type ProposalArgs = {
  * The return type for each method
  */
 export type ProposalReturns = {
-    'create(address)string': string;
+    'create(address)void': void;
     'open(pay,string,uint64,uint64,uint8)void': void;
     'upload_metadata(byte[],bool)void': void;
     'drop()string': string;
@@ -230,10 +230,10 @@ export type ProposalTypes = {
     /**
      * Maps method signatures / names to their argument and return types.
      */
-    methods: Record<'create(address)string' | 'create', {
-        argsObj: ProposalArgs['obj']['create(address)string'];
-        argsTuple: ProposalArgs['tuple']['create(address)string'];
-        returns: ProposalReturns['create(address)string'];
+    methods: Record<'create(address)void' | 'create', {
+        argsObj: ProposalArgs['obj']['create(address)void'];
+        argsTuple: ProposalArgs['tuple']['create(address)void'];
+        returns: ProposalReturns['create(address)void'];
     }> & Record<'open(pay,string,uint64,uint64,uint8)void' | 'open', {
         argsObj: ProposalArgs['obj']['open(pay,string,uint64,uint64,uint8)void'];
         argsTuple: ProposalArgs['tuple']['open(pay,string,uint64,uint64,uint8)void'];
@@ -395,12 +395,12 @@ export type BoxKeysState = ProposalTypes['state']['box']['keys'];
 /**
  * Defines supported create method params for this smart contract
  */
-export type ProposalCreateCallParams = Expand<CallParams<ProposalArgs['obj']['create(address)string'] | ProposalArgs['tuple']['create(address)string']> & {
+export type ProposalCreateCallParams = Expand<CallParams<ProposalArgs['obj']['create(address)void'] | ProposalArgs['tuple']['create(address)void']> & {
     method: 'create';
 } & {
     onComplete?: OnApplicationComplete.NoOpOC;
-} & CreateSchema> | Expand<CallParams<ProposalArgs['obj']['create(address)string'] | ProposalArgs['tuple']['create(address)string']> & {
-    method: 'create(address)string';
+} & CreateSchema> | Expand<CallParams<ProposalArgs['obj']['create(address)void'] | ProposalArgs['tuple']['create(address)void']> & {
+    method: 'create(address)void';
 } & {
     onComplete?: OnApplicationComplete.NoOpOC;
 } & CreateSchema>;
@@ -460,12 +460,12 @@ export declare abstract class ProposalParamsFactory {
             onComplete?: OnApplicationComplete.NoOpOC;
         };
         /**
-         * Constructs create ABI call params for the Proposal smart contract using the create(address)string ABI method
+         * Constructs create ABI call params for the Proposal smart contract using the create(address)void ABI method
          *
          * @param params Parameters for the call
          * @returns An `AppClientMethodCallParams` object for the call
          */
-        create(params: CallParams<ProposalArgs["obj"]["create(address)string"] | ProposalArgs["tuple"]["create(address)string"]> & AppClientCompilationParams & {
+        create(params: CallParams<ProposalArgs["obj"]["create(address)void"] | ProposalArgs["tuple"]["create(address)void"]> & AppClientCompilationParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }): AppClientMethodCallParams & AppClientCompilationParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
@@ -796,14 +796,14 @@ export declare class ProposalFactory {
          */
         create: {
             /**
-             * Creates a new instance of the Proposal smart contract using the create(address)string ABI method.
+             * Creates a new instance of the Proposal smart contract using the create(address)void ABI method.
              *
              * Create a new proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
              *
              * @param params The params for the smart contract call
              * @returns The create params
              */
-            create: (params: CallParams<ProposalArgs["obj"]["create(address)string"] | ProposalArgs["tuple"]["create(address)string"]> & AppClientCompilationParams & CreateSchema & {
+            create: (params: CallParams<ProposalArgs["obj"]["create(address)void"] | ProposalArgs["tuple"]["create(address)void"]> & AppClientCompilationParams & CreateSchema & {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 deployTimeParams: import("@algorandfoundation/algokit-utils/types/app").TealTemplateParams | undefined;
@@ -1001,14 +1001,14 @@ export declare class ProposalFactory {
          */
         create: {
             /**
-             * Creates a new instance of the Proposal smart contract using the create(address)string ABI method.
+             * Creates a new instance of the Proposal smart contract using the create(address)void ABI method.
              *
              * Create a new proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
              *
              * @param params The params for the smart contract call
              * @returns The create transaction
              */
-            create: (params: CallParams<ProposalArgs["obj"]["create(address)string"] | ProposalArgs["tuple"]["create(address)string"]> & AppClientCompilationParams & CreateSchema & {
+            create: (params: CallParams<ProposalArgs["obj"]["create(address)void"] | ProposalArgs["tuple"]["create(address)void"]> & AppClientCompilationParams & CreateSchema & {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 transactions: Transaction[];
@@ -1026,18 +1026,18 @@ export declare class ProposalFactory {
          */
         create: {
             /**
-             * Creates a new instance of the Proposal smart contract using an ABI method call using the create(address)string ABI method.
+             * Creates a new instance of the Proposal smart contract using an ABI method call using the create(address)void ABI method.
              *
              * Create a new proposal. MUST BE CALLED BY THE REGISTRY CONTRACT.
              *
              * @param params The params for the smart contract call
              * @returns The create result
              */
-            create: (params: CallParams<ProposalArgs["obj"]["create(address)string"] | ProposalArgs["tuple"]["create(address)string"]> & AppClientCompilationParams & CreateSchema & SendParams & {
+            create: (params: CallParams<ProposalArgs["obj"]["create(address)void"] | ProposalArgs["tuple"]["create(address)void"]> & AppClientCompilationParams & CreateSchema & SendParams & {
                 onComplete?: OnApplicationComplete.NoOpOC;
             }) => Promise<{
                 result: {
-                    return: (undefined | ProposalReturns["create(address)string"]);
+                    return: (undefined | ProposalReturns["create(address)void"]);
                     compiledApproval?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                     compiledClear?: import("@algorandfoundation/algokit-utils/types/app").CompiledTeal | undefined;
                     appId: bigint;
