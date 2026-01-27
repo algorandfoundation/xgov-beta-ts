@@ -1,3 +1,10 @@
+# [1.0.0-canary.5](https://github.com/algorandfoundation/xgov-beta-ts/compare/v1.0.0-canary.4...v1.0.0-canary.5) (2026-01-27)
+
+
+### Features
+
+* update clients for contract v2.0.0.canary.6 (canary) ([1489d23](https://github.com/algorandfoundation/xgov-beta-ts/commit/1489d2347fe537c7f13954ca06dfd3d32e42efde))
+
 # [1.0.0-canary.4](https://github.com/algorandfoundation/xgov-beta-ts/compare/v1.0.0-canary.3...v1.0.0-canary.4) (2026-01-23)
 
 

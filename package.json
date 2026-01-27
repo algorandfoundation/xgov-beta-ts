@@ -1,6 +1,6 @@
 {
   "name": "@algorandfoundation/xgov",
-  "version": "1.0.0-canary.4",
+  "version": "1.0.0-canary.5",
   "type": "module",
   "description": "xGov Beta Smart Contract Clients",
   "repository": "git@github.com:algorandfoundation/xgov-beta-ts.git",
