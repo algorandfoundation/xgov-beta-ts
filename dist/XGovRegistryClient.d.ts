@@ -213,7 +213,7 @@ export type XGovRegistryArgs = {
         'unsubscribe_xgov()void': Record<string, never>;
         'unsubscribe_absentee(address)void': {
             /**
-             * (arc4.Address): The address of the absentee xGov to unsubscribe
+             * (Account): The address of the absentee xGov to unsubscribe
              */
             xgovAddress: string;
         };
@@ -333,15 +333,15 @@ export type XGovRegistryArgs = {
              */
             proposalId: bigint | number;
             /**
-             * (arc4.Address): The address of the xGov being voted on behalf of
+             * (Account): The address of the xGov being voted on behalf of
              */
             xgovAddress: string;
             /**
-             * (arc4.UInt64): The number of approvals votes allocated
+             * (UInt64): The number of approvals votes allocated
              */
             approvalVotes: bigint | number;
             /**
-             * (arc4.UInt64): The number of rejections votes allocated
+             * (UInt64): The number of rejections votes allocated
              */
             rejectionVotes: bigint | number;
         };
