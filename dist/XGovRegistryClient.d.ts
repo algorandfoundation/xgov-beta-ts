@@ -1092,7 +1092,9 @@ export declare abstract class XGovRegistryParamsFactory {
     /**
      * Constructs a no op call for the unsubscribe_absentee(address)void ABI method
      *
-     * Unsubscribes an absentee xGov.
+    * Unsubscribes an absentee xGov. This is a temporary method used only for the
+    first absentees removal at the inception of the absenteeism penalty.
+  
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
@@ -2083,7 +2085,9 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `unsubscribe_absentee(address)void` ABI method.
          *
-         * Unsubscribes an absentee xGov.
+        * Unsubscribes an absentee xGov. This is a temporary method used only for the
+        first absentees removal at the inception of the absenteeism penalty.
+    
          *
          * @param params The params for the smart contract call
          * @returns The call params
@@ -2671,7 +2675,9 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `unsubscribe_absentee(address)void` ABI method.
          *
-         * Unsubscribes an absentee xGov.
+        * Unsubscribes an absentee xGov. This is a temporary method used only for the
+        first absentees removal at the inception of the absenteeism penalty.
+    
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
@@ -3468,7 +3474,9 @@ export declare class XGovRegistryClient {
         /**
          * Makes a call to the XGovRegistry smart contract using the `unsubscribe_absentee(address)void` ABI method.
          *
-         * Unsubscribes an absentee xGov.
+        * Unsubscribes an absentee xGov. This is a temporary method used only for the
+        first absentees removal at the inception of the absenteeism penalty.
+    
          *
          * @param params The params for the smart contract call
          * @returns The call result
@@ -4518,7 +4526,9 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
     /**
      * Calls the unsubscribe_absentee(address)void ABI method.
      *
-     * Unsubscribes an absentee xGov.
+    * Unsubscribes an absentee xGov. This is a temporary method used only for the
+    first absentees removal at the inception of the absenteeism penalty.
+  
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
