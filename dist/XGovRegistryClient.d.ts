@@ -385,7 +385,13 @@ export type XGovRegistryArgs = {
              */
             amount: bigint | number;
         };
-        'withdraw_balance()void': Record<string, never>;
+        'withdraw_available_funds(uint64)void': {
+            /**
+             * Amount to withdraw (in microALGO)
+             */
+            amount: bigint | number;
+        };
+        'get_available_funds()uint64': Record<string, never>;
         'get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': Record<string, never>;
         'get_xgov_box(address)((address,uint64,uint64,uint64),bool)': {
             /**
@@ -458,7 +464,8 @@ export type XGovRegistryArgs = {
         'drop_proposal(uint64)void': [proposalId: bigint | number];
         'deposit_funds(pay)void': [payment: AppMethodCallTransactionArgument];
         'withdraw_funds(uint64)void': [amount: bigint | number];
-        'withdraw_balance()void': [];
+        'withdraw_available_funds(uint64)void': [amount: bigint | number];
+        'get_available_funds()uint64': [];
         'get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': [];
         'get_xgov_box(address)((address,uint64,uint64,uint64),bool)': [xgovAddress: string];
         'get_proposer_box(address)((bool,bool,uint64),bool)': [proposerAddress: string];
@@ -510,7 +517,8 @@ export type XGovRegistryReturns = {
     'drop_proposal(uint64)void': void;
     'deposit_funds(pay)void': void;
     'withdraw_funds(uint64)void': void;
-    'withdraw_balance()void': void;
+    'withdraw_available_funds(uint64)void': void;
+    'get_available_funds()uint64': bigint;
     'get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)': TypedGlobalState;
     'get_xgov_box(address)((address,uint64,uint64,uint64),bool)': [[string, bigint, bigint, bigint], boolean];
     'get_proposer_box(address)((bool,bool,uint64),bool)': [[boolean, boolean, bigint], boolean];
@@ -678,10 +686,17 @@ export type XGovRegistryTypes = {
         argsObj: XGovRegistryArgs['obj']['withdraw_funds(uint64)void'];
         argsTuple: XGovRegistryArgs['tuple']['withdraw_funds(uint64)void'];
         returns: XGovRegistryReturns['withdraw_funds(uint64)void'];
-    }> & Record<'withdraw_balance()void' | 'withdraw_balance', {
-        argsObj: XGovRegistryArgs['obj']['withdraw_balance()void'];
-        argsTuple: XGovRegistryArgs['tuple']['withdraw_balance()void'];
-        returns: XGovRegistryReturns['withdraw_balance()void'];
+    }> & Record<'withdraw_available_funds(uint64)void' | 'withdraw_available_funds', {
+        argsObj: XGovRegistryArgs['obj']['withdraw_available_funds(uint64)void'];
+        argsTuple: XGovRegistryArgs['tuple']['withdraw_available_funds(uint64)void'];
+        returns: XGovRegistryReturns['withdraw_available_funds(uint64)void'];
+    }> & Record<'get_available_funds()uint64' | 'get_available_funds', {
+        argsObj: XGovRegistryArgs['obj']['get_available_funds()uint64'];
+        argsTuple: XGovRegistryArgs['tuple']['get_available_funds()uint64'];
+        /**
+         * The available funds in microALGO
+         */
+        returns: XGovRegistryReturns['get_available_funds()uint64'];
     }> & Record<'get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)' | 'get_state', {
         argsObj: XGovRegistryArgs['obj']['get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'];
         argsTuple: XGovRegistryArgs['tuple']['get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)'];
@@ -1263,14 +1278,23 @@ export declare abstract class XGovRegistryParamsFactory {
      */
     static withdrawFunds(params: CallParams<XGovRegistryArgs['obj']['withdraw_funds(uint64)void'] | XGovRegistryArgs['tuple']['withdraw_funds(uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
-     * Constructs a no op call for the withdraw_balance()void ABI method
+     * Constructs a no op call for the withdraw_available_funds(uint64)void ABI method
      *
-     * Withdraw outstanding Algos, excluding MBR and outstanding funds, from the xGov Registry.
+     * Withdraw the available balance (excluding MBR and Proposals funds) from the xGov Registry.
      *
      * @param params Parameters for the call
      * @returns An `AppClientMethodCallParams` object for the call
      */
-    static withdrawBalance(params: CallParams<XGovRegistryArgs['obj']['withdraw_balance()void'] | XGovRegistryArgs['tuple']['withdraw_balance()void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    static withdrawAvailableFunds(params: CallParams<XGovRegistryArgs['obj']['withdraw_available_funds(uint64)void'] | XGovRegistryArgs['tuple']['withdraw_available_funds(uint64)void']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
+    /**
+     * Constructs a no op call for the get_available_funds()uint64 ABI method
+     *
+     * Get the available funds (excluding MBR and Proposals funds)
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getAvailableFunds(params: CallParams<XGovRegistryArgs['obj']['get_available_funds()uint64'] | XGovRegistryArgs['tuple']['get_available_funds()uint64']> & CallOnComplete): AppClientMethodCallParams & CallOnComplete;
     /**
      * Constructs a no op call for the get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64) ABI method
      *
@@ -2294,14 +2318,27 @@ export declare class XGovRegistryClient {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
-         * Makes a call to the XGovRegistry smart contract using the `withdraw_balance()void` ABI method.
+         * Makes a call to the XGovRegistry smart contract using the `withdraw_available_funds(uint64)void` ABI method.
          *
-         * Withdraw outstanding Algos, excluding MBR and outstanding funds, from the xGov Registry.
+         * Withdraw the available balance (excluding MBR and Proposals funds) from the xGov Registry.
          *
          * @param params The params for the smart contract call
          * @returns The call params
          */
-        withdrawBalance: (params?: CallParams<XGovRegistryArgs["obj"]["withdraw_balance()void"] | XGovRegistryArgs["tuple"]["withdraw_balance()void"]> & {
+        withdrawAvailableFunds: (params: CallParams<XGovRegistryArgs["obj"]["withdraw_available_funds(uint64)void"] | XGovRegistryArgs["tuple"]["withdraw_available_funds(uint64)void"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<AppCallMethodCall>;
+        /**
+         * Makes a call to the XGovRegistry smart contract using the `get_available_funds()uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * Get the available funds (excluding MBR and Proposals funds)
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params: The available funds in microALGO
+         */
+        getAvailableFunds: (params?: CallParams<XGovRegistryArgs["obj"]["get_available_funds()uint64"] | XGovRegistryArgs["tuple"]["get_available_funds()uint64"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<AppCallMethodCall>;
         /**
@@ -2960,14 +2997,31 @@ export declare class XGovRegistryClient {
             signers: Map<number, TransactionSigner>;
         }>;
         /**
-         * Makes a call to the XGovRegistry smart contract using the `withdraw_balance()void` ABI method.
+         * Makes a call to the XGovRegistry smart contract using the `withdraw_available_funds(uint64)void` ABI method.
          *
-         * Withdraw outstanding Algos, excluding MBR and outstanding funds, from the xGov Registry.
+         * Withdraw the available balance (excluding MBR and Proposals funds) from the xGov Registry.
          *
          * @param params The params for the smart contract call
          * @returns The call transaction
          */
-        withdrawBalance: (params?: CallParams<XGovRegistryArgs["obj"]["withdraw_balance()void"] | XGovRegistryArgs["tuple"]["withdraw_balance()void"]> & {
+        withdrawAvailableFunds: (params: CallParams<XGovRegistryArgs["obj"]["withdraw_available_funds(uint64)void"] | XGovRegistryArgs["tuple"]["withdraw_available_funds(uint64)void"]> & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            transactions: Transaction[];
+            methodCalls: Map<number, import("algosdk").ABIMethod>;
+            signers: Map<number, TransactionSigner>;
+        }>;
+        /**
+         * Makes a call to the XGovRegistry smart contract using the `get_available_funds()uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * Get the available funds (excluding MBR and Proposals funds)
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction: The available funds in microALGO
+         */
+        getAvailableFunds: (params?: CallParams<XGovRegistryArgs["obj"]["get_available_funds()uint64"] | XGovRegistryArgs["tuple"]["get_available_funds()uint64"]> & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
             transactions: Transaction[];
@@ -3854,17 +3908,39 @@ export declare class XGovRegistryClient {
             transaction: Transaction;
         }>;
         /**
-         * Makes a call to the XGovRegistry smart contract using the `withdraw_balance()void` ABI method.
+         * Makes a call to the XGovRegistry smart contract using the `withdraw_available_funds(uint64)void` ABI method.
          *
-         * Withdraw outstanding Algos, excluding MBR and outstanding funds, from the xGov Registry.
+         * Withdraw the available balance (excluding MBR and Proposals funds) from the xGov Registry.
          *
          * @param params The params for the smart contract call
          * @returns The call result
          */
-        withdrawBalance: (params?: CallParams<XGovRegistryArgs["obj"]["withdraw_balance()void"] | XGovRegistryArgs["tuple"]["withdraw_balance()void"]> & SendParams & {
+        withdrawAvailableFunds: (params: CallParams<XGovRegistryArgs["obj"]["withdraw_available_funds(uint64)void"] | XGovRegistryArgs["tuple"]["withdraw_available_funds(uint64)void"]> & SendParams & {
             onComplete?: OnApplicationComplete.NoOpOC;
         }) => Promise<{
-            return: (undefined | XGovRegistryReturns["withdraw_balance()void"]);
+            return: (undefined | XGovRegistryReturns["withdraw_available_funds(uint64)void"]);
+            returns?: ABIReturn[] | undefined | undefined;
+            groupId: string;
+            txIds: string[];
+            confirmations: modelsv2.PendingTransactionResponse[];
+            transactions: Transaction[];
+            confirmation: modelsv2.PendingTransactionResponse;
+            transaction: Transaction;
+        }>;
+        /**
+         * Makes a call to the XGovRegistry smart contract using the `get_available_funds()uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * Get the available funds (excluding MBR and Proposals funds)
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result: The available funds in microALGO
+         */
+        getAvailableFunds: (params?: CallParams<XGovRegistryArgs["obj"]["get_available_funds()uint64"] | XGovRegistryArgs["tuple"]["get_available_funds()uint64"]> & SendParams & {
+            onComplete?: OnApplicationComplete.NoOpOC;
+        }) => Promise<{
+            return: (undefined | XGovRegistryReturns["get_available_funds()uint64"]);
             returns?: ABIReturn[] | undefined | undefined;
             groupId: string;
             txIds: string[];
@@ -4027,6 +4103,17 @@ export declare class XGovRegistryClient {
      * @returns A new app client with the altered params
      */
     clone(params: CloneAppClientParams): XGovRegistryClient;
+    /**
+     * Makes a readonly (simulated) call to the XGovRegistry smart contract using the `get_available_funds()uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * Get the available funds (excluding MBR and Proposals funds)
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result: The available funds in microALGO
+     */
+    getAvailableFunds(params?: CallParams<XGovRegistryArgs['obj']['get_available_funds()uint64'] | XGovRegistryArgs['tuple']['get_available_funds()uint64']>): Promise<bigint>;
     /**
      * Makes a readonly (simulated) call to the XGovRegistry smart contract using the `get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64)` ABI method.
      *
@@ -4716,15 +4803,25 @@ export type XGovRegistryComposer<TReturns extends [...any[]] = []> = {
      */
     withdrawFunds(params?: CallParams<XGovRegistryArgs['obj']['withdraw_funds(uint64)void'] | XGovRegistryArgs['tuple']['withdraw_funds(uint64)void']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['withdraw_funds(uint64)void'] | undefined]>;
     /**
-     * Calls the withdraw_balance()void ABI method.
+     * Calls the withdraw_available_funds(uint64)void ABI method.
      *
-     * Withdraw outstanding Algos, excluding MBR and outstanding funds, from the xGov Registry.
+     * Withdraw the available balance (excluding MBR and Proposals funds) from the xGov Registry.
      *
      * @param args The arguments for the contract call
      * @param params Any additional parameters for the call
      * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
      */
-    withdrawBalance(params?: CallParams<XGovRegistryArgs['obj']['withdraw_balance()void'] | XGovRegistryArgs['tuple']['withdraw_balance()void']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['withdraw_balance()void'] | undefined]>;
+    withdrawAvailableFunds(params?: CallParams<XGovRegistryArgs['obj']['withdraw_available_funds(uint64)void'] | XGovRegistryArgs['tuple']['withdraw_available_funds(uint64)void']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['withdraw_available_funds(uint64)void'] | undefined]>;
+    /**
+     * Calls the get_available_funds()uint64 ABI method.
+     *
+     * Get the available funds (excluding MBR and Proposals funds)
+     *
+     * @param args The arguments for the contract call
+     * @param params Any additional parameters for the call
+     * @returns The typed transaction composer so you can fluently chain multiple calls or call execute to execute all queued up transactions
+     */
+    getAvailableFunds(params?: CallParams<XGovRegistryArgs['obj']['get_available_funds()uint64'] | XGovRegistryArgs['tuple']['get_available_funds()uint64']>): XGovRegistryComposer<[...TReturns, XGovRegistryReturns['get_available_funds()uint64'] | undefined]>;
     /**
      * Calls the get_state()(bool,bool,address,address,address,address,address,address,address,uint64,uint64,uint64,uint64,uint64,uint64,uint64[3],uint64[4],uint64[4],uint64[3],uint64[3],uint64,uint64,byte[32],uint64,uint64,uint64,uint64,uint64,uint64) ABI method.
      *
